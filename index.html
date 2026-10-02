@@ -2590,5 +2590,25 @@
 
   </script>
 
+<!-- =======================================================
+     SUPABASE
+======================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  const SUPABASE_URL =
+    "https://nqyzievgsdwaokvktowt.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_Sw_9Q2cEhnZSokCtzkLF-Q_58rF30Zo";
+
+  const carMartSupabase =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
+</script>
+
 </body>
 </html>
