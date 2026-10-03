@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -8,7 +8,7 @@
 
   <meta
     name="description"
-    content="Car Mart - Used cars, bikes, trucks and commercial vehicles in Mangalore, Surathkal and across Karnataka."
+    content="Car Mart - Used cars and goods/commercial vehicles in Mangalore, Surathkal and across Karnataka."
   />
 
   <style>
@@ -730,6 +730,39 @@
       background: var(--red);
     }
 
+    .vehicle-image img.vehicle-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: relative;
+      z-index: 2;
+    }
+
+    .vehicle-image.no-photo {
+      background: linear-gradient(135deg, #22262b, #111317);
+    }
+
+    .vehicle-loading,
+    .vehicle-empty {
+      grid-column: 1 / -1;
+      padding: 55px 25px;
+      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #fff;
+      color: var(--muted);
+    }
+
+    .vehicle-error {
+      grid-column: 1 / -1;
+      padding: 35px 25px;
+      text-align: center;
+      border: 1px solid #f1c5c8;
+      border-radius: var(--radius);
+      background: #fff7f7;
+      color: #8d1b24;
+    }
+
     /* =========================================================
        WHY CAR MART
     ========================================================= */
@@ -1392,16 +1425,7 @@
               <option value="car">
                 Cars
               </option>
-
-              <option value="bike">
-                Bikes
-              </option>
-
-              <option value="truck">
-                Trucks
-              </option>
-
-              <option value="commercial">
+<option value="commercial">
                 Commercial Vehicles
               </option>
 
@@ -1537,82 +1561,19 @@
             class="category-card"
             data-category="car"
           >
-
-            <div class="category-icon">
-              🚗
-            </div>
-
-            <h3>
-              Cars
-            </h3>
-
-            <p>
-              Used cars from multiple brands
-            </p>
-
+            <div class="category-icon">🚗</div>
+            <h3>Cars</h3>
+            <p>Quality pre-owned cars</p>
           </a>
-
-
-          <a
-            href="#vehicles"
-            class="category-card"
-            data-category="bike"
-          >
-
-            <div class="category-icon">
-              🏍️
-            </div>
-
-            <h3>
-              Bikes
-            </h3>
-
-            <p>
-              Quality pre-owned two wheelers
-            </p>
-
-          </a>
-
-
-          <a
-            href="#vehicles"
-            class="category-card"
-            data-category="truck"
-          >
-
-            <div class="category-icon">
-              🚚
-            </div>
-
-            <h3>
-              Trucks
-            </h3>
-
-            <p>
-              Used trucks and goods vehicles
-            </p>
-
-          </a>
-
 
           <a
             href="#vehicles"
             class="category-card"
             data-category="commercial"
           >
-
-            <div class="category-icon">
-              🚐
-            </div>
-
-            <h3>
-              Commercial
-            </h3>
-
-            <p>
-              Tempos, pickups and commercial vehicles
-            </p>
-
+            <div class="category-icon">🚚</div>
+            <h3>Goods &amp; Commercial</h3>
+            <p>Tempos, pickups and commercial vehicles</p>
           </a>
 
         </div>
@@ -1646,8 +1607,7 @@
             </h2>
 
             <p class="section-description">
-              Our latest available vehicles will appear here.
-              Vehicle data will later come directly from Supabase.
+              Available inventory is loaded live from Car Mart's production database.
             </p>
 
           </div>
@@ -1668,272 +1628,9 @@
           id="vehicleGrid"
         >
 
-          <!-- Vehicle 1 -->
-
-          <article
-            class="vehicle-card"
-            data-category="car"
-            data-brand="hyundai"
-            data-fuel="diesel"
-            data-model="creta"
-          >
-
-            <div class="vehicle-image">
-
-              <div class="vehicle-tag">
-                Featured
-              </div>
-
-              <div class="vehicle-placeholder">
-                🚙
-              </div>
-
-            </div>
-
-
-            <div class="vehicle-content">
-
-              <div class="vehicle-meta">
-
-                <span class="vehicle-type">
-                  SUV
-                </span>
-
-                <span class="vehicle-year">
-                  2022
-                </span>
-
-              </div>
-
-
-              <h3 class="vehicle-title">
-                Hyundai Creta
-              </h3>
-
-
-              <div class="vehicle-specs">
-
-                <span class="spec">
-                  Diesel
-                </span>
-
-                <span class="spec">
-                  Manual
-                </span>
-
-                <span class="spec">
-                  52,000 KM
-                </span>
-
-              </div>
-
-
-              <div class="vehicle-bottom">
-
-                <div>
-
-                  <div class="price-label">
-                    Starting from
-                  </div>
-
-                  <div class="price">
-                    ₹8.95 Lakh
-                  </div>
-
-                </div>
-
-
-                <a
-                  href="#contact"
-                  class="vehicle-btn"
-                >
-                  Enquire
-                </a>
-
-              </div>
-
-            </div>
-
-          </article>
-
-
-          <!-- Vehicle 2 -->
-
-          <article
-            class="vehicle-card"
-            data-category="car"
-            data-brand="maruti"
-            data-fuel="petrol"
-            data-model="swift"
-          >
-
-            <div class="vehicle-image">
-
-              <div class="vehicle-tag">
-                Available
-              </div>
-
-              <div class="vehicle-placeholder">
-                🚗
-              </div>
-
-            </div>
-
-
-            <div class="vehicle-content">
-
-              <div class="vehicle-meta">
-
-                <span class="vehicle-type">
-                  Hatchback
-                </span>
-
-                <span class="vehicle-year">
-                  2021
-                </span>
-
-              </div>
-
-
-              <h3 class="vehicle-title">
-                Maruti Suzuki Swift
-              </h3>
-
-
-              <div class="vehicle-specs">
-
-                <span class="spec">
-                  Petrol
-                </span>
-
-                <span class="spec">
-                  Manual
-                </span>
-
-                <span class="spec">
-                  44,000 KM
-                </span>
-
-              </div>
-
-
-              <div class="vehicle-bottom">
-
-                <div>
-
-                  <div class="price-label">
-                    Starting from
-                  </div>
-
-                  <div class="price">
-                    ₹6.25 Lakh
-                  </div>
-
-                </div>
-
-
-                <a
-                  href="#contact"
-                  class="vehicle-btn"
-                >
-                  Enquire
-                </a>
-
-              </div>
-
-            </div>
-
-          </article>
-
-
-          <!-- Vehicle 3 -->
-
-          <article
-            class="vehicle-card"
-            data-category="truck"
-            data-brand="tata"
-            data-fuel="diesel"
-            data-model="ace"
-          >
-
-            <div class="vehicle-image">
-
-              <div class="vehicle-tag">
-                Commercial
-              </div>
-
-              <div class="vehicle-placeholder">
-                🚚
-              </div>
-
-            </div>
-
-
-            <div class="vehicle-content">
-
-              <div class="vehicle-meta">
-
-                <span class="vehicle-type">
-                  Mini Truck
-                </span>
-
-                <span class="vehicle-year">
-                  2020
-                </span>
-
-              </div>
-
-
-              <h3 class="vehicle-title">
-                Tata Ace
-              </h3>
-
-
-              <div class="vehicle-specs">
-
-                <span class="spec">
-                  Diesel
-                </span>
-
-                <span class="spec">
-                  Manual
-                </span>
-
-                <span class="spec">
-                  76,000 KM
-                </span>
-
-              </div>
-
-
-              <div class="vehicle-bottom">
-
-                <div>
-
-                  <div class="price-label">
-                    Starting from
-                  </div>
-
-                  <div class="price">
-                    ₹4.80 Lakh
-                  </div>
-
-                </div>
-
-
-                <a
-                  href="#contact"
-                  class="vehicle-btn"
-                >
-                  Enquire
-                </a>
-
-              </div>
-
-            </div>
-
-          </article>
-
+          <div class="vehicle-loading">
+            Loading available vehicles...
+          </div>
 
         </div>
 
@@ -2234,16 +1931,7 @@
           <a href="#vehicles">
             Cars
           </a>
-
-          <a href="#vehicles">
-            Bikes
-          </a>
-
-          <a href="#vehicles">
-            Trucks
-          </a>
-
-          <a href="#vehicles">
+<a href="#vehicles">
             Commercial Vehicles
           </a>
 
@@ -2346,7 +2034,32 @@
        JAVASCRIPT
   ======================================================== -->
 
+  <!-- =======================================================
+       SUPABASE
+  ======================================================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <script>
+
+    /* =======================================================
+       CAR MART PRODUCTION WEBSITE
+       Public website -> Supabase production database
+       Never put the Supabase service_role key in this file.
+    ======================================================== */
+
+    const SUPABASE_URL =
+      "https://nqzyievgsdwaokvktowt.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "PASTE_YOUR_EXISTING_SUPABASE_PUBLISHABLE_KEY_HERE";
+
+    const carMartSupabase =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
 
     /* -------------------------------------------------------
        MOBILE MENU
@@ -2358,11 +2071,11 @@
     const mobileMenu =
       document.getElementById("mobileMenu");
 
-    mobileMenuButton.addEventListener("click", () => {
-
-      mobileMenu.classList.toggle("open");
-
-    });
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener("click", () => {
+        mobileMenu.classList.toggle("open");
+      });
+    }
 
 
     /* -------------------------------------------------------
@@ -2374,21 +2087,630 @@
 
     function showToast(message) {
 
-      toast.textContent = message;
+      if (!toast) return;
 
+      toast.textContent = message;
       toast.classList.add("show");
 
-      setTimeout(() => {
+      clearTimeout(window.__carMartToastTimer);
 
+      window.__carMartToastTimer = setTimeout(() => {
         toast.classList.remove("show");
-
       }, 2500);
 
     }
 
 
     /* -------------------------------------------------------
-       VEHICLE SEARCH
+       HELPERS
+    ------------------------------------------------------- */
+
+    function firstValue(object, keys, fallback = "") {
+
+      for (const key of keys) {
+
+        const value = object?.[key];
+
+        if (
+          value !== undefined &&
+          value !== null &&
+          String(value).trim() !== ""
+        ) {
+          return value;
+        }
+
+      }
+
+      return fallback;
+
+    }
+
+
+    function normalize(value) {
+      return String(value ?? "")
+        .trim()
+        .toLowerCase();
+    }
+
+
+    function escapeHtml(value) {
+
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+    }
+
+
+    function formatNumber(value) {
+
+      const number = Number(value);
+
+      if (!Number.isFinite(number)) return "";
+
+      return new Intl.NumberFormat("en-IN").format(number);
+
+    }
+
+
+    function formatPrice(value) {
+
+      const number = Number(value);
+
+      if (!Number.isFinite(number)) return "Price on request";
+
+      return `₹${formatNumber(number)}`;
+
+    }
+
+
+    function formatKilometers(value) {
+
+      const number = Number(value);
+
+      if (!Number.isFinite(number)) return "KM not specified";
+
+      return `${formatNumber(number)} KM`;
+
+    }
+
+
+    function getCategorySlug(vehicle, categoryMap) {
+
+      const categoryId = firstValue(
+        vehicle,
+        ["category_id", "vehicle_category_id"]
+      );
+
+      const category =
+        categoryMap.get(String(categoryId)) || {};
+
+      const raw = firstValue(
+        category,
+        ["slug", "name", "title"],
+        firstValue(vehicle, ["category_slug", "category", "vehicle_category"], "")
+      );
+
+      const value = normalize(raw);
+
+      if (value.includes("bike") || value.includes("two")) return "bike";
+      if (value.includes("truck")) return "truck";
+      if (
+        value.includes("commercial") ||
+        value.includes("tempo") ||
+        value.includes("pickup") ||
+        value.includes("goods")
+      ) return "commercial";
+      return "car";
+
+    }
+
+
+    function getCategoryLabel(vehicle, categoryMap) {
+
+      const categoryId = firstValue(
+        vehicle,
+        ["category_id", "vehicle_category_id"]
+      );
+
+      const category =
+        categoryMap.get(String(categoryId)) || {};
+
+      return firstValue(
+        category,
+        ["name", "title", "slug"],
+        firstValue(vehicle, ["category_name", "category", "vehicle_type", "type"], "Vehicle")
+      );
+
+    }
+
+
+    function getImageUrl(image, vehicle) {
+
+      const direct = firstValue(
+        image,
+        ["public_url", "image_url", "url"]
+      );
+
+      if (direct && String(direct).startsWith("http")) {
+        return String(direct);
+      }
+
+      const path = firstValue(
+        image,
+        [
+          "storage_path",
+          "file_path",
+          "path",
+          "image_path",
+          "file_name",
+          "filename"
+        ]
+      );
+
+      if (!path) return "";
+
+      if (String(path).startsWith("http")) {
+        return String(path);
+      }
+
+      return `${SUPABASE_URL}/storage/v1/object/public/carmart-vehicles/${String(path).replace(/^\/+/, "")}`;
+
+    }
+
+
+    /* -------------------------------------------------------
+       VEHICLE DATA
+    ------------------------------------------------------- */
+
+    let allVehicles = [];
+    let categoryMap = new Map();
+    let vehicleImageMap = new Map();
+
+
+    async function loadCategories() {
+
+      const { data, error } =
+        await carMartSupabase
+          .from("vehicle_categories")
+          .select("*");
+
+      if (error) {
+        console.warn("Vehicle categories could not be loaded:", error.message);
+        categoryMap = new Map();
+        return;
+      }
+
+      categoryMap = new Map(
+        (data || []).map(category => [
+          String(category.id),
+          category
+        ])
+      );
+
+    }
+
+
+    async function loadImages(vehicleIds) {
+
+      vehicleImageMap = new Map();
+
+      if (!vehicleIds.length) return;
+
+      const { data, error } =
+        await carMartSupabase
+          .from("vehicle_images")
+          .select("*")
+          .in("vehicle_id", vehicleIds);
+
+      if (error) {
+        console.warn("Vehicle images could not be loaded:", error.message);
+        return;
+      }
+
+      for (const image of data || []) {
+
+        const vehicleId = firstValue(
+          image,
+          ["vehicle_id"]
+        );
+
+        if (!vehicleId) continue;
+
+        const url = getImageUrl(image, null);
+
+        if (!url) continue;
+
+        if (!vehicleImageMap.has(String(vehicleId))) {
+          vehicleImageMap.set(String(vehicleId), []);
+        }
+
+        vehicleImageMap
+          .get(String(vehicleId))
+          .push(url);
+
+      }
+
+    }
+
+
+    async function loadVehicles() {
+
+      const grid =
+        document.getElementById("vehicleGrid");
+
+      if (!grid) return;
+
+      grid.innerHTML = `
+        <div class="vehicle-loading">
+          Loading available vehicles...
+        </div>
+      `;
+
+      try {
+
+        await loadCategories();
+
+        let data = null;
+        let error = null;
+
+        /*
+          The migration created this public view specifically
+          for the public website. It never exposes admin-only
+          purchase/expense information.
+        */
+        const viewResult =
+          await carMartSupabase
+            .from("public_vehicle_listings")
+            .select("*")
+            .order("created_at", { ascending: false });
+
+        data = viewResult.data;
+        error = viewResult.error;
+
+        /*
+          Fallback to the public vehicles table if the public
+          view is unavailable. RLS still controls access.
+        */
+        if (error) {
+
+          const fallback =
+            await carMartSupabase
+              .from("vehicles")
+              .select("*")
+              .eq("status", "available")
+              .order("created_at", { ascending: false });
+
+          data = fallback.data;
+          error = fallback.error;
+
+        }
+
+        if (error) {
+          throw error;
+        }
+
+        allVehicles = data || [];
+
+        const vehicleIds =
+          allVehicles
+            .map(vehicle => firstValue(vehicle, ["id", "vehicle_id"]))
+            .filter(Boolean);
+
+        await loadImages(vehicleIds);
+
+        renderVehicles();
+        populateBrandFilter();
+
+      } catch (error) {
+
+        console.error("Car Mart vehicle loading error:", error);
+
+        grid.innerHTML = `
+          <div class="vehicle-error">
+            <strong>Vehicles could not be loaded.</strong>
+            <br />
+            Please refresh the page or contact Car Mart.
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    function vehicleMatches(vehicle) {
+
+      const selectedCategory =
+        normalize(document.getElementById("searchCategory")?.value);
+
+      const selectedBrand =
+        normalize(document.getElementById("searchBrand")?.value);
+
+      const selectedFuel =
+        normalize(document.getElementById("searchFuel")?.value);
+
+      const keyword =
+        normalize(document.getElementById("searchKeyword")?.value);
+
+      const category =
+        getCategorySlug(vehicle, categoryMap);
+
+      const brand =
+        normalize(firstValue(vehicle, ["brand", "make"]));
+
+      const fuel =
+        normalize(firstValue(vehicle, ["fuel_type", "fuel"]));
+
+      const searchableText = normalize([
+        firstValue(vehicle, ["brand", "make"]),
+        firstValue(vehicle, ["model"]),
+        firstValue(vehicle, ["variant"]),
+        firstValue(vehicle, ["registration_number", "registration"]),
+        firstValue(vehicle, ["color"]),
+        getCategoryLabel(vehicle, categoryMap)
+      ].join(" "));
+
+      const categoryMatch =
+        !selectedCategory ||
+        category === selectedCategory ||
+        (
+          selectedCategory === "commercial" &&
+          category === "truck"
+        );
+
+      const brandMatch =
+        !selectedBrand ||
+        brand.includes(selectedBrand) ||
+        selectedBrand.includes(brand);
+
+      const fuelMatch =
+        !selectedFuel ||
+        fuel === selectedFuel;
+
+      const keywordMatch =
+        !keyword ||
+        searchableText.includes(keyword);
+
+      return (
+        categoryMatch &&
+        brandMatch &&
+        fuelMatch &&
+        keywordMatch
+      );
+
+    }
+
+
+    function renderVehicles() {
+
+      const grid =
+        document.getElementById("vehicleGrid");
+
+      if (!grid) return;
+
+      const visibleVehicles =
+        allVehicles.filter(vehicleMatches);
+
+      if (!visibleVehicles.length) {
+
+        grid.innerHTML = `
+          <div class="vehicle-empty">
+            <strong>No available vehicles found.</strong>
+            <br />
+            Try changing the search filters.
+          </div>
+        `;
+
+        return;
+
+      }
+
+      grid.innerHTML =
+        visibleVehicles
+          .map(renderVehicleCard)
+          .join("");
+
+    }
+
+
+    function renderVehicleCard(vehicle) {
+
+      const id =
+        firstValue(vehicle, ["id", "vehicle_id"], "");
+
+      const brand =
+        firstValue(vehicle, ["brand", "make"], "");
+
+      const model =
+        firstValue(vehicle, ["model"], "Vehicle");
+
+      const variant =
+        firstValue(vehicle, ["variant"], "");
+
+      const category =
+        getCategoryLabel(vehicle, categoryMap);
+
+      const categorySlug =
+        getCategorySlug(vehicle, categoryMap);
+
+      const year =
+        firstValue(vehicle, ["year", "manufacture_year", "model_year", "registration_year"], "");
+
+      const fuel =
+        firstValue(vehicle, ["fuel_type", "fuel"], "");
+
+      const transmission =
+        firstValue(vehicle, ["transmission", "gearbox"], "");
+
+      const kilometers =
+        firstValue(vehicle, ["kilometers", "km", "odometer", "kilometres"], "");
+
+      const price =
+        firstValue(vehicle, ["selling_price", "price", "asking_price", "sale_price"], "");
+
+      const condition =
+        firstValue(vehicle, ["condition"], "");
+
+      const images =
+        vehicleImageMap.get(String(id)) || [];
+
+      const image =
+        images[0] ||
+        firstValue(vehicle, ["image_url", "photo_url", "cover_image"], "");
+
+      const title =
+        [brand, model].filter(Boolean).join(" ") || "Available Vehicle";
+
+      const fullTitle =
+        [title, variant].filter(Boolean).join(" ");
+
+      const enquiryMessage =
+        encodeURIComponent(
+          `Hello Car Mart, I am interested in ${fullTitle}${year ? ` (${year})` : ""}${price ? ` - ${formatPrice(price)}` : ""}. Please share more details.`
+        );
+
+      const photoHtml = image
+        ? `
+            <img
+              class="vehicle-photo"
+              src="${escapeHtml(image)}"
+              alt="${escapeHtml(fullTitle)}"
+              loading="lazy"
+              onerror="this.style.display='none'; this.parentElement.classList.add('no-photo');"
+            />
+          `
+        : `
+            <div class="vehicle-placeholder">
+              ${categorySlug === "bike" ? "🏍️" : categorySlug === "truck" || categorySlug === "commercial" ? "🚚" : "🚗"}
+            </div>
+          `;
+
+      const specs = [
+        fuel,
+        transmission,
+        kilometers ? formatKilometers(kilometers) : "",
+        condition
+      ].filter(Boolean);
+
+      return `
+        <article
+          class="vehicle-card"
+          data-category="${escapeHtml(categorySlug)}"
+          data-brand="${escapeHtml(normalize(brand))}"
+          data-fuel="${escapeHtml(normalize(fuel))}"
+          data-model="${escapeHtml(normalize(model))}"
+        >
+
+          <div class="vehicle-image">
+
+            <div class="vehicle-tag">
+              Available
+            </div>
+
+            ${photoHtml}
+
+          </div>
+
+          <div class="vehicle-content">
+
+            <div class="vehicle-meta">
+
+              <span class="vehicle-type">
+                ${escapeHtml(category)}
+              </span>
+
+              <span class="vehicle-year">
+                ${escapeHtml(year || "—")}
+              </span>
+
+            </div>
+
+            <h3 class="vehicle-title">
+              ${escapeHtml(fullTitle)}
+            </h3>
+
+            <div class="vehicle-specs">
+              ${
+                specs.length
+                  ? specs.map(spec => `<span class="spec">${escapeHtml(spec)}</span>`).join("")
+                  : `<span class="spec">Details available on enquiry</span>`
+              }
+            </div>
+
+            <div class="vehicle-bottom">
+
+              <div>
+
+                <div class="price-label">
+                  Price
+                </div>
+
+                <div class="price">
+                  ${escapeHtml(formatPrice(price))}
+                </div>
+
+              </div>
+
+              <a
+                href="https://wa.me/919036543444?text=${enquiryMessage}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="vehicle-btn"
+              >
+                Enquire
+              </a>
+
+            </div>
+
+          </div>
+
+        </article>
+      `;
+
+    }
+
+
+    function populateBrandFilter() {
+
+      const select =
+        document.getElementById("searchBrand");
+
+      if (!select) return;
+
+      const currentValue =
+        select.value;
+
+      const brands =
+        [...new Set(
+          allVehicles
+            .map(vehicle => firstValue(vehicle, ["brand", "make"], ""))
+            .filter(Boolean)
+            .sort((a, b) => String(a).localeCompare(String(b)))
+        )];
+
+      select.innerHTML =
+        `<option value="">All Brands</option>` +
+        brands
+          .map(brand => `
+            <option value="${escapeHtml(normalize(brand))}">
+              ${escapeHtml(brand)}
+            </option>
+          `)
+          .join("");
+
+      if (brands.some(brand => normalize(brand) === normalize(currentValue))) {
+        select.value = currentValue;
+      }
+
+    }
+
+
+    /* -------------------------------------------------------
+       SEARCH
     ------------------------------------------------------- */
 
     const searchButton =
@@ -2406,108 +2728,40 @@
     const searchKeyword =
       document.getElementById("searchKeyword");
 
-    const vehicleCards =
-      document.querySelectorAll(".vehicle-card");
+    function runSearch() {
 
+      renderVehicles();
 
-    searchButton.addEventListener("click", () => {
+      const found =
+        allVehicles.filter(vehicleMatches).length;
 
-      const category =
-        searchCategory.value.toLowerCase();
-
-      const brand =
-        searchBrand.value.toLowerCase();
-
-      const fuel =
-        searchFuel.value.toLowerCase();
-
-      const keyword =
-        searchKeyword.value.toLowerCase().trim();
-
-
-      let found = 0;
-
-
-      vehicleCards.forEach(card => {
-
-        const cardCategory =
-          card.dataset.category?.toLowerCase() || "";
-
-        const cardBrand =
-          card.dataset.brand?.toLowerCase() || "";
-
-        const cardFuel =
-          card.dataset.fuel?.toLowerCase() || "";
-
-        const cardModel =
-          card.dataset.model?.toLowerCase() || "";
-
-
-        const categoryMatch =
-          !category ||
-          cardCategory === category ||
-          (
-            category === "commercial" &&
-            cardCategory === "truck"
-          );
-
-
-        const brandMatch =
-          !brand ||
-          cardBrand === brand;
-
-
-        const fuelMatch =
-          !fuel ||
-          cardFuel === fuel;
-
-
-        const keywordMatch =
-          !keyword ||
-          cardModel.includes(keyword) ||
-          card.textContent.toLowerCase().includes(keyword);
-
-
-        const visible =
-          categoryMatch &&
-          brandMatch &&
-          fuelMatch &&
-          keywordMatch;
-
-
-        card.style.display =
-          visible ? "" : "none";
-
-
-        if (visible) {
-          found++;
-        }
-
-      });
-
-
-      if (found === 0) {
-
-        showToast(
-          "No matching vehicles found in the current demo inventory."
-        );
-
-      } else {
-
-        showToast(
-          `${found} vehicle${found > 1 ? "s" : ""} found`
-        );
-
-      }
-
+      showToast(
+        found
+          ? `${found} vehicle${found === 1 ? "" : "s"} found`
+          : "No matching vehicles found"
+      );
 
       document
         .getElementById("vehicles")
-        .scrollIntoView({
+        ?.scrollIntoView({
           behavior: "smooth"
         });
 
+    }
+
+    searchButton?.addEventListener("click", runSearch);
+
+    searchKeyword?.addEventListener("keydown", event => {
+      if (event.key === "Enter") {
+        runSearch();
+      }
     });
+
+    [searchCategory, searchBrand, searchFuel]
+      .filter(Boolean)
+      .forEach(select => {
+        select.addEventListener("change", renderVehicles);
+      });
 
 
     /* -------------------------------------------------------
@@ -2523,29 +2777,15 @@
           const category =
             categoryCard.dataset.category;
 
-          searchCategory.value =
-            category === "commercial"
-              ? "commercial"
-              : category;
+          if (searchCategory) {
+            searchCategory.value = category;
+          }
+
+          renderVehicles();
 
         });
 
       });
-
-
-    /* -------------------------------------------------------
-       ENTER KEY SEARCH
-    ------------------------------------------------------- */
-
-    searchKeyword.addEventListener("keydown", event => {
-
-      if (event.key === "Enter") {
-
-        searchButton.click();
-
-      }
-
-    });
 
 
     /* -------------------------------------------------------
@@ -2557,9 +2797,7 @@
       .forEach(link => {
 
         link.addEventListener("click", () => {
-
-          mobileMenu.classList.remove("open");
-
+          mobileMenu?.classList.remove("open");
         });
 
       });
@@ -2577,9 +2815,7 @@
       link.addEventListener("click", () => {
 
         navLinks.forEach(item => {
-
           item.classList.remove("active");
-
         });
 
         link.classList.add("active");
@@ -2588,27 +2824,14 @@
 
     });
 
+
+    /* -------------------------------------------------------
+       START
+    ------------------------------------------------------- */
+
+    loadVehicles();
+
   </script>
-
-<!-- =======================================================
-     SUPABASE
-======================================================== -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-  const SUPABASE_URL =
-    "https://nqyzievgsdwaokvktowt.supabase.co";
-
-  const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_Sw_9Q2cEhnZSokCtzkLF-Q_58rF30Zo";
-
-  const carMartSupabase =
-    window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_PUBLISHABLE_KEY
-    );
-</script>
 
 </body>
 </html>
