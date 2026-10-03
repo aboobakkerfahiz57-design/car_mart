@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -448,6 +448,78 @@
         padding: 18px;
       }
     }
+  
+/* =========================================================
+   CAR MART PRODUCTION MODULE UI
+   ========================================================= */
+.module-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:18px 0}
+.toolbar-left,.toolbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:9px;padding:10px 14px;cursor:pointer;font-weight:800}
+.btn-primary{background:#e3292f;color:#fff}.btn-primary:hover{background:#c91f25}
+.btn-dark{background:#17181c;color:#fff}.btn-light{background:#f3f4f5;color:#222;border:1px solid #e1e2e5}
+.btn-danger{background:#fff0f0;color:#a51d24;border:1px solid #efc4c6}
+.btn-success{background:#edf9f1;color:#16703a;border:1px solid #bfe4cc}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.module-search{min-width:220px;padding:10px 12px;border:1px solid #ddd;border-radius:9px;outline:none}
+.module-select{padding:10px 12px;border:1px solid #ddd;border-radius:9px;background:#fff;outline:none}
+.data-table-wrap{overflow:auto;border:1px solid #e5e6e8;border-radius:11px;background:#fff}
+.data-table{width:100%;border-collapse:collapse;min-width:760px}
+.data-table th{background:#f7f7f8;color:#666;text-transform:uppercase;font-size:10px;letter-spacing:.7px;text-align:left;padding:12px;border-bottom:1px solid #e4e5e7}
+.data-table td{padding:12px;border-bottom:1px solid #eee;font-size:13px;vertical-align:middle}
+.data-table tr:last-child td{border-bottom:0}
+.badge{display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;font-size:10px;font-weight:800}
+.badge-green{background:#eaf8ef;color:#19713a}.badge-red{background:#fff0f0;color:#a51d24}.badge-gray{background:#f1f2f3;color:#666}.badge-amber{background:#fff7e6;color:#8a5a00}
+.thumb{width:58px;height:42px;object-fit:cover;border-radius:7px;background:#eee}
+.empty-state{padding:40px 20px;text-align:center;color:#777;background:#fafafa;border:1px dashed #ddd;border-radius:10px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.form-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.form-field{display:flex;flex-direction:column;gap:6px}
+.form-field.full{grid-column:1/-1}
+.form-field label{font-size:11px;font-weight:800;color:#555}
+.form-field input,.form-field select,.form-field textarea{width:100%;border:1px solid #ddd;border-radius:9px;padding:11px 12px;outline:none;background:#fff}
+.form-field textarea{min-height:90px;resize:vertical}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:#e3292f;box-shadow:0 0 0 3px rgba(227,41,47,.08)}
+.form-note{font-size:11px;color:#888;line-height:1.5}
+.section-divider{margin:22px 0 15px;padding-bottom:8px;border-bottom:1px solid #eee;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.8px}
+.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:5000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-backdrop.open{display:flex}
+.modal{width:min(900px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:15px;box-shadow:0 25px 80px rgba(0,0,0,.25)}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #eee;position:sticky;top:0;background:#fff;z-index:2}
+.modal-header h3{font-size:18px}
+.modal-close{border:0;background:#f2f2f3;border-radius:8px;width:34px;height:34px;cursor:pointer}
+.modal-body{padding:20px}
+.notice{padding:12px 14px;border-radius:9px;background:#f7f7f8;border:1px solid #e5e5e7;color:#666;font-size:12px;line-height:1.55}
+.notice-danger{background:#fff3f3;border-color:#f0c5c5;color:#922126}
+.notice-success{background:#eef9f2;border-color:#bfe4cb;color:#176d39}
+.photo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.photo-box{position:relative;aspect-ratio:4/3;border:1px solid #ddd;border-radius:8px;overflow:hidden;background:#f5f5f5}
+.photo-box img{width:100%;height:100%;object-fit:cover}
+.photo-box span{position:absolute;left:5px;bottom:5px;background:rgba(0,0,0,.7);color:#fff;font-size:9px;padding:3px 5px;border-radius:4px}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{background:#fff;border:1px solid #e6e7e9;border-radius:11px;padding:16px}
+.kpi-label{font-size:10px;color:#777;text-transform:uppercase;letter-spacing:.6px}
+.kpi-value{font-size:23px;font-weight:900;margin-top:7px}
+.management-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.management-card{border:1px solid #e3e4e6;border-radius:11px;padding:17px;background:#fff;cursor:pointer}
+.management-card:hover{border-color:#e3292f;transform:translateY(-1px)}
+.management-card strong{display:block;margin-bottom:5px}.management-card span{font-size:11px;color:#888}
+.signature-wrap{border:1px solid #ddd;border-radius:9px;background:#fff;padding:8px}
+.signature-pad{width:100%;height:170px;display:block;touch-action:none}
+.signature-actions{display:flex;justify-content:flex-end;margin-top:5px}
+.check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.check-item{display:flex;align-items:center;gap:9px;padding:11px;border:1px solid #e4e5e7;border-radius:8px}
+.check-item input{width:17px;height:17px}
+.print-sheet{background:#fff;color:#111;padding:24px;border:1px solid #ddd;border-radius:8px}
+.print-head{display:flex;justify-content:space-between;gap:20px;border-bottom:2px solid #17181c;padding-bottom:12px;margin-bottom:18px}
+.print-head h2{font-size:20px}.print-muted{color:#666;font-size:11px}
+.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.detail-box{padding:12px;background:#fafafa;border:1px solid #eee;border-radius:8px}.detail-box b{display:block;font-size:10px;color:#777;text-transform:uppercase;margin-bottom:4px}
+.file-list{display:grid;gap:7px}.file-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px;border:1px solid #eee;border-radius:8px}
+@media(max-width:900px){.form-grid,.form-grid.three{grid-template-columns:1fr}.kpi-grid{grid-template-columns:repeat(2,1fr)}.management-grid{grid-template-columns:1fr 1fr}.photo-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.kpi-grid,.management-grid,.check-grid,.detail-grid{grid-template-columns:1fr}.module-search{min-width:160px}.content{padding:15px}.modal-body{padding:15px}}
+@media print{body *{visibility:hidden!important}.print-sheet,.print-sheet *{visibility:visible!important}.print-sheet{position:absolute;left:0;top:0;width:100%;border:0}}
+
   </style>
 </head>
 
@@ -595,23 +667,14 @@
         Handover
       </button>
 
-      <button class="nav-btn admin-only" data-module="expenses">
-        Expenses
-      </button>
-
-      <div class="nav-section">Management</div>
-
-      <button class="nav-btn admin-only" data-module="reports">
-        Reports
-      </button>
-
-      <button class="nav-btn admin-only" data-module="users">
-        Staff & Users
-      </button>
+      <div class="nav-section admin-only">Management</div>
 
       <div class="sidebar-user">
         <strong id="sideUserName">Car Mart User</strong>
         <span id="sideUserEmail">—</span>
+        <button id="changePasswordButton" class="logout-btn">
+          Change Password
+        </button>
         <button id="logoutButton" class="logout-btn">
           Sign out
         </button>
@@ -781,6 +844,7 @@
 
   </section>
 
+  <div id="modalBackdrop" class="modal-backdrop"></div>
 
 <script>
 /* =========================================================
@@ -1268,162 +1332,1070 @@ async function loadDashboard() {
 }
 
 
+
 /* =========================================================
-   MODULE NAVIGATION
+   CAR MART — FULL PRODUCTION WORKSPACE
+   Existing Supabase schema + real data only.
    ========================================================= */
 
+/* -------------------------
+   DATA / UI HELPERS
+-------------------------- */
+
 const moduleDescriptions = {
-
-  dashboard: {
-    title: "Dashboard",
-    description:
-      "Live Car Mart business overview."
-  },
-
-  vehicles: {
-    title: "Vehicles",
-    description:
-      "Manage Cars and Goods / Commercial Vehicles. Vehicle purchase cost remains restricted to Admin."
-  },
-
-  customers: {
-    title: "Customers",
-    description:
-      "Search and manage customer records and collected document photos."
-  },
-
-  enquiries: {
-    title: "Enquiries",
-    description:
-      "Manage website and business enquiries and follow-ups."
-  },
-
-  sales: {
-    title: "Sales",
-    description:
-      "Manage vehicle sales, customer details, payments and sold vehicles."
-  },
-
-  documents: {
-    title: "Documents",
-    description:
-      "Manage vehicle, customer, sale and transfer documents."
-  },
-
-  transfers: {
-    title: "Transfers",
-    description:
-      "Track RC and insurance transfer progress and responsible persons."
-  },
-
-  handover: {
-    title: "Handover",
-    description:
-      "Track RC, insurance, keys, service book, signatures and final vehicle handover."
-  },
-
-  expenses: {
-    title: "Expenses",
-    description:
-      "Admin-only refurbishment and business expense records. Staff and salesman cannot access financial amounts."
-  },
-
-  reports: {
-    title: "Reports",
-    description:
-      "Admin-only sales, expenses, stock investment, commission and profit reporting."
-  },
-
-  users: {
-    title: "Staff & Users",
-    description:
-      "Admin-only user and role management."
-  }
+  vehicles: "Manage Cars and Goods / Commercial Vehicles.",
+  customers: "Manage customer records and collected document photos.",
+  enquiries: "Manage enquiries, statuses and follow-ups.",
+  sales: "Manage active sales, sold vehicles and payments.",
+  documents: "Manage sale and vehicle documents.",
+  transfers: "Track RC and insurance transfer progress.",
+  handover: "Track final vehicle handover and signatures.",
+  expenses: "Admin-only refurbishment and business expenses.",
+  reports: "Admin-only financial reports and profit.",
+  users: "Admin-only staff and role management."
 };
 
+const esc = value => String(value ?? "")
+  .replaceAll("&","&amp;").replaceAll("<","&lt;")
+  .replaceAll(">","&gt;").replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
 
-function openModule(module) {
+const fmt = value => {
+  const n = Number(value);
+  return Number.isFinite(n) ? new Intl.NumberFormat("en-IN").format(n) : "—";
+};
 
-  if (
-    ["expenses", "reports", "users"].includes(module) &&
-    !isAdmin()
-  ) {
-    return;
+const money = value => {
+  const n = Number(value);
+  return Number.isFinite(n) ? `₹${fmt(n)}` : "₹0";
+};
+
+const today = () => new Date().toISOString().slice(0,10);
+
+const first = (obj, keys, fallback="") => {
+  for (const k of keys) {
+    if (obj && obj[k] !== undefined && obj[k] !== null && String(obj[k]).trim() !== "") return obj[k];
   }
+  return fallback;
+};
 
-  const info =
-    moduleDescriptions[module] ||
-    moduleDescriptions.dashboard;
+function showToast(message, error=false){
+  let t = document.getElementById("toast");
+  if(!t){
+    t = document.createElement("div");
+    t.id = "toast";
+    t.className = "toast";
+    document.body.appendChild(t);
+  }
+  t.textContent = message;
+  t.style.position = "fixed";
+  t.style.right = "20px";
+  t.style.bottom = "20px";
+  t.style.zIndex = "7000";
+  t.style.padding = "12px 16px";
+  t.style.borderRadius = "10px";
+  t.style.background = error ? "#9b2226" : "#17181c";
+  t.style.color = "#fff";
+  t.style.boxShadow = "0 12px 30px rgba(0,0,0,.18)";
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(()=>t.remove(), 3000);
+}
 
-  document.getElementById("pageTitle")
-    .textContent = info.title;
+function openModal(title, body, wide=true){
+  const b = document.getElementById("modalBackdrop");
+  b.innerHTML = `
+    <div class="modal" style="${wide ? "" : "max-width:560px"}">
+      <div class="modal-header">
+        <h3>${esc(title)}</h3>
+        <button class="modal-close" type="button" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-body">${body}</div>
+    </div>`;
+  b.classList.add("open");
+  b.onclick = e => { if(e.target === b) closeModal(); };
+}
 
-  document.getElementById("moduleHeading")
-    .textContent = info.title;
+function closeModal(){
+  const b = document.getElementById("modalBackdrop");
+  b.classList.remove("open");
+  b.innerHTML = "";
+}
 
-  document.getElementById("moduleDescription")
-    .textContent = info.description;
+async function loadPdfLib(){
+  if(window.jspdf?.jsPDF) return window.jspdf.jsPDF;
+  await new Promise((resolve,reject)=>{
+    const s=document.createElement("script");
+    s.src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+    s.onload=resolve; s.onerror=reject; document.head.appendChild(s);
+  });
+  return window.jspdf.jsPDF;
+}
 
-  document.getElementById("dashboardView")
-    .classList.toggle(
-      "hidden",
-      module !== "dashboard"
-    );
+/* -------------------------
+   SCHEMA-TOLERANT DATABASE HELPERS
+-------------------------- */
 
-  document.getElementById("moduleView")
-    .classList.toggle(
-      "hidden",
-      module === "dashboard"
-    );
+/*
+  The production migration is already installed. These helpers remove
+  optional fields only when PostgREST explicitly says a column does not
+  exist. They never invent or create fake records.
+*/
+function missingColumn(error){
+  const text = String(error?.message || "");
+  let m = text.match(/column ["']?([A-Za-z0-9_]+)["']? does not exist/i);
+  if(m) return m[1];
+  m = text.match(/Could not find the ['"]([^'"]+)['"] column/i);
+  return m ? m[1] : null;
+}
 
-  document
-    .querySelectorAll(".nav-btn")
-    .forEach(button => {
-      button.classList.toggle(
-        "active",
-        button.dataset.module === module
-      );
-    });
+async function safeInsert(table, payload, maxRetries=12){
+  let body = {...payload};
+  for(let i=0;i<maxRetries;i++){
+    const {data,error}=await carMartSupabase.from(table).insert(body).select("*").single();
+    if(!error) return {data,error:null};
+    const col=missingColumn(error);
+    if(col && Object.prototype.hasOwnProperty.call(body,col)){
+      delete body[col];
+      continue;
+    }
+    return {data:null,error};
+  }
+  return {data:null,error:new Error(`Unable to insert into ${table}.`)};
+}
 
-  if (module !== "dashboard") {
+async function safeUpdate(table, id, payload, maxRetries=12){
+  let body={...payload};
+  for(let i=0;i<maxRetries;i++){
+    const {data,error}=await carMartSupabase.from(table).update(body).eq("id",id).select("*").single();
+    if(!error) return {data,error:null};
+    const col=missingColumn(error);
+    if(col && Object.prototype.hasOwnProperty.call(body,col)){
+      delete body[col];
+      continue;
+    }
+    return {data:null,error};
+  }
+  return {data:null,error:new Error(`Unable to update ${table}.`)};
+}
 
-    document.getElementById("moduleContent")
-      .innerHTML = `
-        <div style="
-          padding:24px;
-          border:1px solid #e7e7e9;
-          border-radius:10px;
-          background:#fafafa;
-        ">
-          <strong>${info.title}</strong>
-          <p style="margin-top:8px;color:#777;">
-            This production module is the next implementation step.
-            It will use the existing Car Mart Supabase tables and
-            will not use demo or fake data.
-          </p>
-        </div>
-      `;
+async function safeUpload(bucket,path,file){
+  const {data,error}=await carMartSupabase.storage.from(bucket).upload(path,file,{upsert:true,contentType:file.type||undefined});
+  if(error) throw error;
+  if(bucket === "carmart-vehicles") {
+    const {data:urlData}=carMartSupabase.storage.from(bucket).getPublicUrl(path);
+    return {path,url:urlData?.publicUrl || ""};
+  }
+  return {path,url:""};
+}
+
+async function tableRows(table, queryFn){
+  let q=carMartSupabase.from(table).select("*");
+  if(queryFn) q=queryFn(q);
+  const {data,error}=await q;
+  if(error) throw error;
+  return data||[];
+}
+
+/* -------------------------
+   ROLE / NAVIGATION
+-------------------------- */
+
+function isAdmin(){ return currentProfile?.role === "admin"; }
+
+function roleLabel(role){
+  if(role==="admin") return "Admin";
+  if(role==="salesman") return "Salesman";
+  return "Staff";
+}
+
+function applyRolePermissions(){
+  document.querySelectorAll(".admin-only").forEach(el=>{
+    el.style.display = isAdmin() ? "" : "none";
+  });
+  document.getElementById("roleBadge").textContent = roleLabel(currentProfile.role);
+  document.getElementById("sideUserEmail").textContent = currentUser.email;
+  const name=currentProfile.full_name || currentUser.email.split("@")[0];
+  document.getElementById("sideUserName").textContent=name;
+  document.getElementById("topUserName").textContent=name;
+  document.getElementById("welcomeTitle").textContent=`Welcome, ${name}.`;
+}
+
+async function loadProfile(userId){
+  const {data,error}=await carMartSupabase.from("profiles")
+    .select("id,email,full_name,role,is_active")
+    .eq("id",userId).single();
+  if(error) throw new Error("Authenticated successfully, but the Car Mart profile could not be loaded.");
+  if(!data) throw new Error("No Car Mart profile exists for this account.");
+  if(data.is_active===false) throw new Error("This Car Mart account is inactive. Contact management.");
+  if(!["admin","staff","salesman"].includes(data.role)) throw new Error("This account does not have a valid Car Mart role.");
+  currentProfile=data;
+  return data;
+}
+
+/* -------------------------
+   DASHBOARD
+-------------------------- */
+
+async function tableCount(table){
+  const {count,error}=await carMartSupabase.from(table).select("*",{count:"exact",head:true});
+  if(error){ console.error(table,error); return 0; }
+  return count??0;
+}
+
+async function availableVehicleCount(){
+  const {count,error}=await carMartSupabase.from("vehicles")
+    .select("*",{count:"exact",head:true}).eq("status","available");
+  if(error) return tableCount("vehicles");
+  return count??0;
+}
+
+async function loadDashboard(){
+  const [v,c,e,s,d,t,h]=await Promise.all([
+    availableVehicleCount(),tableCount("customers"),tableCount("enquiries"),
+    tableCount("sales"),tableCount("sale_documents"),tableCount("transfer_records"),
+    tableCount("handover_records")
+  ]);
+  document.getElementById("statVehicles").textContent=v;
+  document.getElementById("statCustomers").textContent=c;
+  document.getElementById("statEnquiries").textContent=e;
+  document.getElementById("statSales").textContent=s;
+  document.getElementById("statDocuments").textContent=d;
+  document.getElementById("statTransfers").textContent=t;
+  document.getElementById("statHandovers").textContent=h;
+  if(isAdmin()) document.getElementById("statExpenses").textContent=await tableCount("expense_records");
+}
+
+/* -------------------------
+   MANAGEMENT CARDS
+-------------------------- */
+
+function renderManagementArea(){
+  if(!isAdmin()) return;
+  const card=document.getElementById("adminFinancialCard");
+  if(!card) return;
+  card.innerHTML=`
+    <h3>Management Financial Area</h3>
+    <p>Admin-only purchase cost, payments, expenses, commission, profit and reports.</p>
+    <div class="management-grid">
+      <div class="management-card" data-module="expenses"><strong>Expenses</strong><span>Vehicle refurbishment and business expenses.</span></div>
+      <div class="management-card" data-module="reports"><strong>Financial Reports</strong><span>Revenue, investment, expenses, commission and profit.</span></div>
+      <div class="management-card" data-module="users"><strong>Staff & Users</strong><span>Manage active profiles and roles.</span></div>
+      <div class="management-card" data-module="payments"><strong>Payments / Collections</strong><span>Track sale payments and pending balances.</span></div>
+      <div class="management-card" data-module="purchase"><strong>Purchase Costs</strong><span>Admin-only vehicle acquisition costs.</span></div>
+      <div class="management-card" data-module="reports"><strong>Monthly Summary</strong><span>Review monthly business performance.</span></div>
+    </div>`;
+  card.querySelectorAll("[data-module]").forEach(x=>x.onclick=()=>openModule(x.dataset.module));
+}
+
+/* -------------------------
+   MODULE SHELL
+-------------------------- */
+
+async function openModule(module){
+  if(["expenses","reports","users","payments","purchase"].includes(module) && !isAdmin()){
+    showToast("Admin access required.",true); return;
+  }
+  const info=moduleDescriptions[module]||{title:module,description:"Car Mart production module."};
+  document.getElementById("pageTitle").textContent=info.title || module;
+  document.getElementById("moduleHeading").textContent=info.title || module;
+  document.getElementById("moduleDescription").textContent=info.description || "";
+  document.getElementById("dashboardView").classList.toggle("hidden",module!=="dashboard");
+  document.getElementById("moduleView").classList.toggle("hidden",module==="dashboard");
+  document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.module===module));
+  if(module==="dashboard"){ await loadDashboard(); return; }
+
+  const box=document.getElementById("moduleContent");
+  box.innerHTML=`<div class="loading">Loading ${esc(info.title||module)}…</div>`;
+
+  try{
+    if(module==="vehicles") await renderVehiclesModule(box);
+    else if(module==="customers") await renderCustomersModule(box);
+    else if(module==="enquiries") await renderEnquiriesModule(box);
+    else if(module==="sales") await renderSalesModule(box);
+    else if(module==="documents") await renderDocumentsModule(box);
+    else if(module==="transfers") await renderTransfersModule(box);
+    else if(module==="handover") await renderHandoverModule(box);
+    else if(module==="expenses") await renderExpensesModule(box);
+    else if(module==="reports") await renderReportsModule(box);
+    else if(module==="users") await renderUsersModule(box);
+    else if(module==="payments") await renderPaymentsModule(box);
+    else if(module==="purchase") await renderPurchaseModule(box);
+  }catch(err){
+    console.error(err);
+    box.innerHTML=`<div class="notice notice-danger"><strong>Could not load ${esc(info.title||module)}.</strong><br>${esc(err.message||String(err))}</div>`;
   }
 }
 
+/* -------------------------
+   VEHICLES
+-------------------------- */
 
-document
-  .querySelectorAll("[data-module]")
-  .forEach(element => {
+let vehicleCache=[];
 
-    element.addEventListener("click", () => {
+async function getCategories(){
+  const {data,error}=await carMartSupabase.from("vehicle_categories").select("*");
+  if(error) throw error;
+  return data||[];
+}
 
-      const module =
-        element.dataset.module;
+function categoryLabel(cats,id){
+  const c=cats.find(x=>String(x.id)===String(id));
+  return c?.name || "Goods / Commercial";
+}
 
-      openModule(module);
-    });
+async function renderVehiclesModule(box){
+  const cats=await getCategories();
+  vehicleCache=await tableRows("vehicles",q=>q.order("created_at",{ascending:false}));
+  const catOptions=cats.filter(c=>{
+    const n=String(c.name||"").toLowerCase();
+    return n.includes("car") || n.includes("tempo") || n.includes("pickup") || n.includes("commercial") || n.includes("truck");
   });
+  box.innerHTML=`
+    <div class="module-toolbar">
+      <div class="toolbar-left">
+        <input id="vehicleSearch" class="module-search" placeholder="Search registration, brand, model…">
+        <select id="vehicleCategoryFilter" class="module-select"><option value="">All categories</option>
+          <option value="cars">Cars</option><option value="commercial">Goods / Commercial</option>
+        </select>
+        <select id="vehicleStatusFilter" class="module-select"><option value="">All status</option><option value="available">Available</option><option value="sold">Sold</option></select>
+      </div>
+      <button class="btn btn-primary" id="addVehicleBtn">+ Add Vehicle</button>
+    </div>
+    <div id="vehicleTable"></div>`;
+  const render=()=>{
+    const term=(document.getElementById("vehicleSearch").value||"").toLowerCase();
+    const cf=document.getElementById("vehicleCategoryFilter").value;
+    const sf=document.getElementById("vehicleStatusFilter").value;
+    const rows=vehicleCache.filter(v=>{
+      const text=[v.brand,v.model,v.variant,v.registration_number,v.vehicle_code].join(" ").toLowerCase();
+      const n=categoryLabel(cats,v.category_id).toLowerCase();
+      const cm=!cf || (cf==="cars"?n.includes("car"):!n.includes("car"));
+      return (!term||text.includes(term))&&cm&&(!sf||String(v.status||"").toLowerCase()===sf);
+    });
+    document.getElementById("vehicleTable").innerHTML=`
+      <div class="data-table-wrap"><table class="data-table"><thead><tr>
+      <th>Vehicle</th><th>Registration</th><th>Category</th><th>Year</th><th>KM</th><th>Selling Price</th><th>Status</th><th>Action</th>
+      </tr></thead><tbody>${rows.length?rows.map(v=>`
+      <tr>
+        <td><strong>${esc([v.brand,v.model].filter(Boolean).join(" "))}</strong><br><small>${esc(v.variant||v.vehicle_code||"")}</small></td>
+        <td>${esc(v.registration_number||"—")}</td>
+        <td>${esc(categoryLabel(cats,v.category_id))}</td>
+        <td>${esc(v.registration_year||v.manufacturing_year||"—")}</td>
+        <td>${fmt(v.mileage_km||v.km)}</td>
+        <td>${money(v.selling_price||v.expected_price)}</td>
+        <td><span class="badge ${String(v.status).toLowerCase()==="sold"?"badge-red":"badge-green"}">${esc(v.status||"available")}</span></td>
+        <td><button class="btn btn-light" onclick="vehicleDetails('${v.id}')">View</button></td>
+      </tr>`).join(""):`<tr><td colspan="8"><div class="empty-state">No vehicles found.</div></td></tr>`}</tbody></table></div>`;
+  };
+  document.getElementById("vehicleSearch").oninput=render;
+  document.getElementById("vehicleCategoryFilter").onchange=render;
+  document.getElementById("vehicleStatusFilter").onchange=render;
+  document.getElementById("addVehicleBtn").onclick=()=>vehicleForm(null,cats);
+  render();
+}
 
+function vehicleForm(vehicle,cats){
+  const v=vehicle||{};
+  const categoryOptions=cats.map(c=>`<option value="${esc(c.id)}" ${String(v.category_id)===String(c.id)?"selected":""}>${esc(c.name)}</option>`).join("");
+  openModal(vehicle?"Edit Vehicle":"Add Vehicle",`
+    <form id="vehicleForm" class="form-grid">
+      <div class="form-field"><label>Category *</label><select name="category_id" required>${categoryOptions}</select></div>
+      <div class="form-field"><label>Vehicle Code</label><input name="vehicle_code" value="${esc(v.vehicle_code||"")}"></div>
+      <div class="form-field"><label>Brand *</label><input name="brand" required value="${esc(v.brand||"")}"></div>
+      <div class="form-field"><label>Model *</label><input name="model" required value="${esc(v.model||"")}"></div>
+      <div class="form-field"><label>Variant</label><input name="variant" value="${esc(v.variant||"")}"></div>
+      <div class="form-field"><label>Registration Number</label><input name="registration_number" value="${esc(v.registration_number||"")}"></div>
+      <div class="form-field"><label>Manufacturing Year</label><input name="manufacturing_year" type="number" value="${esc(v.manufacturing_year||"")}"></div>
+      <div class="form-field"><label>Registration Year</label><input name="registration_year" type="number" value="${esc(v.registration_year||"")}"></div>
+      <div class="form-field"><label>Fuel</label><select name="fuel_type"><option value="">Select</option>${["Petrol","Diesel","CNG","Electric","Hybrid","Other"].map(x=>`<option ${String(v.fuel_type||"")===x?"selected":""}>${x}</option>`).join("")}</select></div>
+      <div class="form-field"><label>Transmission</label><select name="transmission"><option value="">Select</option>${["Manual","Automatic","AMT","Other"].map(x=>`<option ${String(v.transmission||"")===x?"selected":""}>${x}</option>`).join("")}</select></div>
+      <div class="form-field"><label>Colour</label><input name="colour" value="${esc(v.colour||v.color||"")}"></div>
+      <div class="form-field"><label>KM</label><input name="mileage_km" type="number" value="${esc(v.mileage_km||v.km||"")}"></div>
+      <div class="form-field"><label>Condition</label><input name="condition" value="${esc(v.condition||"")}"></div>
+      <div class="form-field"><label>Selling Price *</label><input name="selling_price" type="number" step="0.01" required value="${esc(v.selling_price||"")}"></div>
+      <div class="form-field"><label>Featured</label><select name="featured"><option value="false" ${!v.featured?"selected":""}>No</option><option value="true" ${v.featured?"selected":""}>Yes</option></select></div>
+      <div class="form-field full"><label>Description</label><textarea name="description">${esc(v.description||"")}</textarea></div>
+      ${isAdmin()?`<div class="section-divider full">Admin Financial</div>
+      <div class="form-field"><label>Purchase Cost (Admin only)</label><input name="purchase_price" type="number" step="0.01" value=""></div>`:""}
+      <div class="form-field full"><label>Vehicle Photos</label><input name="photos" type="file" accept="image/*" multiple><div class="form-note">Photos upload to the private Car Mart vehicle storage workflow and appear on the public inventory through the existing public listing view.</div></div>
+      <div class="form-field full"><label>Vehicle Videos</label><input name="videos" type="file" accept="video/*" multiple></div>
+      <div class="form-actions full"><button type="button" class="btn btn-light" onclick="closeModal()">Cancel</button><button class="btn btn-primary" type="submit">${vehicle?"Save Changes":"Add Vehicle"}</button></div>
+    </form>`);
+  document.getElementById("vehicleForm").onsubmit=async e=>{
+    e.preventDefault();
+    const fd=new FormData(e.target);
+    const payload={
+      category_id:fd.get("category_id"),vehicle_code:fd.get("vehicle_code")||null,
+      brand:fd.get("brand"),model:fd.get("model"),variant:fd.get("variant")||null,
+      registration_number:fd.get("registration_number")||null,
+      manufacturing_year:fd.get("manufacturing_year")?Number(fd.get("manufacturing_year")):null,
+      registration_year:fd.get("registration_year")?Number(fd.get("registration_year")):null,
+      fuel_type:fd.get("fuel_type")||null,transmission:fd.get("transmission")||null,
+      colour:fd.get("colour")||null,mileage_km:fd.get("mileage_km")?Number(fd.get("mileage_km")):null,
+      condition:fd.get("condition")||null,selling_price:Number(fd.get("selling_price")),
+      status:vehicle?.status||"available",featured:fd.get("featured")==="true",
+      description:fd.get("description")||null,created_by:currentUser.id
+    };
+    try{
+      let saved;
+      if(vehicle){
+        const r=await safeUpdate("vehicles",vehicle.id,payload);
+        if(r.error) throw r.error; saved=r.data;
+      }else{
+        const r=await safeInsert("vehicles",payload);
+        if(r.error) throw r.error; saved=r.data;
+      }
 
-/* =========================================================
-   START
-   ========================================================= */
+      if(isAdmin() && fd.get("purchase_price")){
+        const pf={vehicle_id:saved.id,purchase_cost:Number(fd.get("purchase_price")),purchase_price:Number(fd.get("purchase_price"))};
+        const existing=await carMartSupabase.from("vehicle_financials").select("*").eq("vehicle_id",saved.id).maybeSingle();
+        if(existing.data?.id){
+          const ur=await safeUpdate("vehicle_financials",existing.data.id,pf); if(ur.error) throw ur.error;
+        }else{
+          const ir=await safeInsert("vehicle_financials",pf); if(ir.error) throw ir.error;
+        }
+      }
+
+      const photoFiles=Array.from(fd.getAll("photos")).filter(x=>x instanceof File && x.size);
+      for(let i=0;i<photoFiles.length;i++){
+        const f=photoFiles[i], path=`vehicles/${saved.id}/${Date.now()}-${i}-${f.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`;
+        const up=await safeUpload("carmart-vehicles",path,f);
+        const ir=await safeInsert("vehicle_images",{vehicle_id:saved.id,storage_path:up.path,public_url:up.url,is_primary:i===0,sort_order:i});
+        if(ir.error) throw ir.error;
+      }
+
+      const videoFiles=Array.from(fd.getAll("videos")).filter(x=>x instanceof File && x.size);
+      for(let i=0;i<videoFiles.length;i++){
+        const f=videoFiles[i], path=`vehicles/${saved.id}/videos/${Date.now()}-${i}-${f.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`;
+        const up=await safeUpload("carmart-vehicles",path,f);
+        const ir=await safeInsert("vehicle_videos",{vehicle_id:saved.id,storage_path:up.path,public_url:up.url,sort_order:i});
+        if(ir.error) throw ir.error;
+      }
+
+      closeModal(); showToast(vehicle?"Vehicle updated.":"Vehicle added successfully."); openModule("vehicles"); loadDashboard();
+    }catch(err){console.error(err);showToast(err.message||"Vehicle save failed.",true);}
+  };
+}
+
+async function vehicleDetails(id){
+  const {data:v,error}=await carMartSupabase.from("vehicles").select("*").eq("id",id).single();
+  if(error) return showToast(error.message,true);
+  const {data:imgs}=await carMartSupabase.from("vehicle_images").select("*").eq("vehicle_id",id).order("sort_order");
+  const {data:vids}=await carMartSupabase.from("vehicle_videos").select("*").eq("vehicle_id",id).order("sort_order");
+  const cats=await getCategories();
+  let financial=null;
+  if(isAdmin()){
+    const r=await carMartSupabase.from("vehicle_financials").select("*").eq("vehicle_id",id).maybeSingle();
+    financial=r.data;
+  }
+  const photos=(imgs||[]).map(x=>x.public_url||carMartSupabase.storage.from("carmart-vehicles").getPublicUrl(x.storage_path).data.publicUrl).filter(Boolean);
+  openModal("Vehicle Details",`
+    <div class="detail-grid">
+      <div class="detail-box"><b>Vehicle</b>${esc([v.brand,v.model,v.variant].filter(Boolean).join(" "))}</div>
+      <div class="detail-box"><b>Registration</b>${esc(v.registration_number||"—")}</div>
+      <div class="detail-box"><b>Category</b>${esc(categoryLabel(cats,v.category_id))}</div>
+      <div class="detail-box"><b>Status</b>${esc(v.status||"available")}</div>
+      <div class="detail-box"><b>Year</b>${esc(v.registration_year||v.manufacturing_year||"—")}</div>
+      <div class="detail-box"><b>Fuel / Transmission</b>${esc([v.fuel_type,v.transmission].filter(Boolean).join(" / ")||"—")}</div>
+      <div class="detail-box"><b>KM</b>${fmt(v.mileage_km)}</div>
+      <div class="detail-box"><b>Selling Price</b>${money(v.selling_price)}</div>
+      ${isAdmin()?`<div class="detail-box"><b>Purchase Cost</b>${money(first(financial,["purchase_cost","purchase_price"],0))}</div>`:""}
+    </div>
+    <div class="section-divider">Photos</div>
+    <div class="photo-grid">${photos.length?photos.map((p,i)=>`<div class="photo-box"><img src="${esc(p)}"><span>${i===0?"Primary":"Photo"}</span></div>`).join(""):`<div class="empty-state">No photos uploaded.</div>`}</div>
+    <div class="section-divider">Actions</div>
+    <div class="form-actions">
+      <button class="btn btn-light" onclick="vehicleFormById('${id}')">Edit</button>
+      ${String(v.status).toLowerCase()!=="sold"?`<button class="btn btn-primary" onclick="soldOut('${id}')">Sold Out</button>`:""}
+      <button class="btn btn-dark" onclick="closeModal()">Close</button>
+    </div>`);
+}
+
+async function vehicleFormById(id){
+  const {data}=await carMartSupabase.from("vehicles").select("*").eq("id",id).single();
+  const cats=await getCategories(); vehicleForm(data,cats);
+}
+
+async function soldOut(id){
+  const {data:v}=await carMartSupabase.from("vehicles").select("*").eq("id",id).single();
+  if(!v) return;
+  const customers=await tableRows("customers",q=>q.order("created_at",{ascending:false}));
+  openModal("Sold Out — Customer & Sale Intake",`
+    <form id="soldForm" class="form-grid">
+      <div class="form-field"><label>Customer Name *</label><input name="customer_name" required></div>
+      <div class="form-field"><label>Mobile *</label><input name="phone" required></div>
+      <div class="form-field full"><label>Address</label><textarea name="address"></textarea></div>
+      <div class="form-field"><label>ID Type</label><select name="id_type"><option value="">Select</option><option>Aadhaar</option><option>Driving Licence</option><option>Passport</option><option>Voter ID</option><option>Other</option></select></div>
+      <div class="form-field"><label>ID Proof Photo</label><input name="id_photo" type="file" accept="image/*"></div>
+      <div class="form-field"><label>Sale Amount *</label><input name="sale_amount" type="number" step="0.01" value="${esc(v.selling_price||"")}" required></div>
+      <div class="form-field"><label>Discount %</label><input name="discount_percent" type="number" step="0.01" min="0" value="0"></div>
+      <div class="form-field"><label>Other Charges</label><input name="other_charges" type="number" step="0.01" value="0"></div>
+      <div class="form-field"><label>Initial Payment</label><input name="initial_payment" type="number" step="0.01" value="0"></div>
+      <div class="form-field"><label>Payment Method</label><select name="payment_method"><option>Cash</option><option>UPI</option><option>Bank Transfer</option><option>Finance</option><option>Cheque</option><option>Other</option></select></div>
+      <div class="form-field full"><label>Customer/Other Documents</label><input name="docs" type="file" accept="image/*,.pdf" multiple></div>
+      <div class="form-field full"><label>Transfer Notes</label><textarea name="transfer_notes"></textarea></div>
+      <div class="form-actions full"><button type="button" class="btn btn-light" onclick="closeModal()">Cancel</button><button class="btn btn-primary">Review & Confirm Sale</button></div>
+    </form>`);
+  document.getElementById("soldForm").onsubmit=async e=>{
+    e.preventDefault();
+    const fd=new FormData(e.target);
+    const saleAmount=Number(fd.get("sale_amount")||0);
+    const discountPercent=Number(fd.get("discount_percent")||0);
+    const otherCharges=Number(fd.get("other_charges")||0);
+    const discounted=saleAmount-(saleAmount*discountPercent/100);
+    const grandTotal=discounted+otherCharges;
+    const initial=Number(fd.get("initial_payment")||0);
+    if(initial>grandTotal) return showToast("Initial payment cannot exceed the grand total.",true);
+
+    const customerPayload={
+      full_name:fd.get("customer_name"),phone:fd.get("phone"),address:fd.get("address")||null,
+      id_type:fd.get("id_type")||null,created_by:currentUser.id
+    };
+    try{
+      let customer;
+      const existing=await carMartSupabase.from("customers").select("*").eq("phone",fd.get("phone")).maybeSingle();
+      if(existing.data) customer=existing.data;
+      else{
+        const cr=await safeInsert("customers",customerPayload);
+        if(cr.error) throw cr.error; customer=cr.data;
+      }
+
+      const payloadCandidates=[
+        {p_vehicle_id:id,p_customer_id:customer.id,p_sale_date:today(),p_sale_amount:saleAmount,p_discount_percent:discountPercent,p_other_charges:otherCharges,p_payment_method:fd.get("payment_method"),p_initial_payment:initial,p_commission:0,p_notes:fd.get("transfer_notes")||null},
+        {vehicle_id:id,customer_id:customer.id,sale_date:today(),sale_amount:saleAmount,discount_percent:discountPercent,other_charges:otherCharges,payment_method:fd.get("payment_method"),initial_payment:initial,commission:0,notes:fd.get("transfer_notes")||null},
+        {p_vehicle_id:id,p_customer_id:customer.id,p_sale_amount:saleAmount,p_discount_percent:discountPercent,p_other_charges:otherCharges,p_payment_method:fd.get("payment_method"),p_payment_amount:initial,p_commission:0},
+        {p_vehicle_id:id,p_customer_id:customer.id,p_sale_date:today(),p_amount:saleAmount,p_discount_pct:discountPercent,p_other_charges:otherCharges,p_payment_method:fd.get("payment_method"),p_amount_paid:initial,p_commission:0,p_notes:fd.get("transfer_notes")||null}
+      ];
+      let sale=null,lastErr=null;
+      for(const args of payloadCandidates){
+        const r=await carMartSupabase.rpc("create_sale",args);
+        if(!r.error){sale=r.data;break;}
+        lastErr=r.error;
+      }
+      if(!sale){
+        throw new Error(lastErr?.message || "The production create_sale RPC rejected the sale payload. The existing database transaction was not modified.");
+      }
+
+      const saleId = typeof sale==="string" ? sale : first(sale,["sale_id","id"],null);
+      if(!saleId) throw new Error("Sale was created but no sale ID was returned by the production sale transaction.");
+
+      /* Save initial payment when the transaction did not already do so. */
+      if(initial>0){
+        const pr=await safeInsert("payments",{sale_id:saleId,amount:initial,payment_amount:initial,payment_date:today(),payment_method:fd.get("payment_method"),notes:"Initial payment"});
+        if(pr.error) console.warn("Payment insert:",pr.error.message);
+      }
+
+      const idFile=fd.get("id_photo");
+      if(idFile instanceof File && idFile.size){
+        const up=await safeUpload("carmart-documents",`customers/${customer.id}/${Date.now()}-id-proof-${idFile.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`,idFile);
+        const dr=await safeInsert("sale_documents",{sale_id:saleId,vehicle_id:id,customer_id:customer.id,document_type:"Customer ID Proof",file_name:idFile.name,storage_path:up.path,public_url:up.url});
+        if(dr.error) console.warn("ID document:",dr.error.message);
+      }
+
+      for(const f of Array.from(fd.getAll("docs")).filter(x=>x instanceof File&&x.size)){
+        const up=await safeUpload("carmart-documents",`sales/${saleId}/${Date.now()}-${f.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`,f);
+        const dr=await safeInsert("sale_documents",{sale_id:saleId,vehicle_id:id,customer_id:customer.id,document_type:"Other Sale Document",file_name:f.name,storage_path:up.path,public_url:up.url});
+        if(dr.error) console.warn("Sale document:",dr.error.message);
+      }
+
+      closeModal();showToast("Sale confirmed. Vehicle is now sold and the production sale workflow has been triggered.");
+      await loadDashboard();openModule("sales");
+    }catch(err){console.error(err);showToast(err.message||"Sale failed.",true);}
+  };
+}
+
+/* -------------------------
+   CUSTOMERS
+-------------------------- */
+
+async function renderCustomersModule(box){
+  let rows=await tableRows("customers",q=>q.order("created_at",{ascending:false}));
+  box.innerHTML=`
+    <div class="module-toolbar"><div class="toolbar-left"><input id="customerSearch" class="module-search" placeholder="Search name or phone…"></div><button class="btn btn-primary" id="addCustomerBtn">+ Add Customer</button></div>
+    <div id="customerTable"></div>`;
+  const render=()=>{
+    const term=(document.getElementById("customerSearch").value||"").toLowerCase();
+    const data=rows.filter(c=>[c.full_name,c.phone,c.email,c.city].join(" ").toLowerCase().includes(term));
+    document.getElementById("customerTable").innerHTML=`<div class="data-table-wrap"><table class="data-table"><thead><tr><th>Name</th><th>Phone</th><th>Address</th><th>ID Type</th><th>Created</th><th>Action</th></tr></thead><tbody>${data.length?data.map(c=>`<tr><td><strong>${esc(c.full_name||"—")}</strong></td><td>${esc(c.phone||"—")}</td><td>${esc([c.address,c.city].filter(Boolean).join(", ")||"—")}</td><td>${esc(c.id_type||"—")}</td><td>${esc((c.created_at||"").slice(0,10))}</td><td><button class="btn btn-light" onclick="customerFormById('${c.id}')">Edit</button></td></tr>`).join(""):`<tr><td colspan="6"><div class="empty-state">No customers found.</div></td></tr>`}</tbody></table></div>`;
+  };
+  document.getElementById("customerSearch").oninput=render;
+  document.getElementById("addCustomerBtn").onclick=()=>customerForm(null);
+  render();
+}
+
+function customerForm(c){
+  const x=c||{};
+  openModal(c?"Edit Customer":"Add Customer",`
+    <form id="customerForm" class="form-grid">
+      <div class="form-field"><label>Full Name *</label><input name="full_name" required value="${esc(x.full_name||"")}"></div>
+      <div class="form-field"><label>Phone *</label><input name="phone" required value="${esc(x.phone||"")}"></div>
+      <div class="form-field"><label>Alternate Phone</label><input name="alternate_phone" value="${esc(x.alternate_phone||"")}"></div>
+      <div class="form-field"><label>Email</label><input name="email" type="email" value="${esc(x.email||"")}"></div>
+      <div class="form-field full"><label>Address</label><textarea name="address">${esc(x.address||"")}</textarea></div>
+      <div class="form-field"><label>City</label><input name="city" value="${esc(x.city||"")}"></div>
+      <div class="form-field"><label>State</label><input name="state" value="${esc(x.state||"Karnataka")}"></div>
+      <div class="form-field"><label>Pincode</label><input name="pincode" value="${esc(x.pincode||"")}"></div>
+      <div class="form-field"><label>ID Type</label><select name="id_type"><option value="">Select</option><option ${x.id_type==="Aadhaar"?"selected":""}>Aadhaar</option><option ${x.id_type==="Driving Licence"?"selected":""}>Driving Licence</option><option ${x.id_type==="Passport"?"selected":""}>Passport</option><option ${x.id_type==="Voter ID"?"selected":""}>Voter ID</option><option>Other</option></select></div>
+      <div class="form-field full"><label>ID Proof Photo</label><input name="id_photo" type="file" accept="image/*"><div class="form-note">Photo/document only. No ID number is collected by this UI.</div></div>
+      <div class="form-field full"><label>Notes</label><textarea name="notes">${esc(x.notes||"")}</textarea></div>
+      <div class="form-actions full"><button type="button" class="btn btn-light" onclick="closeModal()">Cancel</button><button class="btn btn-primary">Save Customer</button></div>
+    </form>`);
+  document.getElementById("customerForm").onsubmit=async e=>{
+    e.preventDefault();const fd=new FormData(e.target);
+    try{
+      const payload={full_name:fd.get("full_name"),phone:fd.get("phone"),alternate_phone:fd.get("alternate_phone")||null,email:fd.get("email")||null,address:fd.get("address")||null,city:fd.get("city")||null,state:fd.get("state")||null,pincode:fd.get("pincode")||null,id_type:fd.get("id_type")||null,notes:fd.get("notes")||null,created_by:currentUser.id};
+      let saved;
+      if(c){const r=await safeUpdate("customers",c.id,payload);if(r.error)throw r.error;saved=r.data;}
+      else{const r=await safeInsert("customers",payload);if(r.error)throw r.error;saved=r.data;}
+      const f=fd.get("id_photo");
+      if(f instanceof File&&f.size){
+        const up=await safeUpload("carmart-documents",`customers/${saved.id}/${Date.now()}-id-proof-${f.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`,f);
+        /* Store the photo path on the customer only if the production schema exposes such a field. */
+        const ur=await safeUpdate("customers",saved.id,{id_document_url:up.url,id_document_path:up.path,id_proof_url:up.url});
+        if(ur.error) console.warn(ur.error.message);
+      }
+      closeModal();showToast("Customer saved.");openModule("customers");
+    }catch(err){showToast(err.message||"Customer save failed.",true);}
+  };
+}
+
+async function customerFormById(id){const {data}=await carMartSupabase.from("customers").select("*").eq("id",id).single();customerForm(data);}
+
+/* -------------------------
+   ENQUIRIES
+-------------------------- */
+
+async function renderEnquiriesModule(box){
+  let rows=await tableRows("enquiries",q=>q.order("created_at",{ascending:false}));
+  box.innerHTML=`<div class="module-toolbar"><div class="toolbar-left"><input id="enquirySearch" class="module-search" placeholder="Search name, phone, subject…"></div><button class="btn btn-primary" id="addEnquiryBtn">+ Add Enquiry</button></div><div id="enquiryTable"></div>`;
+  const render=()=>{
+    const term=(document.getElementById("enquirySearch").value||"").toLowerCase();
+    const data=rows.filter(x=>[x.customer_name,x.phone,x.email,x.subject,x.message].join(" ").toLowerCase().includes(term));
+    document.getElementById("enquiryTable").innerHTML=`<div class="data-table-wrap"><table class="data-table"><thead><tr><th>Customer</th><th>Phone</th><th>Type</th><th>Status</th><th>Date</th><th>Action</th></tr></thead><tbody>${data.length?data.map(x=>`<tr><td><strong>${esc(x.customer_name||"—")}</strong><br><small>${esc(x.subject||"")}</small></td><td>${esc(x.phone||"—")}</td><td>${esc(x.enquiry_type||"—")}</td><td><span class="badge badge-gray">${esc(x.status||"New")}</span></td><td>${esc((x.created_at||"").slice(0,10))}</td><td><button class="btn btn-light" onclick="enquiryEdit('${x.id}')">Update</button></td></tr>`).join(""):`<tr><td colspan="6"><div class="empty-state">No enquiries found.</div></td></tr>`}</tbody></table></div>`;
+  };
+  document.getElementById("enquirySearch").oninput=render;
+  document.getElementById("addEnquiryBtn").onclick=()=>enquiryForm(null);
+  render();
+}
+function enquiryForm(x){
+  const e=x||{};
+  openModal(x?"Update Enquiry":"Add Enquiry",`
+    <form id="enquiryForm" class="form-grid">
+      <div class="form-field"><label>Customer Name *</label><input name="customer_name" required value="${esc(e.customer_name||"")}"></div>
+      <div class="form-field"><label>Phone *</label><input name="phone" required value="${esc(e.phone||"")}"></div>
+      <div class="form-field"><label>Email</label><input name="email" value="${esc(e.email||"")}"></div>
+      <div class="form-field"><label>Enquiry Type</label><input name="enquiry_type" value="${esc(e.enquiry_type||"Vehicle")}"></div>
+      <div class="form-field"><label>Vehicle Type</label><select name="vehicle_type"><option>Cars</option><option>Goods / Commercial</option></select></div>
+      <div class="form-field"><label>Status</label><select name="status"><option>New</option><option>Contacted</option><option>Resolved</option><option>Cancelled</option></select></div>
+      <div class="form-field full"><label>Subject</label><input name="subject" value="${esc(e.subject||"")}"></div>
+      <div class="form-field full"><label>Message / Notes</label><textarea name="message">${esc(e.message||"")}</textarea></div>
+      <div class="form-actions full"><button type="button" class="btn btn-light" onclick="closeModal()">Cancel</button><button class="btn btn-primary">Save</button></div>
+    </form>`);
+  document.getElementById("enquiryForm").onsubmit=async ev=>{
+    ev.preventDefault();const fd=new FormData(ev.target);
+    try{
+      const payload={customer_name:fd.get("customer_name"),phone:fd.get("phone"),email:fd.get("email")||null,enquiry_type:fd.get("enquiry_type")||null,vehicle_type:fd.get("vehicle_type"),subject:fd.get("subject")||null,message:fd.get("message")||null,status:fd.get("status")||"New",source:"dashboard"};
+      const r=x?await safeUpdate("enquiries",x.id,payload):await safeInsert("enquiries",payload);
+      if(r.error)throw r.error;closeModal();showToast("Enquiry saved.");openModule("enquiries");
+    }catch(err){showToast(err.message||"Enquiry save failed.",true);}
+  };
+}
+async function enquiryEdit(id){const {data}=await carMartSupabase.from("enquiries").select("*").eq("id",id).single();enquiryForm(data);}
+
+/* -------------------------
+   SALES
+-------------------------- */
+
+async function renderSalesModule(box){
+  const sales=await tableRows("sales",q=>q.order("created_at",{ascending:false}));
+  const vehicles=await tableRows("vehicles",q=>q.order("created_at",{ascending:false}));
+  const customers=await tableRows("customers",q=>q.order("created_at",{ascending:false}));
+  box.innerHTML=`
+    <div class="module-toolbar"><div class="toolbar-left"><input id="saleSearch" class="module-search" placeholder="Search sale no., registration or customer…"><select id="saleTab" class="module-select"><option value="all">All Sales</option><option value="sold">Sold Vehicles</option><option value="pending">Pending Payment</option></select></div><button class="btn btn-primary" id="newSaleBtn">+ New Sale</button></div>
+    <div id="saleTable"></div>`;
+  const render=()=>{
+    const term=(document.getElementById("saleSearch").value||"").toLowerCase();
+    const tab=document.getElementById("saleTab").value;
+    const data=sales.filter(s=>{
+      const v=vehicles.find(x=>String(x.id)===String(s.vehicle_id));
+      const c=customers.find(x=>String(x.id)===String(s.customer_id));
+      const text=[s.sale_number,v?.registration_number,c?.full_name,c?.phone].join(" ").toLowerCase();
+      const pending=String(s.payment_status||"").toLowerCase()!=="paid";
+      return (!term||text.includes(term))&&(tab==="all"||(tab==="sold")||(tab==="pending"&&pending));
+    });
+    document.getElementById("saleTable").innerHTML=`<div class="data-table-wrap"><table class="data-table"><thead><tr><th>Sale</th><th>Vehicle</th><th>Customer</th><th>Sale Amount</th><th>Payment</th><th>Date</th><th>Action</th></tr></thead><tbody>${data.length?data.map(s=>{const v=vehicles.find(x=>String(x.id)===String(s.vehicle_id));const c=customers.find(x=>String(x.id)===String(s.customer_id));return `<tr><td><strong>${esc(s.sale_number||s.id)}</strong></td><td>${esc([v?.brand,v?.model,v?.registration_number].filter(Boolean).join(" / ")||"—")}</td><td>${esc(c?.full_name||"—")}<br>${esc(c?.phone||"")}</td><td>${money(s.grand_total||s.sale_amount)}</td><td><span class="badge ${String(s.payment_status||"").toLowerCase()==="paid"?"badge-green":"badge-amber"}">${esc(s.payment_status||"Pending")}</span></td><td>${esc((s.sale_date||s.created_at||"").slice(0,10))}</td><td><button class="btn btn-light" onclick="saleDetails('${s.id}')">View</button></td></tr>`}).join(""):`<tr><td colspan="7"><div class="empty-state">No sales found.</div></td></tr>`}</tbody></table></div>`;
+  };
+  document.getElementById("saleSearch").oninput=render;document.getElementById("saleTab").onchange=render;
+  document.getElementById("newSaleBtn").onclick=()=>newSaleForm(vehicles,customers);
+  render();
+}
+function newSaleForm(vehicles,customers){
+  const available=vehicles.filter(v=>String(v.status).toLowerCase()==="available");
+  openModal("New Sale",`
+    <form id="newSaleForm" class="form-grid">
+      <div class="form-field full"><label>Vehicle *</label><select name="vehicle_id" required>${available.map(v=>`<option value="${v.id}">${esc([v.brand,v.model,v.registration_number].filter(Boolean).join(" / "))} — ${money(v.selling_price)}</option>`).join("")}</select></div>
+      <div class="form-field full"><label>Customer *</label><select name="customer_id" required><option value="">Select customer</option>${customers.map(c=>`<option value="${c.id}">${esc(c.full_name)} — ${esc(c.phone||"")}</option>`).join("")}</select></div>
+      <div class="form-field"><label>Sale Amount *</label><input name="sale_amount" type="number" step="0.01" required></div>
+      <div class="form-field"><label>Discount %</label><input name="discount_percent" type="number" step="0.01" value="0"></div>
+      <div class="form-field"><label>Other Charges</label><input name="other_charges" type="number" step="0.01" value="0"></div>
+      <div class="form-field"><label>Initial Payment</label><input name="initial_payment" type="number" step="0.01" value="0"></div>
+      <div class="form-field"><label>Payment Method</label><select name="payment_method"><option>Cash</option><option>UPI</option><option>Bank Transfer</option><option>Finance</option><option>Cheque</option><option>Other</option></select></div>
+      ${isAdmin()?`<div class="form-field"><label>Commission</label><input name="commission" type="number" step="0.01" value="0"></div>`:""}
+      <div class="form-field full"><label>Notes</label><textarea name="notes"></textarea></div>
+      <div class="form-actions full"><button type="button" class="btn btn-light" onclick="closeModal()">Cancel</button><button class="btn btn-primary">Review & Confirm</button></div>
+    </form>`);
+  document.getElementById("newSaleForm").onsubmit=async e=>{
+    e.preventDefault();const fd=new FormData(e.target);const saleAmount=Number(fd.get("sale_amount"));const discount=Number(fd.get("discount_percent")||0);const other=Number(fd.get("other_charges")||0);const initial=Number(fd.get("initial_payment")||0);const commission=Number(fd.get("commission")||0);
+    const discounted=saleAmount-(saleAmount*discount/100);const grand=discounted+other;if(initial>grand)return showToast("Initial payment cannot exceed grand total.",true);
+    try{
+      const argsList=[
+        {p_vehicle_id:fd.get("vehicle_id"),p_customer_id:fd.get("customer_id"),p_sale_date:today(),p_sale_amount:saleAmount,p_discount_percent:discount,p_other_charges:other,p_payment_method:fd.get("payment_method"),p_initial_payment:initial,p_commission:commission,p_notes:fd.get("notes")||null},
+        {vehicle_id:fd.get("vehicle_id"),customer_id:fd.get("customer_id"),sale_date:today(),sale_amount:saleAmount,discount_percent:discount,other_charges:other,payment_method:fd.get("payment_method"),initial_payment:initial,commission:commission,notes:fd.get("notes")||null}
+      ];
+      let result=null,err=null;
+      for(const a of argsList){const r=await carMartSupabase.rpc("create_sale",a);if(!r.error){result=r.data;err=null;break}err=r.error;}
+      if(err)throw err;
+      const saleId=typeof result==="string"?result:first(result,["sale_id","id"],null);if(!saleId)throw new Error("The production sale transaction returned no sale ID.");
+      if(initial>0)await safeInsert("payments",{sale_id:saleId,amount:initial,payment_amount:initial,payment_date:today(),payment_method:fd.get("payment_method")});
+      if(isAdmin()&&commission>0){
+        const sf=await carMartSupabase.from("sale_financials").select("*").eq("sale_id",saleId).maybeSingle();
+        if(sf.data?.id) await safeUpdate("sale_financials",sf.data.id,{commission,commission_amount:commission});
+        else await safeInsert("sale_financials",{sale_id:saleId,commission,commission_amount:commission});
+      }
+      closeModal();showToast("Sale created successfully.");openModule("sales");loadDashboard();
+    }catch(err){console.error(err);showToast(err.message||"Sale could not be created.",true);}
+  };
+}
+async function saleDetails(id){
+  const {data:s}=await carMartSupabase.from("sales").select("*").eq("id",id).single();
+  const {data:payments}=await carMartSupabase.from("payments").select("*").eq("sale_id",id).order("payment_date",{ascending:false});
+  openModal("Sale Details",`
+    <div class="detail-grid">
+      <div class="detail-box"><b>Sale Number</b>${esc(s.sale_number||s.id)}</div>
+      <div class="detail-box"><b>Date</b>${esc(s.sale_date||"—")}</div>
+      <div class="detail-box"><b>Sale Amount</b>${money(s.sale_amount)}</div>
+      <div class="detail-box"><b>Discount %</b>${esc(s.discount_percent??0)}%</div>
+      <div class="detail-box"><b>Other Charges</b>${money(s.other_charges)}</div>
+      <div class="detail-box"><b>Grand Total</b>${money(s.grand_total)}</div>
+      <div class="detail-box"><b>Payment Status</b>${esc(s.payment_status||"Pending")}</div>
+    </div>
+    <div class="section-divider">Payments</div>
+    <div class="data-table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Amount</th><th>Method</th></tr></thead><tbody>${(payments||[]).map(p=>`<tr><td>${esc(p.payment_date||p.created_at||"")}</td><td>${money(p.amount||p.payment_amount)}</td><td>${esc(p.payment_method||"")}</td></tr>`).join("")||`<tr><td colspan="3">No payments.</td></tr>`}</tbody></table></div>
+    <div class="form-actions"><button class="btn btn-dark" onclick="printCurrentModal()">Print</button><button class="btn btn-primary" onclick="invoicePdf('${id}')">Invoice PDF</button></div>`);
+}
+function printCurrentModal(){window.print();}
+
+/* -------------------------
+   DOCUMENTS
+-------------------------- */
+
+async function renderDocumentsModule(box){
+  const docs=await tableRows("sale_documents",q=>q.order("created_at",{ascending:false}));
+  box.innerHTML=`<div class="module-toolbar"><div class="toolbar-left"><input id="docSearch" class="module-search" placeholder="Search document, file, sale…"></div><button class="btn btn-primary" id="addDocBtn">+ Upload Document</button></div><div id="docTable"></div>`;
+  const render=()=>{
+    const term=(document.getElementById("docSearch").value||"").toLowerCase();
+    const data=docs.filter(d=>[d.document_type,d.file_name,d.sale_id,d.vehicle_id].join(" ").toLowerCase().includes(term));
+    document.getElementById("docTable").innerHTML=`<div class="data-table-wrap"><table class="data-table"><thead><tr><th>Type</th><th>File</th><th>Sale</th><th>Vehicle</th><th>Date</th><th>Open</th></tr></thead><tbody>${data.length?data.map(d=>`<tr><td>${esc(d.document_type||"Document")}</td><td>${esc(d.file_name||d.storage_path||"—")}</td><td>${esc(d.sale_id||"—")}</td><td>${esc(d.vehicle_id||"—")}</td><td>${esc((d.created_at||"").slice(0,10))}</td><td>${d.public_url?`<a class="btn btn-light" target="_blank" href="${esc(d.public_url)}">Open</a>`:"—"}</td></tr>`).join(""):`<tr><td colspan="6"><div class="empty-state">No documents found.</div></td></tr>`}</tbody></table></div>`;
+  };
+  document.getElementById("docSearch").oninput=render;
+  document.getElementById("addDocBtn").onclick=()=>documentForm();
+  render();
+}
+async function documentForm(){
+  const sales=await tableRows("sales",q=>q.order("created_at",{ascending:false}));
+  const vehicles=await tableRows("vehicles",q=>q.order("created_at",{ascending:false}));
+  openModal("Upload Document",`
+    <form id="documentForm" class="form-grid">
+      <div class="form-field"><label>Document Type *</label><input name="document_type" required placeholder="RC / Insurance / ID Proof / Agreement"></div>
+      <div class="form-field"><label>Sale</label><select name="sale_id"><option value="">Not linked</option>${sales.map(s=>`<option value="${s.id}">${esc(s.sale_number||s.id)}</option>`).join("")}</select></div>
+      <div class="form-field"><label>Vehicle</label><select name="vehicle_id"><option value="">Not linked</option>${vehicles.map(v=>`<option value="${v.id}">${esc([v.brand,v.model,v.registration_number].filter(Boolean).join(" / "))}</option>`).join("")}</select></div>
+      <div class="form-field full"><label>File *</label><input name="file" type="file" required accept="image/*,.pdf,.doc,.docx"></div>
+      <div class="form-field full"><label>Notes</label><textarea name="notes"></textarea></div>
+      <div class="form-actions full"><button type="button" class="btn btn-light" onclick="closeModal()">Cancel</button><button class="btn btn-primary">Upload</button></div>
+    </form>`);
+  document.getElementById("documentForm").onsubmit=async e=>{
+    e.preventDefault();const fd=new FormData(e.target);const f=fd.get("file");
+    try{
+      const path=`documents/${Date.now()}-${f.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`;
+      const up=await safeUpload("carmart-documents",path,f);
+      const r=await safeInsert("sale_documents",{document_type:fd.get("document_type"),sale_id:fd.get("sale_id")||null,vehicle_id:fd.get("vehicle_id")||null,file_name:f.name,storage_path:up.path,public_url:up.url,notes:fd.get("notes")||null});
+      if(r.error)throw r.error;closeModal();showToast("Document uploaded.");openModule("documents");
+    }catch(err){showToast(err.message||"Document upload failed.",true);}
+  };
+}
+
+/* -------------------------
+   TRANSFERS
+-------------------------- */
+
+async function renderTransfersModule(box){
+  const rows=await tableRows("transfer_records",q=>q.order("created_at",{ascending:false}));
+  box.innerHTML=`<div class="module-toolbar"><button class="btn btn-primary" id="addTransferBtn">+ Add Transfer</button></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th>Vehicle</th><th>RC</th><th>Insurance</th><th>Responsible</th><th>Status</th><th>Action</th></tr></thead><tbody>${rows.length?rows.map(x=>`<tr><td>${esc(x.vehicle_id||"—")}</td><td>${esc(x.rc_status||x.registration_status||"—")}</td><td>${esc(x.insurance_status||"—")}</td><td>${esc(x.responsible_person||x.assigned_to||"—")}</td><td>${esc(x.status||"—")}</td><td><button class="btn btn-light" onclick="transferFormById('${x.id}')">Update</button></td></tr>`).join(""):`<tr><td colspan="6"><div class="empty-state">No transfer records yet.</div></td></tr>`}</tbody></table></div>`;
+  document.getElementById("addTransferBtn").onclick=()=>transferForm(null);
+}
+function transferForm(x){
+  const t=x||{};
+  openModal(x?"Update Transfer":"Add Transfer",`
+    <form id="transferForm" class="form-grid">
+      <div class="form-field"><label>Vehicle ID *</label><input name="vehicle_id" required value="${esc(t.vehicle_id||"")}"></div>
+      <div class="form-field"><label>RC Status</label><select name="rc_status"><option>Pending</option><option>In Progress</option><option>Completed</option><option>Given</option></select></div>
+      <div class="form-field"><label>Insurance Status</label><select name="insurance_status"><option>Pending</option><option>In Progress</option><option>Completed</option><option>Given</option></select></div>
+      <div class="form-field"><label>Responsible Person</label><input name="responsible_person" value="${esc(t.responsible_person||"")}"></div>
+      <div class="form-field"><label>Fee</label><input name="fee" type="number" step="0.01" value="${esc(t.fee||"")}"></div>
+      <div class="form-field"><label>Status</label><select name="status"><option>Pending</option><option>In Progress</option><option>Completed</option></select></div>
+      <div class="form-field full"><label>Notes</label><textarea name="notes">${esc(t.notes||"")}</textarea></div>
+      <div class="form-actions full"><button type="button" class="btn btn-light" onclick="closeModal()">Cancel</button><button class="btn btn-primary">Save</button></div>
+    </form>`);
+  document.getElementById("transferForm").onsubmit=async e=>{
+    e.preventDefault();const fd=new FormData(e.target);
+    const payload={vehicle_id:fd.get("vehicle_id"),rc_status:fd.get("rc_status"),insurance_status:fd.get("insurance_status"),responsible_person:fd.get("responsible_person")||null,fee:fd.get("fee")?Number(fd.get("fee")):0,status:fd.get("status"),notes:fd.get("notes")||null};
+    try{const r=x?await safeUpdate("transfer_records",x.id,payload):await safeInsert("transfer_records",payload);if(r.error)throw r.error;closeModal();showToast("Transfer saved.");openModule("transfers");}catch(err){showToast(err.message||"Transfer save failed.",true);}
+  };
+}
+async function transferFormById(id){const {data}=await carMartSupabase.from("transfer_records").select("*").eq("id",id).single();transferForm(data);}
+
+/* -------------------------
+   HANDOVER
+-------------------------- */
+
+async function renderHandoverModule(box){
+  const rows=await tableRows("handover_records",q=>q.order("created_at",{ascending:false}));
+  box.innerHTML=`<div class="module-toolbar"><button class="btn btn-primary" id="addHandoverBtn">+ Handover Record</button></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th>Vehicle</th><th>Customer</th><th>RC</th><th>Insurance</th><th>Keys</th><th>Service Book</th><th>Action</th></tr></thead><tbody>${rows.length?rows.map(x=>`<tr><td>${esc(x.vehicle_id||"—")}</td><td>${esc(x.customer_id||"—")}</td><td>${esc(x.rc_status||"Pending")}</td><td>${esc(x.insurance_status||"Pending")}</td><td>${esc(x.keys_status||"Pending")}</td><td>${esc(x.service_book_status||"Pending")}</td><td><button class="btn btn-light" onclick="handoverFormById('${x.id}')">Open</button></td></tr>`).join(""):`<tr><td colspan="7"><div class="empty-state">No handover records yet.</div></td></tr>`}</tbody></table></div>`;
+  document.getElementById("addHandoverBtn").onclick=()=>handoverForm(null);
+}
+function handoverForm(x){
+  const h=x||{};
+  openModal(x?"Update Handover":"Add Handover",`
+    <form id="handoverForm" class="form-grid">
+      <div class="form-field"><label>Vehicle ID *</label><input name="vehicle_id" required value="${esc(h.vehicle_id||"")}"></div>
+      <div class="form-field"><label>Customer ID</label><input name="customer_id" value="${esc(h.customer_id||"")}"></div>
+      <div class="form-field full"><label>Checklist</label><div class="check-grid">
+        ${["rc_status|RC","insurance_status|Insurance","keys_status|Keys","service_book_status|Service Book"].map(s=>{const [n,l]=s.split("|");return `<label class="check-item"><input name="${n}" type="checkbox" ${String(h[n]||"").toLowerCase()==="given"?"checked":""}> ${l} GIVEN</label>`}).join("")}
+      </div></div>
+      <div class="form-field"><label>Handed Over By</label><input name="handed_over_by" value="${esc(h.handed_over_by||"")}"></div>
+      <div class="form-field"><label>Handover Date</label><input name="handover_date" type="date" value="${esc(h.handover_date||today())}"></div>
+      <div class="form-field full"><label>Customer Signature</label><div class="signature-wrap"><canvas id="customerSig" class="signature-pad"></canvas><div class="signature-actions"><button type="button" class="btn btn-light" onclick="clearSig('customerSig')">Clear</button></div></div></div>
+      <div class="form-field full"><label>Car Mart Authorized Signature</label><div class="signature-wrap"><canvas id="managementSig" class="signature-pad"></canvas><div class="signature-actions"><button type="button" class="btn btn-light" onclick="clearSig('managementSig')">Clear</button></div></div></div>
+      <div class="form-field full"><label>Notes</label><textarea name="notes">${esc(h.notes||"")}</textarea></div>
+      <div class="form-actions full"><button type="button" class="btn btn-light" onclick="closeModal()">Cancel</button><button class="btn btn-primary">Save & Prepare PDF</button></div>
+    </form>`);
+  setupSignature("customerSig");setupSignature("managementSig");
+  document.getElementById("handoverForm").onsubmit=async e=>{
+    e.preventDefault();const fd=new FormData(e.target);
+    try{
+      const payload={vehicle_id:fd.get("vehicle_id"),customer_id:fd.get("customer_id")||null,rc_status:fd.get("rc_status")?"Given":"Pending",insurance_status:fd.get("insurance_status")?"Given":"Pending",keys_status:fd.get("keys_status")?"Given":"Pending",service_book_status:fd.get("service_book_status")?"Given":"Pending",handed_over_by:fd.get("handed_over_by")||null,handover_date:fd.get("handover_date")||today(),notes:fd.get("notes")||null};
+      let saved;
+      if(x){const r=await safeUpdate("handover_records",x.id,payload);if(r.error)throw r.error;saved=r.data;}
+      else{const r=await safeInsert("handover_records",payload);if(r.error)throw r.error;saved=r.data;}
+      const cs=document.getElementById("customerSig").toDataURL("image/png"),ms=document.getElementById("managementSig").toDataURL("image/png");
+      let cPath="",mPath="";
+      for(const item of [["customer",cs],["management",ms]]){
+        const blob=await (await fetch(item[1])).blob();
+        const path=`signatures/handover/${saved.id}-${item[0]}-${Date.now()}.png`;
+        try{const up=await safeUpload("carmart-signatures",path,new File([blob],`${item[0]}.png`,{type:"image/png"}));if(item[0]==="customer")cPath=up.path;else mPath=up.path;}catch(_){}
+      }
+      const ur=await safeUpdate("handover_records",saved.id,{customer_signature_path:cPath,management_signature_path:mPath});
+      if(ur.error)console.warn(ur.error.message);
+      closeModal();showToast("Handover saved.");await handoverPdf(saved.id);openModule("handover");
+    }catch(err){showToast(err.message||"Handover save failed.",true);}
+  };
+}
+function setupSignature(id){
+  const c=document.getElementById(id);if(!c)return;const ctx=c.getContext("2d");ctx.lineWidth=2;ctx.lineCap="round";let drawing=false;
+  const pos=e=>{const r=c.getBoundingClientRect();const p=e.touches?e.touches[0]:e;return {x:(p.clientX-r.left)*c.width/r.width,y:(p.clientY-r.top)*c.height/r.height};};
+  const down=e=>{drawing=true;const p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);e.preventDefault();};
+  const move=e=>{if(!drawing)return;const p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke();e.preventDefault();};
+  const up=()=>drawing=false;c.width=c.clientWidth*2;c.height=c.clientHeight*2;c.addEventListener("pointerdown",down);c.addEventListener("pointermove",move);window.addEventListener("pointerup",up);
+}
+function clearSig(id){const c=document.getElementById(id);if(c)c.getContext("2d").clearRect(0,0,c.width,c.height);}
+async function handoverFormById(id){const {data}=await carMartSupabase.from("handover_records").select("*").eq("id",id).single();handoverForm(data);}
+async function handoverPdf(id){
+  const {data:h}=await carMartSupabase.from("handover_records").select("*").eq("id",id).single();
+  const jsPDF=await loadPdfLib();const doc=new jsPDF();doc.setFont("helvetica","bold");doc.setFontSize(18);doc.text("CAR MART",15,20);doc.setFontSize(9);doc.setFont("helvetica","normal");doc.text("Used Cars & Commercial Vehicles",15,27);doc.text("Mittothu Colony, NH:66, Hosabettu, Surathkal, Mangaluru, Karnataka 575019",15,33);doc.text("090365 43444",15,39);doc.line(15,43,195,43);doc.setFontSize(15);doc.setFont("helvetica","bold");doc.text("VEHICLE HANDOVER RECORD",15,55);doc.setFontSize(10);doc.setFont("helvetica","normal");let y=68;for(const [l,v] of [["Vehicle",h.vehicle_id],["Customer",h.customer_id],["RC",h.rc_status],["Insurance",h.insurance_status],["Keys",h.keys_status],["Service Book",h.service_book_status],["Handed Over By",h.handed_over_by],["Date",h.handover_date]]){doc.setFont("helvetica","bold");doc.text(`${l}:`,15,y);doc.setFont("helvetica","normal");doc.text(String(v||"—"),55,y);y+=9;}doc.line(15,y+10,90,y+10);doc.line(110,y+10,195,y+10);doc.text("Customer / Receiver",15,y+16);doc.text("Car Mart Authorized",110,y+16);doc.setFontSize(8);doc.text("Car Mart Seal / Stamp",15,275);doc.save(`Car-Mart-Handover-${id}.pdf`);
+}
+
+/* -------------------------
+   EXPENSES
+-------------------------- */
+
+async function renderExpensesModule(box){
+  const rows=await tableRows("expense_records",q=>q.order("expense_date",{ascending:false}));
+  box.innerHTML=`<div class="module-toolbar"><div class="toolbar-left"><input id="expenseSearch" class="module-search" placeholder="Search registration, work type, vendor…"></div><button class="btn btn-primary" id="addExpenseBtn">+ Add Expense</button></div><div id="expenseTable"></div>`;
+  const render=()=>{
+    const term=(document.getElementById("expenseSearch").value||"").toLowerCase();
+    const data=rows.filter(x=>[x.registration_number,x.work_type,x.worker_vendor,x.description].join(" ").toLowerCase().includes(term));
+    document.getElementById("expenseTable").innerHTML=`<div class="data-table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Vehicle</th><th>Work</th><th>Vendor</th><th>Amount</th><th>Payment</th><th>Action</th></tr></thead><tbody>${data.length?data.map(x=>`<tr><td>${esc(x.expense_date||"")}</td><td>${esc(x.registration_number||x.vehicle_id||"—")}</td><td>${esc(x.work_type||"Other")}</td><td>${esc(x.worker_vendor||x.vendor||"—")}</td><td>${money(x.amount)}</td><td>${esc(x.payment_method||"—")}</td><td><button class="btn btn-light" onclick="expenseFormById('${x.id}')">Edit</button></td></tr>`).join(""):`<tr><td colspan="7"><div class="empty-state">No expenses found.</div></td></tr>`}</tbody></table></div>`;
+  };
+  document.getElementById("expenseSearch").oninput=render;document.getElementById("addExpenseBtn").onclick=()=>expenseForm(null);render();
+}
+function expenseForm(x){
+  const e=x||{};openModal(x?"Edit Expense":"Add Expense",`
+  <form id="expenseForm" class="form-grid">
+    <div class="form-field"><label>Vehicle ID</label><input name="vehicle_id" value="${esc(e.vehicle_id||"")}"></div>
+    <div class="form-field"><label>Registration Number</label><input name="registration_number" value="${esc(e.registration_number||"")}"></div>
+    <div class="form-field"><label>Work Type *</label><select name="work_type">${["Paint","Dent","Service","Mechanic","Electrical","Tyres","Parts","Detailing","Cleaning","Insurance","RTO/transfer","Transport","Other"].map(v=>`<option ${e.work_type===v?"selected":""}>${v}</option>`).join("")}</select></div>
+    <div class="form-field"><label>Worker / Vendor</label><input name="worker_vendor" value="${esc(e.worker_vendor||"")}"></div>
+    <div class="form-field"><label>Amount *</label><input name="amount" type="number" step="0.01" required value="${esc(e.amount||"")}"></div>
+    <div class="form-field"><label>Date</label><input name="expense_date" type="date" value="${esc(e.expense_date||today())}"></div>
+    <div class="form-field"><label>Payment Method</label><select name="payment_method"><option>Cash</option><option>UPI</option><option>Bank Transfer</option><option>Cheque</option><option>Other</option></select></div>
+    <div class="form-field full"><label>Description</label><textarea name="description">${esc(e.description||"")}</textarea></div>
+    <div class="form-field full"><label>Bill / Document</label><input name="bill" type="file" accept="image/*,.pdf"></div>
+    <div class="form-actions full"><button type="button" class="btn btn-light" onclick="closeModal()">Cancel</button><button class="btn btn-primary">Save Expense</button></div>
+  </form>`);
+  document.getElementById("expenseForm").onsubmit=async ev=>{
+    ev.preventDefault();const fd=new FormData(ev.target);
+    try{
+      const payload={vehicle_id:fd.get("vehicle_id")||null,registration_number:fd.get("registration_number")||null,work_type:fd.get("work_type"),worker_vendor:fd.get("worker_vendor")||null,amount:Number(fd.get("amount")),expense_date:fd.get("expense_date")||today(),payment_method:fd.get("payment_method"),description:fd.get("description")||null,created_by:currentUser.id};
+      const r=x?await safeUpdate("expense_records",x.id,payload):await safeInsert("expense_records",payload);if(r.error)throw r.error;
+      const f=fd.get("bill");if(f instanceof File&&f.size){const up=await safeUpload("carmart-expenses",`expenses/${r.data.id}/${Date.now()}-${f.name.replace(/[^a-zA-Z0-9._-]/g,"_")}`,f);const ur=await safeUpdate("expense_records",r.data.id,{bill_path:up.path,bill_url:up.url});if(ur.error)console.warn(ur.error.message);}
+      closeModal();showToast("Expense saved.");openModule("expenses");loadDashboard();
+    }catch(err){showToast(err.message||"Expense save failed.",true);}
+  };
+}
+async function expenseFormById(id){const {data}=await carMartSupabase.from("expense_records").select("*").eq("id",id).single();expenseForm(data);}
+
+/* -------------------------
+   PAYMENTS / COLLECTIONS
+-------------------------- */
+
+async function renderPaymentsModule(box){
+  const rows=await tableRows("payments",q=>q.order("payment_date",{ascending:false}));
+  box.innerHTML=`<div class="module-toolbar"><button class="btn btn-primary" id="addPaymentBtn">+ Record Payment</button></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th>Date</th><th>Sale</th><th>Amount</th><th>Method</th><th>Notes</th></tr></thead><tbody>${rows.length?rows.map(p=>`<tr><td>${esc(p.payment_date||p.created_at||"")}</td><td>${esc(p.sale_id||"—")}</td><td>${money(p.amount||p.payment_amount)}</td><td>${esc(p.payment_method||"—")}</td><td>${esc(p.notes||"")}</td></tr>`).join(""):`<tr><td colspan="5"><div class="empty-state">No payments recorded.</div></td></tr>`}</tbody></table></div>`;
+  document.getElementById("addPaymentBtn").onclick=async()=>{
+    const sales=await tableRows("sales",q=>q.order("created_at",{ascending:false}));
+    openModal("Record Payment",`<form id="paymentForm" class="form-grid">
+      <div class="form-field full"><label>Sale</label><select name="sale_id" required>${sales.map(s=>`<option value="${s.id}">${esc(s.sale_number||s.id)} — ${money(s.grand_total)}</option>`).join("")}</select></div>
+      <div class="form-field"><label>Amount</label><input name="amount" type="number" step="0.01" required></div>
+      <div class="form-field"><label>Payment Date</label><input name="payment_date" type="date" value="${today()}"></div>
+      <div class="form-field"><label>Method</label><select name="payment_method"><option>Cash</option><option>UPI</option><option>Bank Transfer</option><option>Finance</option><option>Cheque</option><option>Other</option></select></div>
+      <div class="form-field full"><label>Notes</label><textarea name="notes"></textarea></div>
+      <div class="form-actions full"><button class="btn btn-primary">Save Payment</button></div>
+    </form>`);
+    document.getElementById("paymentForm").onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.target);try{const r=await safeInsert("payments",{sale_id:fd.get("sale_id"),amount:Number(fd.get("amount")),payment_amount:Number(fd.get("amount")),payment_date:fd.get("payment_date"),payment_method:fd.get("payment_method"),notes:fd.get("notes")||null});if(r.error)throw r.error;closeModal();showToast("Payment recorded.");openModule("payments");}catch(err){showToast(err.message,true);}};
+  };
+}
+
+/* -------------------------
+   PURCHASE COSTS
+-------------------------- */
+
+async function renderPurchaseModule(box){
+  if(!isAdmin()) return;
+  const vehicles=await tableRows("vehicles",q=>q.order("created_at",{ascending:false}));
+  const fins=await tableRows("vehicle_financials");
+  const map=new Map(fins.map(x=>[String(x.vehicle_id),x]));
+  box.innerHTML=`<div class="notice">Purchase costs are visible only to Admin.</div><div class="data-table-wrap" style="margin-top:14px"><table class="data-table"><thead><tr><th>Vehicle</th><th>Registration</th><th>Purchase Cost</th><th>Action</th></tr></thead><tbody>${vehicles.map(v=>{const f=map.get(String(v.id));return `<tr><td>${esc([v.brand,v.model,v.variant].filter(Boolean).join(" "))}</td><td>${esc(v.registration_number||"—")}</td><td>${money(first(f,["purchase_cost","purchase_price"],0))}</td><td><button class="btn btn-light" onclick="purchaseForm('${v.id}')">Edit</button></td></tr>`}).join("")||`<tr><td colspan="4"><div class="empty-state">No vehicles.</div></tr>`}</tbody></table></div>`;
+}
+async function purchaseForm(vehicleId){
+  const {data:f}=await carMartSupabase.from("vehicle_financials").select("*").eq("vehicle_id",vehicleId).maybeSingle();
+  openModal("Purchase Cost — Admin Only",`<form id="purchaseForm" class="form-grid"><div class="form-field"><label>Purchase Cost</label><input name="purchase_cost" type="number" step="0.01" required value="${esc(first(f,["purchase_cost","purchase_price"],""))}"></div><div class="form-actions full"><button class="btn btn-primary">Save</button></div></form>`);
+  document.getElementById("purchaseForm").onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.target);try{const p={vehicle_id:vehicleId,purchase_cost:Number(fd.get("purchase_cost")),purchase_price:Number(fd.get("purchase_cost"))};const r=f?await safeUpdate("vehicle_financials",f.id,p):await safeInsert("vehicle_financials",p);if(r.error)throw r.error;closeModal();showToast("Purchase cost saved.");openModule("purchase");}catch(err){showToast(err.message,true);}};
+}
+
+/* -------------------------
+   REPORTS
+-------------------------- */
+
+async function renderReportsModule(box){
+  if(!isAdmin()) return;
+  box.innerHTML=`<div class="module-toolbar"><div class="toolbar-left"><label class="form-note">From</label><input id="reportFrom" class="module-search" type="date" value="${new Date(new Date().getFullYear(),new Date().getMonth(),1).toISOString().slice(0,10)}"><label class="form-note">To</label><input id="reportTo" class="module-search" type="date" value="${today()}"></div><button class="btn btn-primary" id="runReportBtn">Generate Report</button></div><div id="reportResult"></div>`;
+  document.getElementById("runReportBtn").onclick=generateReport;await generateReport();
+}
+async function generateReport(){
+  const from=document.getElementById("reportFrom").value,to=document.getElementById("reportTo").value;
+  const [sales,expenses,vehicles,fins]=await Promise.all([
+    tableRows("sales",q=>q.gte("sale_date",from).lte("sale_date",to)),
+    tableRows("expense_records",q=>q.gte("expense_date",from).lte("expense_date",to)),
+    tableRows("vehicles"),tableRows("vehicle_financials")
+  ]);
+  const revenue=sales.reduce((a,x)=>a+Number(x.grand_total||x.sale_amount||0),0);
+  const expenseTotal=expenses.reduce((a,x)=>a+Number(x.amount||0),0);
+  const purchaseTotal=fins.reduce((a,x)=>a+Number(first(x,["purchase_cost","purchase_price"],0)),0);
+  let commission=0;for(const s of sales){const {data:f}=await carMartSupabase.from("sale_financials").select("*").eq("sale_id",s.id).maybeSingle();commission+=Number(first(f,["commission","commission_amount"],0));}
+  const net=revenue-purchaseTotal-commission-expenseTotal;
+  document.getElementById("reportResult").innerHTML=`<div class="kpi-grid"><div class="kpi"><div class="kpi-label">Sales</div><div class="kpi-value">${sales.length}</div></div><div class="kpi"><div class="kpi-label">Revenue</div><div class="kpi-value">${money(revenue)}</div></div><div class="kpi"><div class="kpi-label">Expenses</div><div class="kpi-value">${money(expenseTotal)}</div></div><div class="kpi"><div class="kpi-label">Net Profit</div><div class="kpi-value">${money(net)}</div></div></div><div class="section-divider">Financial Detail</div><div class="data-table-wrap"><table class="data-table"><thead><tr><th>Metric</th><th>Amount</th></tr></thead><tbody><tr><td>Revenue</td><td>${money(revenue)}</td></tr><tr><td>Purchase Investment</td><td>${money(purchaseTotal)}</td></tr><tr><td>Commission</td><td>${money(commission)}</td></tr><tr><td>Expenses</td><td>${money(expenseTotal)}</td></tr><tr><td><strong>Net Profit</strong></td><td><strong>${money(net)}</strong></td></tr></tbody></table></div>`;
+}
+
+/* -------------------------
+   USERS
+-------------------------- */
+
+async function renderUsersModule(box){
+  if(!isAdmin()) return;
+  const rows=await tableRows("profiles",q=>q.order("created_at",{ascending:false}));
+  box.innerHTML=`<div class="notice">Auth accounts are created by the Car Mart owner. This screen manages the production profile role, active state and name. No public signup is enabled.</div><div class="data-table-wrap" style="margin-top:14px"><table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Active</th><th>Action</th></tr></thead><tbody>${rows.map(p=>`<tr><td>${esc(p.full_name||"—")}</td><td>${esc(p.email||"")}</td><td><span class="badge badge-gray">${esc(roleLabel(p.role))}</span></td><td>${p.is_active?"Yes":"No"}</td><td><button class="btn btn-light" onclick="userForm('${p.id}')">Edit</button></td></tr>`).join("")}</tbody></table></div>`;
+}
+async function userForm(id){
+  const {data:p}=await carMartSupabase.from("profiles").select("*").eq("id",id).single();
+  openModal("Staff / User Profile",`<form id="userForm" class="form-grid"><div class="form-field"><label>Full Name</label><input name="full_name" value="${esc(p.full_name||"")}"></div><div class="form-field"><label>Role</label><select name="role"><option value="staff" ${p.role==="staff"?"selected":""}>Staff</option><option value="salesman" ${p.role==="salesman"?"selected":""}>Salesman</option><option value="admin" ${p.role==="admin"?"selected":""}>Admin</option></select></div><div class="form-field"><label>Active</label><select name="is_active"><option value="true" ${p.is_active!==false?"selected":""}>Active</option><option value="false" ${p.is_active===false?"selected":""}>Inactive</option></select></div><div class="form-actions full"><button class="btn btn-primary">Save Profile</button></div></form>`);
+  document.getElementById("userForm").onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.target);try{const r=await safeUpdate("profiles",id,{full_name:fd.get("full_name")||null,role:fd.get("role"),is_active:fd.get("is_active")==="true"});if(r.error)throw r.error;closeModal();showToast("User profile updated.");openModule("users");}catch(err){showToast(err.message,true);}};
+}
+
+/* -------------------------
+   INVOICE PDF
+-------------------------- */
+
+async function invoicePdf(saleId){
+  try{
+    const {data:s}=await carMartSupabase.from("sales").select("*").eq("id",saleId).single();
+    const {data:c}=await carMartSupabase.from("customers").select("*").eq("id",s.customer_id).maybeSingle();
+    const {data:v}=await carMartSupabase.from("vehicles").select("*").eq("id",s.vehicle_id).maybeSingle();
+    const jsPDF=await loadPdfLib();const doc=new jsPDF();doc.setFont("helvetica","bold");doc.setFontSize(19);doc.text("CAR MART",15,20);doc.setFontSize(9);doc.setFont("helvetica","normal");doc.text("Used Cars & Commercial Vehicles",15,27);doc.text("Mittothu Colony, NH:66, Hosabettu, Surathkal, Mangaluru, Karnataka 575019",15,33);doc.text("090365 43444",15,39);doc.line(15,43,195,43);doc.setFont("helvetica","bold");doc.setFontSize(16);doc.text("INVOICE",15,56);doc.setFont("helvetica","normal");doc.setFontSize(10);let y=70;const rows=[["Invoice / Sale",s.sale_number||s.id],["Sale Date",s.sale_date||""],["Customer",c?.full_name||""],["Phone",c?.phone||""],["Vehicle",[v?.brand,v?.model,v?.variant].filter(Boolean).join(" ")],["Registration",v?.registration_number||""],["Sale Amount",money(s.sale_amount)],["Discount",`${s.discount_percent||0}%`],["Other Charges",money(s.other_charges)],["Grand Total",money(s.grand_total||s.sale_amount)],["Payment Status",s.payment_status||"Pending"]];for(const [a,b] of rows){doc.setFont("helvetica","bold");doc.text(`${a}:`,15,y);doc.setFont("helvetica","normal");doc.text(String(b),60,y);y+=9;}doc.line(15,y+10,90,y+10);doc.line(110,y+10,195,y+10);doc.text("Customer Signature",15,y+16);doc.text("Car Mart Authorized",110,y+16);doc.setFontSize(8);doc.text("Car Mart Seal / Stamp",15,275);doc.save(`Car-Mart-Invoice-${s.sale_number||saleId}.pdf`);
+  }catch(err){showToast(err.message||"Invoice PDF failed.",true);}
+}
+
+/* -------------------------
+   CHANGE PASSWORD
+-------------------------- */
+
+document.getElementById("changePasswordButton")?.addEventListener("click",()=>{
+  openModal("Change Password",`<form id="passwordForm" class="form-grid"><div class="form-field"><label>New Password</label><input name="password" type="password" minlength="8" required></div><div class="form-field"><label>Confirm Password</label><input name="confirm" type="password" minlength="8" required></div><div class="form-actions full"><button class="btn btn-primary">Change Password</button></div></form>`);
+  document.getElementById("passwordForm").onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.target);if(fd.get("password")!==fd.get("confirm"))return showToast("Passwords do not match.",true);try{const {error}=await carMartSupabase.auth.updateUser({password:fd.get("password")});if(error)throw error;closeModal();showToast("Password changed successfully.");}catch(err){showToast(err.message,true);}};
+});
+
+/* -------------------------
+   AUTHENTICATION / SESSION
+-------------------------- */
+
+loginForm.addEventListener("submit",async event=>{
+  event.preventDefault();hideLoginError();setLoading(true);
+  const email=document.getElementById("email").value.trim();
+  const password=document.getElementById("password").value;
+  try{
+    const {data,error}=await carMartSupabase.auth.signInWithPassword({email,password});
+    if(error) throw new Error(error.message||"Unable to sign in.");
+    if(!data.session||!data.user) throw new Error("Supabase did not create a valid session.");
+    currentUser=data.user;await loadProfile(currentUser.id);applyRolePermissions();renderManagementArea();showApp();await loadDashboard();
+  }catch(error){console.error(error);showLoginError(error.message||"Sign-in failed. Please try again.");}
+  finally{setLoading(false);}
+});
+
+async function initializeApplication(){
+  try{
+    const {data:{session}}=await carMartSupabase.auth.getSession();
+    if(!session?.user){showLogin();return;}
+    currentUser=session.user;await loadProfile(currentUser.id);applyRolePermissions();renderManagementArea();showApp();await loadDashboard();
+  }catch(error){console.error(error);await carMartSupabase.auth.signOut();showLogin();showLoginError(error.message||"Your session could not be restored.");}
+}
+
+carMartSupabase.auth.onAuthStateChange(async(event,session)=>{
+  if(event==="SIGNED_OUT"){currentUser=null;currentProfile=null;showLogin();return;}
+});
+
+logoutButton.addEventListener("click",async()=>{
+  logoutButton.disabled=true;try{await carMartSupabase.auth.signOut();}finally{logoutButton.disabled=false;}
+});
+
+/* -------------------------
+   NAVIGATION
+-------------------------- */
+
+document.querySelectorAll("[data-module]").forEach(element=>{
+  element.addEventListener("click",()=>{
+    const module=element.dataset.module;
+    if(module) openModule(module);
+  });
+});
 
 initializeApplication();
 
