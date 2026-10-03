@@ -1708,7 +1708,7 @@ function vehicleForm(vehicle,cats){
       <div class="form-field"><label>Manufacturing Year</label><input name="manufacturing_year" type="number" value="${esc(v.manufacturing_year||"")}"></div>
       <div class="form-field"><label>Registration Year</label><input name="registration_year" type="number" value="${esc(v.registration_year||"")}"></div>
       <div class="form-field"><label>Fuel</label><select name="fuel_type"><option value="">Select</option>${["Petrol","Diesel","CNG","Electric","Hybrid","Other"].map(x=>`<option ${String(v.fuel_type||"")===x?"selected":""}>${x}</option>`).join("")}</select></div>
-      <div class="form-field"><label>Transmission</label><select name="transmission"><option value="">Select</option>${["Manual","Automatic","AMT","Other"].map(x=>`<option ${String(v.transmission||"")===x?"selected":""}>${x}</option>`).join("")}</select></div>
+      <div class="form-field"><label>Transmission</label><select name="transmission"><option value="">Select</option>${["Manual","Automatic","AMT","CVT","DCT"].map(x=>`<option ${String(v.transmission||"")===x?"selected":""}>${x}</option>`).join("")}</select></div>
       <div class="form-field"><label>Colour</label><input name="colour" value="${esc(v.colour||v.color||"")}"></div>
       <div class="form-field"><label>KM</label><input name="mileage_km" type="number" value="${esc(v.mileage_km||v.km||"")}"></div>
       <div class="form-field"><label>Condition</label><input name="condition" value="${esc(v.condition||"")}"></div>
