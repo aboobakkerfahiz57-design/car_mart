@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Mart — Private Management Portal</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Inter, Arial, sans-serif;
+      background: #f5f6f8;
+      color: #17191d;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* LOGIN */
+
+    #loginScreen {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 42% 58%;
+      background: #fff;
+    }
+
+    .login-brand {
+      background:
+        linear-gradient(145deg, rgba(20,20,24,.96), rgba(40,40,45,.94)),
+        url("../carmart-home-background.jpeg") center/cover;
+      color: #fff;
+      padding: 55px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .brand-logo {
+      width: 70px;
+      height: 70px;
+      border-radius: 16px;
+      object-fit: cover;
+      background: #fff;
+    }
+
+    .brand-small {
+      margin-top: 25px;
+      font-size: 12px;
+      letter-spacing: 3px;
+      color: #aaa;
+      text-transform: uppercase;
+    }
+
+    .login-brand h1 {
+      font-size: clamp(38px, 5vw, 68px);
+      line-height: 1;
+      margin: 20px 0;
+    }
+
+    .login-brand h1 span {
+      color: #e3292f;
+    }
+
+    .login-brand p {
+      max-width: 480px;
+      color: #c8c8c8;
+      line-height: 1.7;
+    }
+
+    .login-location {
+      color: #aaa;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .login-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 35px;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .secure-label {
+      color: #777;
+      font-size: 12px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .login-card h2 {
+      font-size: 46px;
+      margin-bottom: 8px;
+    }
+
+    .login-card > p {
+      color: #777;
+      margin-bottom: 35px;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 15px 16px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      outline: none;
+      background: #fff;
+    }
+
+    .field input:focus {
+      border-color: #e3292f;
+      box-shadow: 0 0 0 3px rgba(227,41,47,.1);
+    }
+
+    .primary-btn {
+      width: 100%;
+      border: 0;
+      background: #e3292f;
+      color: #fff;
+      padding: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+
+    .primary-btn:hover {
+      background: #c91f25;
+    }
+
+    .error-box {
+      border: 1px solid #f1bcbc;
+      background: #fff3f3;
+      color: #9b2226;
+      padding: 14px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .login-note {
+      margin-top: 25px;
+      font-size: 12px;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    /* APP */
+
+    #app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 250px 1fr;
+    }
+
+    .sidebar {
+      background: #17181c;
+      color: #fff;
+      min-height: 100vh;
+      padding: 24px 15px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 10px 25px;
+      border-bottom: 1px solid #303136;
+      margin-bottom: 18px;
+    }
+
+    .sidebar-brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: #fff;
+    }
+
+    .sidebar-brand strong {
+      display: block;
+      font-size: 16px;
+    }
+
+    .sidebar-brand small {
+      color: #888;
+      font-size: 10px;
+    }
+
+    .nav-section {
+      color: #777;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 14px 12px 7px;
+    }
+
+    .nav-btn {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: #aaa;
+      padding: 11px 12px;
+      border-radius: 8px;
+      text-align: left;
+      cursor: pointer;
+      margin-bottom: 3px;
+    }
+
+    .nav-btn:hover,
+    .nav-btn.active {
+      background: #292a2f;
+      color: #fff;
+    }
+
+    .nav-btn.admin-only {
+      display: none;
+    }
+
+    .sidebar-user {
+      border-top: 1px solid #303136;
+      margin-top: 20px;
+      padding: 18px 10px;
+    }
+
+    .sidebar-user strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .sidebar-user span {
+      color: #888;
+      font-size: 11px;
+    }
+
+    .logout-btn {
+      width: 100%;
+      margin-top: 12px;
+      border: 1px solid #444;
+      background: transparent;
+      color: #ccc;
+      padding: 9px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .main {
+      min-width: 0;
+    }
+
+    .topbar {
+      height: 72px;
+      background: #fff;
+      border-bottom: 1px solid #e6e7ea;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+    }
+
+    .topbar h1 {
+      font-size: 21px;
+    }
+
+    .role-badge {
+      display: inline-block;
+      margin-left: 8px;
+      background: #f2f2f3;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .content {
+      padding: 30px;
+    }
+
+    .welcome {
+      margin-bottom: 25px;
+    }
+
+    .welcome h2 {
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+
+    .welcome p {
+      color: #777;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .stat {
+      background: #fff;
+      border: 1px solid #e7e7e9;
+      border-radius: 13px;
+      padding: 20px;
+    }
+
+    .stat-label {
+      color: #777;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .stat-value {
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .stat-note {
+      color: #999;
+      font-size: 11px;
+      margin-top: 5px;
+    }
+
+    .section-card {
+      margin-top: 22px;
+      background: #fff;
+      border: 1px solid #e7e7e9;
+      border-radius: 13px;
+      padding: 22px;
+    }
+
+    .section-card h3 {
+      margin-bottom: 7px;
+    }
+
+    .section-card p {
+      color: #777;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .module {
+      border: 1px solid #e4e4e6;
+      border-radius: 11px;
+      padding: 18px;
+      cursor: pointer;
+      background: #fff;
+    }
+
+    .module:hover {
+      border-color: #e3292f;
+    }
+
+    .module strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .module span {
+      color: #888;
+      font-size: 12px;
+    }
+
+    .loading {
+      color: #888;
+    }
+
+    .danger {
+      color: #b42318;
+    }
+
+    @media (max-width: 1000px) {
+      #loginScreen {
+        grid-template-columns: 1fr;
+      }
+
+      .login-brand {
+        min-height: 300px;
+      }
+
+      #app {
+        grid-template-columns: 210px 1fr;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      #app {
+        display: block;
+      }
+
+      .sidebar {
+        position: relative;
+        height: auto;
+        min-height: auto;
+      }
+
+      .stats,
+      .module-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .content {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       LOGIN
+  ========================== -->
+
+  <section id="loginScreen">
+
+    <div class="login-brand">
+      <div>
+        <img class="brand-logo" src="../carmart-logo.jpeg" alt="Car Mart">
+
+        <div class="brand-small">
+          Car Mart · Surathkal · Mangaluru
+        </div>
+      </div>
+
+      <div>
+        <h1>
+          Good vehicles.<br>
+          Great relationships.<br>
+          <span>One workspace.</span>
+        </h1>
+
+        <p>
+          Private management workspace for Car Mart's inventory,
+          customers, sales, documents and daily business operations.
+        </p>
+      </div>
+
+      <div class="login-location">
+        Car Mart — Used Cars & Commercial Vehicles<br>
+        Mittothu Colony, NH:66, Hosabettu, Surathkal,<br>
+        Mangaluru, Karnataka 575019<br>
+        090365 43444
+      </div>
+    </div>
+
+    <div class="login-panel">
+      <div class="login-card">
+
+        <div class="secure-label">
+          🔒 AUTHORIZED ACCESS ONLY
+        </div>
+
+        <h2>Welcome back.</h2>
+
+        <p>Sign in to your Car Mart workspace.</p>
+
+        <div id="loginError" class="error-box hidden"></div>
+
+        <form id="loginForm">
+
+          <div class="field">
+            <label for="email">Email address</label>
+            <input
+              id="email"
+              type="email"
+              autocomplete="username"
+              placeholder="Your work email"
+              required
+            >
+          </div>
+
+          <div class="field">
+            <label for="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Enter your password"
+              required
+            >
+          </div>
+
+          <button id="loginButton" class="primary-btn" type="submit">
+            Sign in →
+          </button>
+
+        </form>
+
+        <div class="login-note">
+          Accounts are managed by the Car Mart owner.
+          Contact management if you need access.
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       APPLICATION
+  ========================== -->
+
+  <section id="app" class="hidden">
+
+    <aside class="sidebar">
+
+      <div class="sidebar-brand">
+        <img src="../carmart-logo.jpeg" alt="Car Mart">
+        <div>
+          <strong>CAR MART</strong>
+          <small>PRIVATE WORKSPACE</small>
+        </div>
+      </div>
+
+      <div class="nav-section">Workspace</div>
+
+      <button class="nav-btn active" data-module="dashboard">
+        Dashboard
+      </button>
+
+      <button class="nav-btn" data-module="vehicles">
+        Vehicles
+      </button>
+
+      <button class="nav-btn" data-module="customers">
+        Customers
+      </button>
+
+      <button class="nav-btn" data-module="enquiries">
+        Enquiries
+      </button>
+
+      <button class="nav-btn" data-module="sales">
+        Sales
+      </button>
+
+      <div class="nav-section">Operations</div>
+
+      <button class="nav-btn" data-module="documents">
+        Documents
+      </button>
+
+      <button class="nav-btn" data-module="transfers">
+        Transfers
+      </button>
+
+      <button class="nav-btn" data-module="handover">
+        Handover
+      </button>
+
+      <button class="nav-btn admin-only" data-module="expenses">
+        Expenses
+      </button>
+
+      <div class="nav-section">Management</div>
+
+      <button class="nav-btn admin-only" data-module="reports">
+        Reports
+      </button>
+
+      <button class="nav-btn admin-only" data-module="users">
+        Staff & Users
+      </button>
+
+      <div class="sidebar-user">
+        <strong id="sideUserName">Car Mart User</strong>
+        <span id="sideUserEmail">—</span>
+        <button id="logoutButton" class="logout-btn">
+          Sign out
+        </button>
+      </div>
+
+    </aside>
+
+
+    <main class="main">
+
+      <header class="topbar">
+        <h1 id="pageTitle">
+          Dashboard
+        </h1>
+
+        <div>
+          <span id="topUserName">Car Mart</span>
+          <span id="roleBadge" class="role-badge">—</span>
+        </div>
+      </header>
+
+
+      <div class="content">
+
+        <div id="dashboardView">
+
+          <div class="welcome">
+            <h2 id="welcomeTitle">
+              Welcome to Car Mart.
+            </h2>
+            <p>
+              Your live business workspace.
+            </p>
+          </div>
+
+
+          <div class="stats">
+
+            <div class="stat">
+              <div class="stat-label">AVAILABLE VEHICLES</div>
+              <div id="statVehicles" class="stat-value">—</div>
+              <div class="stat-note">Current inventory</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-label">CUSTOMERS</div>
+              <div id="statCustomers" class="stat-value">—</div>
+              <div class="stat-note">Customer records</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-label">ENQUIRIES</div>
+              <div id="statEnquiries" class="stat-value">—</div>
+              <div class="stat-note">Website/business enquiries</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-label">SALES</div>
+              <div id="statSales" class="stat-value">—</div>
+              <div class="stat-note">Recorded sales</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-label">DOCUMENTS</div>
+              <div id="statDocuments" class="stat-value">—</div>
+              <div class="stat-note">Sale documents</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-label">TRANSFERS</div>
+              <div id="statTransfers" class="stat-value">—</div>
+              <div class="stat-note">RC / insurance workflow</div>
+            </div>
+
+            <div class="stat">
+              <div class="stat-label">HANDOVERS</div>
+              <div id="statHandovers" class="stat-value">—</div>
+              <div class="stat-note">Vehicle handovers</div>
+            </div>
+
+            <div id="expenseStat" class="stat admin-only">
+              <div class="stat-label">EXPENSE RECORDS</div>
+              <div id="statExpenses" class="stat-value">—</div>
+              <div class="stat-note">Admin only</div>
+            </div>
+
+          </div>
+
+
+          <div class="section-card">
+
+            <h3>Car Mart Operations</h3>
+
+            <p>
+              Use the workspace to manage the complete vehicle lifecycle:
+              purchase, refurbishment, inventory, customers, enquiries,
+              sale, documents, transfer and handover.
+            </p>
+
+            <div class="module-grid">
+
+              <div class="module" data-module="vehicles">
+                <strong>Vehicles</strong>
+                <span>Manage Cars and Goods / Commercial Vehicles.</span>
+              </div>
+
+              <div class="module" data-module="customers">
+                <strong>Customers</strong>
+                <span>Customer records and document photos.</span>
+              </div>
+
+              <div class="module" data-module="sales">
+                <strong>Sales</strong>
+                <span>Manage vehicle sales and sold inventory.</span>
+              </div>
+
+              <div class="module" data-module="documents">
+                <strong>Documents</strong>
+                <span>Sale and vehicle documentation.</span>
+              </div>
+
+              <div class="module" data-module="transfers">
+                <strong>Transfers</strong>
+                <span>Track RC and insurance transfer.</span>
+              </div>
+
+              <div class="module" data-module="handover">
+                <strong>Handover</strong>
+                <span>Track final vehicle handover.</span>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div id="adminFinancialCard" class="section-card admin-only">
+
+            <h3>Management Financial Area</h3>
+
+            <p>
+              Purchase costs, refurbishment expenses, commission,
+              profit and financial reports are restricted to Admin.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div id="moduleView" class="hidden">
+
+          <div class="section-card">
+            <h3 id="moduleHeading">Module</h3>
+            <p id="moduleDescription">
+              Loading module...
+            </p>
+
+            <div id="moduleContent" style="margin-top:20px;"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </section>
+
+
+<script>
+/* =========================================================
+   CAR MART — PRODUCTION SUPABASE CONFIGURATION
+   ========================================================= */
+
+const SUPABASE_URL =
+  "https://nqzyievgsdwaokvktowt.supabase.co";
+
+/*
+  IMPORTANT:
+  Replace only the value below with the SAME
+  SUPABASE PUBLISHABLE KEY already used by the
+  existing Car Mart public index.html.
+
+  NEVER put a service_role / secret key here.
+*/
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_Sw_9Q2cEhnZSokCtzkLF-Q_58rF30Zo";
+
+
+const carMartSupabase =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY,
+    {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true
+      }
+    }
+  );
+
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+let currentUser = null;
+let currentProfile = null;
+
+
+/* =========================================================
+   DOM
+   ========================================================= */
+
+const loginScreen =
+  document.getElementById("loginScreen");
+
+const app =
+  document.getElementById("app");
+
+const loginForm =
+  document.getElementById("loginForm");
+
+const loginError =
+  document.getElementById("loginError");
+
+const loginButton =
+  document.getElementById("loginButton");
+
+const logoutButton =
+  document.getElementById("logoutButton");
+
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+
+function showLoginError(message) {
+  loginError.textContent = message;
+  loginError.classList.remove("hidden");
+}
+
+function hideLoginError() {
+  loginError.classList.add("hidden");
+  loginError.textContent = "";
+}
+
+function setLoading(loading) {
+  loginButton.disabled = loading;
+  loginButton.textContent =
+    loading ? "Signing in..." : "Sign in →";
+}
+
+function showApp() {
+  loginScreen.classList.add("hidden");
+  app.classList.remove("hidden");
+}
+
+function showLogin() {
+  app.classList.add("hidden");
+  loginScreen.classList.remove("hidden");
+}
+
+function isAdmin() {
+  return currentProfile?.role === "admin";
+}
+
+function roleLabel(role) {
+  if (role === "admin") return "Admin";
+  if (role === "salesman") return "Salesman";
+  return "Staff";
+}
+
+
+/* =========================================================
+   ROLE UI
+   ========================================================= */
+
+function applyRolePermissions() {
+
+  const adminElements =
+    document.querySelectorAll(".admin-only");
+
+  adminElements.forEach(element => {
+    element.style.display =
+      isAdmin() ? "" : "none";
+  });
+
+  document.getElementById("roleBadge").textContent =
+    roleLabel(currentProfile.role);
+
+  document.getElementById("sideUserEmail").textContent =
+    currentUser.email;
+
+  document.getElementById("sideUserName").textContent =
+    currentProfile.full_name ||
+    currentUser.email.split("@")[0];
+
+  document.getElementById("topUserName").textContent =
+    currentProfile.full_name ||
+    currentUser.email.split("@")[0];
+
+  document.getElementById("welcomeTitle").textContent =
+    `Welcome, ${
+      currentProfile.full_name ||
+      currentUser.email.split("@")[0]
+    }.`;
+}
+
+
+/* =========================================================
+   PROFILE
+   ========================================================= */
+
+async function loadProfile(userId) {
+
+  const { data, error } =
+    await carMartSupabase
+      .from("profiles")
+      .select("id,email,full_name,role,is_active")
+      .eq("id", userId)
+      .single();
+
+  if (error) {
+    throw new Error(
+      "Authenticated successfully, but the Car Mart profile could not be loaded."
+    );
+  }
+
+  if (!data) {
+    throw new Error(
+      "No Car Mart profile exists for this account."
+    );
+  }
+
+  if (data.is_active === false) {
+    throw new Error(
+      "This Car Mart account is inactive. Contact management."
+    );
+  }
+
+  if (
+    !["admin", "staff", "salesman"]
+      .includes(data.role)
+  ) {
+    throw new Error(
+      "This account does not have a valid Car Mart role."
+    );
+  }
+
+  currentProfile = data;
+
+  return data;
+}
+
+
+/* =========================================================
+   AUTHENTICATION
+   ========================================================= */
+
+loginForm.addEventListener("submit", async event => {
+
+  event.preventDefault();
+
+  hideLoginError();
+  setLoading(true);
+
+  const email =
+    document.getElementById("email")
+      .value
+      .trim();
+
+  const password =
+    document.getElementById("password")
+      .value;
+
+  try {
+
+    const { data, error } =
+      await carMartSupabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+    if (error) {
+      console.error(
+        "Car Mart Supabase authentication error:",
+        error
+      );
+
+      throw new Error(
+        error.message ||
+        "Unable to sign in."
+      );
+    }
+
+    if (!data.session || !data.user) {
+      throw new Error(
+        "Supabase did not create a valid session."
+      );
+    }
+
+    currentUser = data.user;
+
+    await loadProfile(currentUser.id);
+
+    applyRolePermissions();
+
+    showApp();
+
+    await loadDashboard();
+
+  } catch (error) {
+
+    console.error(
+      "Car Mart login failed:",
+      error
+    );
+
+    showLoginError(
+      error.message ||
+      "Sign-in failed. Please try again."
+    );
+
+  } finally {
+
+    setLoading(false);
+  }
+
+});
+
+
+/* =========================================================
+   SESSION INITIALIZATION
+   ========================================================= */
+
+async function initializeApplication() {
+
+  try {
+
+    const {
+      data: {
+        session
+      }
+    } = await carMartSupabase.auth.getSession();
+
+    if (!session?.user) {
+      showLogin();
+      return;
+    }
+
+    currentUser = session.user;
+
+    await loadProfile(currentUser.id);
+
+    applyRolePermissions();
+
+    showApp();
+
+    await loadDashboard();
+
+  } catch (error) {
+
+    console.error(
+      "Car Mart session initialization failed:",
+      error
+    );
+
+    await carMartSupabase.auth.signOut();
+
+    showLogin();
+
+    showLoginError(
+      error.message ||
+      "Your session could not be restored."
+    );
+  }
+}
+
+
+/* =========================================================
+   AUTH STATE
+   ========================================================= */
+
+carMartSupabase.auth.onAuthStateChange(
+  async (event, session) => {
+
+    if (event === "SIGNED_OUT") {
+      currentUser = null;
+      currentProfile = null;
+      showLogin();
+      return;
+    }
+
+    if (
+      event === "SIGNED_IN" &&
+      session?.user &&
+      !currentUser
+    ) {
+      try {
+        currentUser = session.user;
+        await loadProfile(currentUser.id);
+        applyRolePermissions();
+        showApp();
+        await loadDashboard();
+      } catch (error) {
+        console.error(error);
+        await carMartSupabase.auth.signOut();
+      }
+    }
+  }
+);
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+logoutButton.addEventListener("click", async () => {
+
+  logoutButton.disabled = true;
+
+  try {
+    await carMartSupabase.auth.signOut();
+  } finally {
+    logoutButton.disabled = false;
+  }
+
+});
+
+
+/* =========================================================
+   DATABASE COUNT HELPER
+   ========================================================= */
+
+async function tableCount(tableName) {
+
+  const {
+    count,
+    error
+  } = await carMartSupabase
+    .from(tableName)
+    .select("*", {
+      count: "exact",
+      head: true
+    });
+
+  if (error) {
+    console.error(
+      `Could not count ${tableName}:`,
+      error
+    );
+
+    return "—";
+  }
+
+  return count ?? 0;
+}
+
+
+/* =========================================================
+   VEHICLE COUNT
+   ========================================================= */
+
+async function availableVehicleCount() {
+
+  const {
+    count,
+    error
+  } = await carMartSupabase
+    .from("vehicles")
+    .select("*", {
+      count: "exact",
+      head: true
+    })
+    .eq("status", "available");
+
+  if (error) {
+
+    console.error(
+      "Available vehicle count error:",
+      error
+    );
+
+    /*
+      Fall back to total vehicle count if the
+      current schema does not expose the expected
+      available status value.
+    */
+
+    return await tableCount("vehicles");
+  }
+
+  return count ?? 0;
+}
+
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+async function loadDashboard() {
+
+  const [
+    vehicles,
+    customers,
+    enquiries,
+    sales,
+    documents,
+    transfers,
+    handovers
+  ] = await Promise.all([
+    availableVehicleCount(),
+    tableCount("customers"),
+    tableCount("enquiries"),
+    tableCount("sales"),
+    tableCount("sale_documents"),
+    tableCount("transfer_records"),
+    tableCount("handover_records")
+  ]);
+
+  document.getElementById("statVehicles")
+    .textContent = vehicles;
+
+  document.getElementById("statCustomers")
+    .textContent = customers;
+
+  document.getElementById("statEnquiries")
+    .textContent = enquiries;
+
+  document.getElementById("statSales")
+    .textContent = sales;
+
+  document.getElementById("statDocuments")
+    .textContent = documents;
+
+  document.getElementById("statTransfers")
+    .textContent = transfers;
+
+  document.getElementById("statHandovers")
+    .textContent = handovers;
+
+
+  if (isAdmin()) {
+
+    const expenses =
+      await tableCount("expense_records");
+
+    document.getElementById("statExpenses")
+      .textContent = expenses;
+  }
+}
+
+
+/* =========================================================
+   MODULE NAVIGATION
+   ========================================================= */
+
+const moduleDescriptions = {
+
+  dashboard: {
+    title: "Dashboard",
+    description:
+      "Live Car Mart business overview."
+  },
+
+  vehicles: {
+    title: "Vehicles",
+    description:
+      "Manage Cars and Goods / Commercial Vehicles. Vehicle purchase cost remains restricted to Admin."
+  },
+
+  customers: {
+    title: "Customers",
+    description:
+      "Search and manage customer records and collected document photos."
+  },
+
+  enquiries: {
+    title: "Enquiries",
+    description:
+      "Manage website and business enquiries and follow-ups."
+  },
+
+  sales: {
+    title: "Sales",
+    description:
+      "Manage vehicle sales, customer details, payments and sold vehicles."
+  },
+
+  documents: {
+    title: "Documents",
+    description:
+      "Manage vehicle, customer, sale and transfer documents."
+  },
+
+  transfers: {
+    title: "Transfers",
+    description:
+      "Track RC and insurance transfer progress and responsible persons."
+  },
+
+  handover: {
+    title: "Handover",
+    description:
+      "Track RC, insurance, keys, service book, signatures and final vehicle handover."
+  },
+
+  expenses: {
+    title: "Expenses",
+    description:
+      "Admin-only refurbishment and business expense records. Staff and salesman cannot access financial amounts."
+  },
+
+  reports: {
+    title: "Reports",
+    description:
+      "Admin-only sales, expenses, stock investment, commission and profit reporting."
+  },
+
+  users: {
+    title: "Staff & Users",
+    description:
+      "Admin-only user and role management."
+  }
+};
+
+
+function openModule(module) {
+
+  if (
+    ["expenses", "reports", "users"].includes(module) &&
+    !isAdmin()
+  ) {
+    return;
+  }
+
+  const info =
+    moduleDescriptions[module] ||
+    moduleDescriptions.dashboard;
+
+  document.getElementById("pageTitle")
+    .textContent = info.title;
+
+  document.getElementById("moduleHeading")
+    .textContent = info.title;
+
+  document.getElementById("moduleDescription")
+    .textContent = info.description;
+
+  document.getElementById("dashboardView")
+    .classList.toggle(
+      "hidden",
+      module !== "dashboard"
+    );
+
+  document.getElementById("moduleView")
+    .classList.toggle(
+      "hidden",
+      module === "dashboard"
+    );
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(button => {
+      button.classList.toggle(
+        "active",
+        button.dataset.module === module
+      );
+    });
+
+  if (module !== "dashboard") {
+
+    document.getElementById("moduleContent")
+      .innerHTML = `
+        <div style="
+          padding:24px;
+          border:1px solid #e7e7e9;
+          border-radius:10px;
+          background:#fafafa;
+        ">
+          <strong>${info.title}</strong>
+          <p style="margin-top:8px;color:#777;">
+            This production module is the next implementation step.
+            It will use the existing Car Mart Supabase tables and
+            will not use demo or fake data.
+          </p>
+        </div>
+      `;
+  }
+}
+
+
+document
+  .querySelectorAll("[data-module]")
+  .forEach(element => {
+
+    element.addEventListener("click", () => {
+
+      const module =
+        element.dataset.module;
+
+      openModule(module);
+    });
+  });
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+initializeApplication();
+
+</script>
+
+</body>
+</html>
