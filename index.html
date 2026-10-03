@@ -2337,91 +2337,78 @@
     }
 
 
-    async function loadVehicles() {
+ async function loadVehicles() {
 
-      const grid =
-        document.getElementById("vehicleGrid");
+  const grid =
+    document.getElementById("vehicleGrid");
 
-      if (!grid) return;
+  if (!grid) return;
 
-      grid.innerHTML = `
-        <div class="vehicle-loading">
-          Loading available vehicles...
-        </div>
-      `;
+  grid.innerHTML = `
+    <div class="vehicle-loading">
+      Loading available vehicles...
+    </div>
+  `;
 
-      try {
+  try {
 
-        await loadCategories();
+    // Load the two production categories.
+    await loadCategories();
 
-        let data = null;
-        let error = null;
+    // Load ONLY vehicles that are currently available.
+    // This means sold vehicles disappear automatically.
+    const {
+      data,
+      error
+    } = await carMartSupabase
+      .from("public_vehicle_listings")
+      .select("*")
+      .order("created_at", {
+        ascending: false
+      });
 
-        /*
-          The migration created this public view specifically
-          for the public website. It never exposes admin-only
-          purchase/expense information.
-        */
-        const viewResult =
-          await carMartSupabase
-            .from("public_vehicle_listings")
-            .select("*")
-            .order("created_at", { ascending: false });
-
-        data = viewResult.data;
-        error = viewResult.error;
-
-        /*
-          Fallback to the public vehicles table if the public
-          view is unavailable. RLS still controls access.
-        */
-        if (error) {
-
-          const fallback =
-            await carMartSupabase
-              .from("vehicles")
-              .select("*")
-              .eq("status", "available")
-              .order("created_at", { ascending: false });
-
-          data = fallback.data;
-          error = fallback.error;
-
-        }
-
-        if (error) {
-          throw error;
-        }
-
-        allVehicles = data || [];
-
-        const vehicleIds =
-          allVehicles
-            .map(vehicle => firstValue(vehicle, ["id", "vehicle_id"]))
-            .filter(Boolean);
-
-        await loadImages(vehicleIds);
-
-        renderVehicles();
-        populateBrandFilter();
-
-      } catch (error) {
-
-        console.error("Car Mart vehicle loading error:", error);
-
-        grid.innerHTML = `
-          <div class="vehicle-error">
-            <strong>Vehicles could not be loaded.</strong>
-            <br />
-            Please refresh the page or contact Car Mart.
-          </div>
-        `;
-
-      }
-
+    if (error) {
+      throw error;
     }
 
+    // Live production inventory.
+    allVehicles = data || [];
 
+    // Load photographs belonging to those vehicles.
+    const vehicleIds =
+      allVehicles
+        .map(vehicle =>
+          firstValue(
+            vehicle,
+            ["id", "vehicle_id"]
+          )
+        )
+        .filter(Boolean);
+
+    await loadImages(vehicleIds);
+
+    // Keep the existing design/search/filter system.
+    renderVehicles();
+    populateBrandFilter();
+
+  } catch (error) {
+
+    console.error(
+      "Car Mart live vehicle loading error:",
+      error
+    );
+
+    grid.innerHTML = `
+      <div class="vehicle-error">
+        <strong>Vehicles could not be loaded.</strong>
+        <br />
+        Please refresh the page or contact Car Mart.
+      </div>
+    `;
+
+  }
+
+}
     function vehicleMatches(vehicle) {
 
       const selectedCategory =
