@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -399,7 +399,7 @@ async function reviewSale(fd,vehicles){
     const invoiceNumber=`CM-INV-${Date.now()}`;const {error:ie}=await sb.from("invoices").insert({sale_id:saleId,invoice_number:invoiceNumber,invoice_date:today()});if(ie)throw ie;
     const docTypes=["RC","Insurance","ID Proof","Sale Agreement","Invoice","Car Mart Paperwork","Transfer Document","RTO Documents","Service Records","Pollution Certificate"];for(const type of docTypes){await sb.from("sale_documents").insert({sale_id:saleId,vehicle_id:vehicle.id,customer_id:customer.id,document_type:type,status:"pending",created_by:currentUser.id,notes:"Auto-created from sale. Upload when received."})}
     const {error:te}=await sb.from("transfer_records").insert({sale_id:saleId,vehicle_id:vehicle.id,rc_status:"pending",rc_fee:0,insurance_status:"pending",insurance_fee:0,created_by:currentUser.id});if(te)throw te;
-    const {data:handover,error:he}=await sb.from("handover_records").insert({sale_id:saleId,vehicle_id:vehicle.id,customer_id:customer.id,handover_date:today(),handed_over_by:currentUser.id,created_by:currentUser.id}).select("id").single();if(he)throw he;for(const item of ["RC","Insurance","Keys","Service Book"]){await sb.from("handover_items").insert({handover_id:handover.id,item_name:item,status:"pending"})}
+    const {data:handover,error:he}=await sb.from("handover_records").insert({sale_id:saleId,vehicle_id:vehicle.id,customer_id:customer.id,handover_date:today(),handed_over_by:currentUser.id}).select("id").single();if(he)throw he;for(const item of ["RC","Insurance","Keys","Service Book"]){await sb.from("handover_items").insert({handover_id:handover.id,item_name:item,status:"pending"})}
     const {error:ve}=await sb.from("vehicles").update({status:"sold",sold_at:new Date().toISOString()}).eq("id",vehicle.id).eq("status","available");if(ve)throw ve;
     closeModal();toast("Sale confirmed. Invoice, documents, transfer and handover are ready.");await renderSales();await loadDashboard();
   }catch(err){toast(err.message||"Sale could not be completed.",true)}finally{btn.disabled=false;btn.textContent="Confirm Sale"}};
