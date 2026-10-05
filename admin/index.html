@@ -361,366 +361,741 @@ window.viewPrivateDoc=async(path,title)=>{try{const u=await signedUrl("carmart-d
 
 /* ---------- ENQUIRIES ---------- */
 
+const ENQUIRY_STATUSES = [
+  "new",
+  "contacted",
+  "follow_up",
+  "converted",
+  "closed"
+];
+
+const ENQUIRY_CATEGORIES = [
+  { value: "cars", label: "Cars" },
+  { value: "goods-commercial", label: "Goods / Commercial Vehicles" }
+];
+
+function validUuid(value){
+  return typeof value === "string" &&
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+}
+
+function enquiryVehicleName(e){
+  return [
+    e.vehicle_brand,
+    e.vehicle_model,
+    e.vehicle_variant
+  ].filter(Boolean).join(" ") || "Vehicle enquiry";
+}
+
 async function renderEnquiries(){
-  const rows = await sb
-    .from("enquiries")
-    .select(`
-     vehicles!enquiries_vehicle_id_fkey(
-      brand,
-      model,
-      variant,
-      registration_number,
-      vehicle_code
-      )
-    `)
-    .order("created_at",{ascending:false})
-    .then(r=>{
-      if(r.error) throw r.error;
-      return r.data || [];
-    });
 
-  $("moduleContent").innerHTML = `
-    <div class="toolbar">
-      <input
-        id="enquirySearch"
-        class="search"
-        placeholder="Search name, phone, vehicle, registration…"
-      >
-      <button class="btn" id="refreshEnquiries">
-        Refresh
-      </button>
-    </div>
+  try{
 
-    <div id="enquiryTable"></div>
-  `;
+    const {data:rows,error}=await sb
+      .from("enquiries")
+      .select("*")
+      .order("created_at",{ascending:false});
 
-  const render = ()=>{
-    const term = ($("enquirySearch").value || "").toLowerCase();
+    if(error) throw error;
 
-    const data = rows.filter(e =>
-      [
-        e.customer_name,
-        e.customer_phone,
-        e.message,
-        e.vehicle_brand,
-        e.vehicle_model,
-        e.vehicle_variant,
-        e.vehicle_registration_number,
-        e.vehicles?.brand,
-        e.vehicles?.model,
-        e.vehicles?.registration_number,
-        e.vehicles?.vehicle_code
-      ]
-      .join(" ")
-      .toLowerCase()
-      .includes(term)
-    );
+    const enquiries=rows||[];
 
-    $("enquiryTable").innerHTML = data.length
-      ? `
+    $("moduleContent").innerHTML=`
+      <div class="toolbar">
+
+        <input
+          id="enquirySearch"
+          class="search"
+          placeholder="Search name, phone, brand, model, registration…"
+        >
+
+        <button
+          class="btn"
+          id="refreshEnquiries"
+          type="button"
+        >
+          Refresh
+        </button>
+
+      </div>
+
+      <div id="enquiryTable"></div>
+    `;
+
+    const render=()=>{
+
+      const search=(
+        $("enquirySearch").value||""
+      ).toLowerCase().trim();
+
+      const filtered=enquiries.filter(e=>{
+
+        const text=[
+          e.customer_name,
+          e.customer_phone,
+          e.vehicle_brand,
+          e.vehicle_model,
+          e.vehicle_variant,
+          e.vehicle_registration_number,
+          e.vehicle_fuel_type,
+          e.vehicle_transmission,
+          e.vehicle_colour,
+          e.vehicle_condition,
+          e.message,
+          e.source,
+          e.status
+        ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+        return !search || text.includes(search);
+      });
+
+      if(!filtered.length){
+
+        $("enquiryTable").innerHTML=`
+          <div class="empty">
+            No enquiries found.
+          </div>
+        `;
+
+        return;
+      }
+
+      $("enquiryTable").innerHTML=`
+
         <div class="table-wrap">
+
           <table class="table">
+
             <thead>
               <tr>
                 <th>Date</th>
                 <th>Customer</th>
                 <th>Vehicle</th>
-                <th>Message</th>
+                <th>Registration</th>
                 <th>Status</th>
-                <th>Accepted Price</th>
+                <th>Expected Price</th>
                 <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
-              ${data.map(e=>`
+
+              ${filtered.map(e=>`
+
                 <tr>
+
                   <td>
                     ${esc(
-                      (e.created_at || "")
-                        .slice(0,16)
-                        .replace("T"," ")
+                      (e.created_at||"")
+                      .slice(0,16)
+                      .replace("T"," ")
                     )}
                   </td>
 
                   <td>
-                    <b>${esc(e.customer_name || "—")}</b>
+                    <b>
+                      ${esc(e.customer_name||"—")}
+                    </b>
                     <br>
-                    ${esc(e.customer_phone || "—")}
+                    ${esc(e.customer_phone||"—")}
                   </td>
 
                   <td>
-                    <b>
-                      ${esc(
-                        [
-                          e.vehicle_brand || e.vehicles?.brand,
-                          e.vehicle_model || e.vehicles?.model,
-                          e.vehicle_variant || e.vehicles?.variant
-                        ]
-                        .filter(Boolean)
-                        .join(" ")
-                        || "Vehicle enquiry"
-                      )}
-                    </b>
-
+                    ${esc(enquiryVehicleName(e))}
                     <br>
-
                     <small>
                       ${esc(
-                        e.vehicle_registration_number ||
-                        e.vehicles?.registration_number ||
-                        e.vehicles?.vehicle_code ||
-                        "No registration"
+                        e.vehicle_category||
+                        e.enquiry_type||
+                        "Vehicle"
                       )}
                     </small>
                   </td>
 
                   <td>
-                    ${esc(e.message || "—")}
+                    ${esc(
+                      e.vehicle_registration_number||
+                      "—"
+                    )}
                   </td>
 
                   <td>
-                    <span class="badge ${esc(e.status || "new")}">
-                      ${esc(e.status || "new")}
+                    <span class="badge ${esc(e.status||"new")}">
+                      ${esc(
+                        (e.status||"new")
+                        .replace("_"," ")
+                      )}
                     </span>
                   </td>
 
                   <td>
                     ${
-                      e.accepted_selling_price
-                        ? money(e.accepted_selling_price)
-                        : "—"
+                      e.vehicle_expected_price!=null
+                      ? money(e.vehicle_expected_price)
+                      : "—"
                     }
                   </td>
 
                   <td>
+
                     <button
-                      class="btn btn-small"
-                      onclick="editEnquiry('${e.id}')"
+                      class="btn btn-small enquiry-view-btn"
+                      type="button"
+                      data-enquiry-id="${esc(e.id)}"
                     >
                       View / Update
                     </button>
+
                   </td>
+
                 </tr>
+
               `).join("")}
+
             </tbody>
+
           </table>
-        </div>
-      `
-      : `
-        <div class="empty">
-          No enquiries found.
+
         </div>
       `;
-  };
 
-  $("enquirySearch").oninput = render;
-  $("refreshEnquiries").onclick = ()=>renderEnquiries();
+      document
+        .querySelectorAll(".enquiry-view-btn")
+        .forEach(button=>{
 
-  render();
+          button.addEventListener("click",()=>{
+
+            const id=button.dataset.enquiryId;
+
+            if(!validUuid(id)){
+
+              toast(
+                "This enquiry has an invalid record ID. Refresh the Enquiries page and try again.",
+                true
+              );
+
+              return;
+            }
+
+            editEnquiry(id);
+
+          });
+
+        });
+
+    };
+
+    $("enquirySearch").oninput=render;
+
+    $("refreshEnquiries").onclick=()=>{
+      renderEnquiries();
+    };
+
+    render();
+
+  }catch(error){
+
+    $("moduleContent").innerHTML=`
+      <div class="notice notice-danger">
+
+        <b>Could not load enquiries.</b>
+
+        <br><br>
+
+        ${esc(error.message)}
+
+      </div>
+    `;
+
+  }
+
 }
 
 
-/* ============================================================
-   ENQUIRY DETAILS / ACCEPT VEHICLE
-   ============================================================ */
+window.editEnquiry=async function(id){
 
-window.editEnquiry = async id => {
+  try{
 
-  try {
+    /*
+      IMPORTANT:
+      Never send "undefined" to Supabase UUID columns.
+    */
 
-    const e = await getOne("enquiries",id);
+    if(!validUuid(id)){
 
-    if(!e){
-      throw new Error("Enquiry could not be found.");
+      toast(
+        "Invalid enquiry ID. Please refresh the Enquiries page.",
+        true
+      );
+
+      return;
     }
 
-    const photoUrl =
-      e.vehicle_photo_path &&
-      String(e.vehicle_photo_path).trim()
-        ? sb.storage
-            .from("carmart-vehicles")
-            .getPublicUrl(e.vehicle_photo_path).data.publicUrl
-        : "";
+    const e=await getOne(
+      "enquiries",
+      id
+    );
 
-    const alreadyAccepted =
-      !!e.accepted_vehicle_id;
+    if(!e){
 
-    openModal(
-      alreadyAccepted
-        ? "Accepted Vehicle Enquiry"
-        : "Vehicle Enquiry",
+      toast(
+        "Enquiry could not be found.",
+        true
+      );
 
-      `
-      <div class="detail-grid grid3">
+      return;
+    }
 
-        <div class="detail-box">
-          <b>Customer Name</b>
-          ${esc(e.customer_name || "—")}
-        </div>
 
-        <div class="detail-box">
-          <b>Mobile Number</b>
-          ${esc(e.customer_phone || "—")}
-        </div>
+    /*
+      Load linked vehicle if this enquiry
+      is connected to an existing vehicle.
+    */
 
-        <div class="detail-box">
-          <b>Enquiry Date</b>
-          ${esc(
-            (e.created_at || "")
-              .slice(0,10)
-          )}
-        </div>
+    let linkedVehicle=null;
 
-        <div class="detail-box">
-          <b>Vehicle Brand</b>
-          ${esc(e.vehicle_brand || e.vehicles?.brand || "—")}
-        </div>
+    if(validUuid(e.vehicle_id)){
 
-        <div class="detail-box">
-          <b>Vehicle Model</b>
-          ${esc(e.vehicle_model || e.vehicles?.model || "—")}
-        </div>
+      const result=await sb
+        .from("vehicles")
+        .select("*")
+        .eq("id",e.vehicle_id)
+        .maybeSingle();
 
-        <div class="detail-box">
-          <b>Variant</b>
-          ${esc(e.vehicle_variant || e.vehicles?.variant || "—")}
-        </div>
-
-        <div class="detail-box">
-          <b>Registration Number</b>
-          ${esc(
-            e.vehicle_registration_number ||
-            e.vehicles?.registration_number ||
-            "—"
-          )}
-        </div>
-
-        <div class="detail-box">
-          <b>Manufacturing Year</b>
-          ${esc(e.vehicle_manufacturing_year || "—")}
-        </div>
-
-        <div class="detail-box">
-          <b>Registration Year</b>
-          ${esc(e.vehicle_registration_year || "—")}
-        </div>
-
-        <div class="detail-box">
-          <b>Fuel</b>
-          ${esc(e.vehicle_fuel_type || "—")}
-        </div>
-
-        <div class="detail-box">
-          <b>Transmission</b>
-          ${esc(e.vehicle_transmission || "—")}
-        </div>
-
-        <div class="detail-box">
-          <b>Colour</b>
-          ${esc(e.vehicle_colour || "—")}
-        </div>
-
-        <div class="detail-box">
-          <b>KM</b>
-          ${e.vehicle_mileage_km
-            ? `${fmt(e.vehicle_mileage_km)} km`
-            : "—"}
-        </div>
-
-        <div class="detail-box">
-          <b>Condition</b>
-          ${esc(e.vehicle_condition || "—")}
-        </div>
-
-        <div class="detail-box">
-          <b>Accepted Selling Price</b>
-          ${
-            e.accepted_selling_price
-              ? money(e.accepted_selling_price)
-              : "Not accepted yet"
-          }
-        </div>
-
-      </div>
-
-      ${
-        photoUrl
-          ? `
-            <div style="margin-top:20px">
-              <h3 class="section-title">
-                Vehicle Photo
-              </h3>
-
-              <img
-                src="${esc(photoUrl)}"
-                alt="Vehicle"
-                style="
-                  width:100%;
-                  max-width:520px;
-                  max-height:320px;
-                  object-fit:cover;
-                  border-radius:14px;
-                  border:1px solid #ddd;
-                  display:block;
-                "
-              >
-            </div>
-          `
-          : ""
+      if(!result.error){
+        linkedVehicle=result.data||null;
       }
 
-      <div class="section-card" style="margin-top:20px">
+    }
 
-        <h3 class="section-title">
-          Customer Enquiry
-        </h3>
 
-        <div class="notice">
-          ${esc(e.message || "No additional message provided.")}
+    /*
+      Load accepted vehicle if present.
+    */
+
+    let acceptedVehicle=null;
+
+    if(validUuid(e.accepted_vehicle_id)){
+
+      const result=await sb
+        .from("vehicles")
+        .select("*")
+        .eq("id",e.accepted_vehicle_id)
+        .maybeSingle();
+
+      if(!result.error){
+        acceptedVehicle=result.data||null;
+      }
+
+    }
+
+
+    const vehicle=
+      acceptedVehicle||
+      linkedVehicle||
+      null;
+
+
+    const statusOptions=ENQUIRY_STATUSES
+      .map(status=>`
+
+        <option
+          value="${status}"
+          ${e.status===status?"selected":""}
+        >
+          ${status.replace("_"," ")}
+        </option>
+
+      `)
+      .join("");
+
+
+    const categoryOptions=ENQUIRY_CATEGORIES
+      .map(category=>`
+
+        <option
+          value="${category.value}"
+          ${
+            (
+              e.vehicle_category||
+              ""
+            )===category.value
+            ? "selected"
+            : ""
+          }
+        >
+          ${category.label}
+        </option>
+
+      `)
+      .join("");
+
+
+    const photoPaths=Array.isArray(
+      e.vehicle_photo_paths
+    )
+      ? e.vehicle_photo_paths
+      : [];
+
+
+    let photoHtml="";
+
+    if(photoPaths.length){
+
+      photoHtml=`
+
+        <div
+          class="full"
+          style="margin-top:10px"
+        >
+
+          <label>
+            Vehicle Photos
+          </label>
+
+          <div
+            style="
+              display:grid;
+              grid-template-columns:
+                repeat(auto-fill,minmax(120px,1fr));
+              gap:12px;
+              margin-top:10px;
+            "
+          >
+
+            ${photoPaths.map(path=>`
+
+              <button
+                type="button"
+                class="btn"
+                style="text-align:left"
+                onclick="viewEnquiryPhoto('${esc(path)}')"
+              >
+                View Photo
+              </button>
+
+            `).join("")}
+
+          </div>
+
         </div>
 
-      </div>
+      `;
 
-      <form
-        id="enquiryForm"
+    }
+
+
+    const acceptedBox=e.accepted_vehicle_id
+      ? `
+
+        <div
+          class="notice notice-ok full"
+          style="margin-bottom:16px"
+        >
+
+          <b>Vehicle Accepted</b>
+
+          <br>
+
+          ${esc(
+            [
+              acceptedVehicle?.brand||
+                e.vehicle_brand,
+              acceptedVehicle?.model||
+                e.vehicle_model,
+              acceptedVehicle?.variant||
+                e.vehicle_variant
+            ]
+            .filter(Boolean)
+            .join(" ")
+          )}
+
+          <br>
+
+          Selling Price:
+          <b>
+            ${
+              e.accepted_selling_price!=null
+              ? money(e.accepted_selling_price)
+              : "—"
+            }
+          </b>
+
+        </div>
+
+      `
+      : "";
+
+
+    openModal(
+      "Enquiry — View / Update",
+      `
+
+      <div
         class="form-grid"
-        style="margin-top:20px"
+        style="margin-bottom:18px"
       >
 
         <div class="form-field">
+
+          <label>Customer Name</label>
+
+          <input
+            value="${esc(e.customer_name||"")}"
+            disabled
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Mobile Number</label>
+
+          <input
+            value="${esc(e.customer_phone||"")}"
+            disabled
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Enquiry Type</label>
+
+          <input
+            value="${esc(
+              e.enquiry_type==="exchange"
+              ? "Exchange My Vehicle"
+              : "Sell My Vehicle"
+            )}"
+            disabled
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Enquiry Date</label>
+
+          <input
+            value="${esc(
+              (e.created_at||"")
+              .slice(0,16)
+              .replace("T"," ")
+            )}"
+            disabled
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Vehicle Brand</label>
+
+          <input
+            value="${esc(e.vehicle_brand||vehicle?.brand||"")}"
+            disabled
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Vehicle Model</label>
+
+          <input
+            value="${esc(e.vehicle_model||vehicle?.model||"")}"
+            disabled
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Variant</label>
+
+          <input
+            value="${esc(e.vehicle_variant||vehicle?.variant||"")}"
+            disabled
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Registration Number</label>
+
+          <input
+            value="${esc(
+              e.vehicle_registration_number||
+              vehicle?.registration_number||
+              "—"
+            )}"
+            disabled
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Manufacturing Year</label>
+
+          <input
+            value="${esc(
+              e.vehicle_manufacturing_year||
+              vehicle?.manufacturing_year||
+              "—"
+            )}"
+            disabled
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Registration Year</label>
+
+          <input
+            value="${esc(
+              e.vehicle_registration_year||
+              vehicle?.registration_year||
+              "—"
+            )}"
+            disabled
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Fuel</label>
+
+          <input
+            value="${esc(
+              e.vehicle_fuel_type||
+              vehicle?.fuel_type||
+              "—"
+            )}"
+            disabled
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Transmission</label>
+
+          <input
+            value="${esc(
+              e.vehicle_transmission||
+              vehicle?.transmission||
+              "—"
+            )}"
+            disabled
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Colour</label>
+
+          <input
+            value="${esc(
+              e.vehicle_colour||
+              vehicle?.colour||
+              "—"
+            )}"
+            disabled
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Kilometres</label>
+
+          <input
+            value="${esc(
+              e.vehicle_mileage_km||
+              vehicle?.mileage_km||
+              "—"
+            )}"
+            disabled
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Condition</label>
+
+          <input
+            value="${esc(
+              e.vehicle_condition||
+              vehicle?.condition||
+              "—"
+            )}"
+            disabled
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Expected Price</label>
+
+          <input
+            value="${
+              e.vehicle_expected_price!=null
+              ? money(e.vehicle_expected_price)
+              : "—"
+            }"
+            disabled
+          >
+
+        </div>
+
+        ${acceptedBox}
+
+        ${photoHtml}
+
+      </div>
+
+
+      <form
+        id="enquiryUpdateForm"
+        class="form-grid"
+      >
+
+        <div class="form-field">
+
           <label>Status</label>
 
           <select name="status">
-
-            ${
-              [
-                "new",
-                "contacted",
-                "follow_up",
-                "interested",
-                "negotiation",
-                "converted",
-                "closed",
-                "lost"
-              ]
-              .map(x=>`
-                <option
-                  value="${x}"
-                  ${
-                    (e.status || "new") === x
-                      ? "selected"
-                      : ""
-                  }
-                >
-                  ${x.replace("_"," ")}
-                </option>
-              `)
-              .join("")
-            }
-
+            ${statusOptions}
           </select>
+
         </div>
+
 
         <div class="form-field">
 
@@ -729,10 +1104,47 @@ window.editEnquiry = async id => {
           <input
             type="date"
             name="follow_up_date"
-            value="${esc(e.follow_up_date || "")}"
+            value="${esc(
+              e.follow_up_date||""
+            )}"
           >
 
         </div>
+
+
+        <div class="form-field">
+
+          <label>Vehicle Category</label>
+
+          <select name="vehicle_category">
+
+            <option value="">
+              Select Category
+            </option>
+
+            ${categoryOptions}
+
+          </select>
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label>Accepted Selling Price</label>
+
+          <input
+            type="number"
+            name="accepted_selling_price"
+            min="0"
+            step="0.01"
+            value="${esc(
+              e.accepted_selling_price??""
+            )}"
+          >
+
+        </div>
+
 
         <div class="form-field full">
 
@@ -740,76 +1152,11 @@ window.editEnquiry = async id => {
 
           <textarea
             name="message"
-            rows="4"
-          >${esc(e.message || "")}</textarea>
+            rows="5"
+          >${esc(e.message||e.vehicle_notes||"")}</textarea>
 
         </div>
 
-        ${
-          !alreadyAccepted
-            ? `
-              <div class="form-field full">
-
-                <label>
-                  Public Selling Price *
-                </label>
-
-                <input
-                  name="accepted_selling_price"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  value="${esc(
-                    e.accepted_selling_price || ""
-                  )}"
-                  placeholder="Enter selling price"
-                  required
-                >
-
-                <small>
-                  This price will become the public selling
-                  price when the enquiry is accepted.
-                </small>
-
-              </div>
-
-              <div class="form-field">
-
-                <label>
-                  Vehicle Category *
-                </label>
-
-                <select
-                  name="accepted_category_id"
-                  id="acceptedCategory"
-                  required
-                >
-                  <option value="">
-                    Select Category
-                  </option>
-                </select>
-
-              </div>
-            `
-            : `
-              <div class="full notice notice-ok">
-
-                <b>Vehicle Accepted</b><br>
-
-                Vehicle has already been added to
-                Car Mart inventory.
-
-                ${
-                  e.accepted_vehicle_id
-                    ? `<br><small>Vehicle ID:
-                       ${esc(e.accepted_vehicle_id)}
-                       </small>`
-                    : ""
-                }
-
-              </div>
-            `
-        }
 
         <div class="full actions">
 
@@ -818,42 +1165,39 @@ window.editEnquiry = async id => {
             class="btn"
             onclick="closeModal()"
           >
-            Close
+            Cancel
           </button>
+
+
+          <button
+            type="button"
+            class="btn"
+            id="enquiryWhatsAppBtn"
+          >
+            WhatsApp Customer
+          </button>
+
 
           <button
             type="submit"
-            class="btn"
+            class="btn btn-primary"
           >
             Save Enquiry
           </button>
 
-          ${
-            !alreadyAccepted
-              ? `
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  id="acceptEnquiryBtn"
-                >
-                  Accept & Add Vehicle
-                </button>
-              `
-              : ""
-          }
 
           ${
-            e.customer_phone
-              ? `
-                <button
-                  type="button"
-                  class="btn btn-green"
-                  id="enquiryWhatsAppBtn"
-                >
-                  WhatsApp Customer
-                </button>
-              `
-              : ""
+            e.accepted_vehicle_id
+            ? ""
+            : `
+              <button
+                type="button"
+                class="btn btn-green"
+                id="acceptEnquiryBtn"
+              >
+                Accept & Add Vehicle
+              </button>
+            `
           }
 
         </div>
@@ -863,514 +1207,566 @@ window.editEnquiry = async id => {
     );
 
 
-    /* --------------------------------------------------------
-       CATEGORY LIST
-    -------------------------------------------------------- */
+    /*
+      WhatsApp
+    */
 
-    if(!alreadyAccepted){
+    $("enquiryWhatsAppBtn").onclick=()=>{
 
-      const cats = await getRows(
-        "vehicle_categories",
-        "id,name,slug"
-      );
+      const phone=String(
+        e.customer_phone||""
+      ).replace(/\D/g,"");
 
-      const allowedCats =
-        cats.filter(c =>
-          /car|commercial|goods|tempo|pickup/i
-            .test(c.name)
-        );
-
-      $("acceptedCategory").innerHTML =
-        `<option value="">Select Category</option>` +
-        allowedCats.map(c=>`
-          <option value="${esc(c.id)}">
-            ${esc(c.name)}
-          </option>
-        `).join("");
-    }
-
-
-    /* --------------------------------------------------------
-       SAVE ENQUIRY
-    -------------------------------------------------------- */
-
-    $("enquiryForm").onsubmit = async ev => {
-
-      ev.preventDefault();
-
-      try {
-
-        const fd = new FormData(ev.target);
-
-        const payload = {
-          status:
-            fd.get("status") || "new",
-
-          follow_up_date:
-            fd.get("follow_up_date") || null,
-
-          message:
-            fd.get("message") || null,
-
-          updated_at:
-            new Date().toISOString()
-        };
-
-        const {error} =
-          await sb
-            .from("enquiries")
-            .update(payload)
-            .eq("id",id);
-
-        if(error) throw error;
-
-        toast("Enquiry updated.");
-
-        closeModal();
-
-        await renderEnquiries();
-
-      } catch(err){
+      if(phone.length<10){
 
         toast(
-          err.message || "Enquiry could not be updated.",
+          "Customer mobile number is missing or invalid.",
           true
         );
 
+        return;
+
       }
+
+      const normalized=
+        phone.length===10
+        ? `91${phone}`
+        : phone;
+
+
+      const message=[
+        `Hello ${e.customer_name||""},`,
+        "",
+        "This is Car Mart regarding your vehicle enquiry.",
+        "",
+        `Enquiry Type: ${
+          e.enquiry_type==="exchange"
+          ? "Exchange My Vehicle"
+          : "Sell My Vehicle"
+        }`,
+        `Vehicle: ${enquiryVehicleName(e)}`,
+        `Registration: ${
+          e.vehicle_registration_number||"—"
+        }`,
+        `Expected Price: ${
+          e.vehicle_expected_price!=null
+          ? money(e.vehicle_expected_price)
+          : "—"
+        }`,
+        "",
+        "Thank you,",
+        "Car Mart",
+        "090365 43444"
+      ].join("\n");
+
+
+      window.open(
+        `https://wa.me/${normalized}?text=${encodeURIComponent(message)}`,
+        "_blank",
+        "noopener"
+      );
 
     };
 
 
-    /* --------------------------------------------------------
-       WHATSAPP CUSTOMER
-    -------------------------------------------------------- */
+    /*
+      Save enquiry
+    */
 
-    if($("enquiryWhatsAppBtn")){
+    $("enquiryUpdateForm").onsubmit=
+      async event=>{
 
-      $("enquiryWhatsAppBtn").onclick = ()=>{
+        event.preventDefault();
 
-        const phone =
-          String(e.customer_phone || "")
-            .replace(/\D/g,"");
+        try{
 
-        if(!phone){
-          toast(
-            "Customer mobile number is missing.",
-            true
-          );
-          return;
-        }
-
-        const fullPhone =
-          phone.length === 10
-            ? `91${phone}`
-            : phone;
-
-        const vehicleName =
-          [
-            e.vehicle_brand,
-            e.vehicle_model,
-            e.vehicle_variant
-          ]
-          .filter(Boolean)
-          .join(" ");
-
-        const message =
-`Hello ${e.customer_name || ""},
-
-This is Car Mart, Surathkal.
-
-Regarding your vehicle enquiry:
-
-Vehicle: ${vehicleName || "Vehicle"}
-Registration: ${e.vehicle_registration_number || "Not provided"}
-Year: ${e.vehicle_registration_year || e.vehicle_manufacturing_year || "Not provided"}
-KM: ${e.vehicle_mileage_km || "Not provided"}
-
-Your enquiry has been received by Car Mart.
-
-Please let us know if you would like to continue with this vehicle.
-
-Thank you,
-CAR MART
-Used Vehicle Dealers
-Surathkal, Mangaluru`;
-
-        window.open(
-          `https://wa.me/${fullPhone}?text=${encodeURIComponent(message)}`,
-          "_blank"
-        );
-      };
-    }
+          const fd=
+            new FormData(event.target);
 
 
-    /* --------------------------------------------------------
-       ACCEPT ENQUIRY → CREATE LIVE VEHICLE
-    -------------------------------------------------------- */
-
-    if($("acceptEnquiryBtn")){
-
-      $("acceptEnquiryBtn").onclick = async ()=>{
-
-        try {
-
-          const fd =
-            new FormData($("enquiryForm"));
-
-          const categoryId =
-            fd.get("accepted_category_id");
-
-          const sellingPrice =
-            Number(
-              fd.get("accepted_selling_price") || 0
-            );
-
-          if(!categoryId){
-            toast(
-              "Please select Vehicle Category.",
-              true
-            );
-            return;
-          }
-
-          if(!sellingPrice || sellingPrice <= 0){
-            toast(
-              "Please enter a valid Public Selling Price.",
-              true
-            );
-            return;
-          }
-
-          if(
-            !confirm(
-              "Accept this enquiry and add the vehicle to live Car Mart inventory?"
-            )
-          ){
-            return;
-          }
-
-          $("acceptEnquiryBtn").disabled = true;
-          $("acceptEnquiryBtn").textContent =
-            "Adding Vehicle…";
-
-
-          /* --------------------------------------------------
-             1. FIND / CREATE CUSTOMER
-          -------------------------------------------------- */
-
-          let customerId = null;
-
-          if(e.customer_phone){
-
-            const existingCustomer =
-              await sb
-                .from("customers")
-                .select("id")
-                .eq("phone",e.customer_phone)
-                .maybeSingle();
-
-            if(existingCustomer.error)
-              throw existingCustomer.error;
-
-            if(existingCustomer.data){
-
-              customerId =
-                existingCustomer.data.id;
-
-            }else{
-
-              const newCustomer =
-                await sb
-                  .from("customers")
-                  .insert({
-                    name:
-                      e.customer_name || "Website Customer",
-
-                    phone:
-                      e.customer_phone,
-
-                    address:
-                      null,
-
-                    created_by:
-                      currentUser.id
-                  })
-                  .select("id")
-                  .single();
-
-              if(newCustomer.error)
-                throw newCustomer.error;
-
-              customerId =
-                newCustomer.data.id;
-            }
-          }
-
-
-          /* --------------------------------------------------
-             2. GENERATE VEHICLE CODE
-          -------------------------------------------------- */
-
-          const vehicleCode =
-            await nextVehicleCode();
-
-
-          /* --------------------------------------------------
-             3. CREATE LIVE VEHICLE
-          -------------------------------------------------- */
-
-          const vehiclePayload = {
-
-            category_id:
-              categoryId,
-
-            brand:
-              e.vehicle_brand || "Other",
-
-            model:
-              e.vehicle_model || "Vehicle",
-
-            variant:
-              e.vehicle_variant || null,
-
-            vehicle_code:
-              vehicleCode,
-
-            registration_number:
-              e.vehicle_registration_number || null,
-
-            manufacturing_year:
-              e.vehicle_manufacturing_year
-                ? Number(e.vehicle_manufacturing_year)
-                : null,
-
-            registration_year:
-              e.vehicle_registration_year
-                ? Number(e.vehicle_registration_year)
-                : null,
-
-            fuel_type:
-              e.vehicle_fuel_type || null,
-
-            transmission:
-              e.vehicle_transmission || null,
-
-            colour:
-              e.vehicle_colour || null,
-
-            mileage_km:
-              Number(e.vehicle_mileage_km || 0),
-
-            condition:
-              e.vehicle_condition || "Good",
-
-            selling_price:
-              sellingPrice,
+          const payload={
 
             status:
-              "available",
+              fd.get("status")||"new",
 
-            featured:
-              false,
-
-            notes:
-              e.vehicle_notes ||
-              e.message ||
+            follow_up_date:
+              fd.get("follow_up_date")||
               null,
 
-            created_by:
-              currentUser.id
-          };
-
-
-          const newVehicle =
-            await sb
-              .from("vehicles")
-              .insert(vehiclePayload)
-              .select("id")
-              .single();
-
-          if(newVehicle.error)
-            throw newVehicle.error;
-
-          const vehicleId =
-            newVehicle.data.id;
-
-
-          /* --------------------------------------------------
-             4. CONNECT VEHICLE PHOTO
-          -------------------------------------------------- */
-
-          if(e.vehicle_photo_path){
-
-            const imageResult =
-              await sb
-                .from("vehicle_images")
-                .insert({
-
-                  vehicle_id:
-                    vehicleId,
-
-                  storage_path:
-                    e.vehicle_photo_path,
-
-                  is_cover:
-                    true,
-
-                  display_order:
-                    0,
-
-                  created_by:
-                    currentUser.id
-
-                });
-
-            if(imageResult.error)
-              throw imageResult.error;
-          }
-
-
-          /* --------------------------------------------------
-             5. UPDATE ENQUIRY
-          -------------------------------------------------- */
-
-          const enquiryUpdate = {
-
-            customer_id:
-              customerId,
-
-            accepted_vehicle_id:
-              vehicleId,
-
-            accepted_selling_price:
-              sellingPrice,
-
-            accepted_at:
-              new Date().toISOString(),
-
-            accepted_by:
-              currentUser.id,
-
-            status:
-              "converted",
+            message:
+              fd.get("message")||
+              null,
 
             updated_at:
               new Date().toISOString()
+
           };
 
 
-          const updateResult =
-            await sb
-              .from("enquiries")
-              .update(enquiryUpdate)
-              .eq("id",id);
+          /*
+            These columns exist after the
+            Enquiries database migration.
+          */
 
-          if(updateResult.error)
-            throw updateResult.error;
+          if(
+            fd.get("vehicle_category")
+          ){
+
+            payload.vehicle_category=
+              fd.get("vehicle_category");
+
+          }
 
 
-          /* --------------------------------------------------
-             6. SUCCESS
-          -------------------------------------------------- */
+          if(
+            fd.get("accepted_selling_price")
+          ){
 
-          toast(
-            `Vehicle ${vehicleCode} added to live inventory.`
-          );
+            payload.accepted_selling_price=
+              Number(
+                fd.get(
+                  "accepted_selling_price"
+                )
+              );
+
+          }
+
+
+          const {error}=await sb
+            .from("enquiries")
+            .update(payload)
+            .eq("id",id);
+
+
+          if(error) throw error;
+
 
           closeModal();
 
+          toast(
+            "Enquiry updated successfully."
+          );
+
           await renderEnquiries();
 
-          await loadDashboard();
-
-
-          /* --------------------------------------------------
-             7. OPEN WHATSAPP
-          -------------------------------------------------- */
-
-          if(e.customer_phone){
-
-            const phone =
-              String(e.customer_phone)
-                .replace(/\D/g,"");
-
-            const fullPhone =
-              phone.length === 10
-                ? `91${phone}`
-                : phone;
-
-            const vehicleName =
-              [
-                e.vehicle_brand,
-                e.vehicle_model,
-                e.vehicle_variant
-              ]
-              .filter(Boolean)
-              .join(" ");
-
-            const message =
-`Hello ${e.customer_name || ""},
-
-This is Car Mart, Surathkal.
-
-Good news! Your vehicle enquiry has been accepted.
-
-Vehicle: ${vehicleName || "Vehicle"}
-Vehicle Code: ${vehicleCode}
-Registration: ${e.vehicle_registration_number || "Not provided"}
-
-Public Selling Price: ${money(sellingPrice)}
-
-The vehicle has now been added to our live Car Mart inventory.
-
-Please contact us if you would like to proceed.
-
-CAR MART
-Used Vehicle Dealers
-Surathkal, Mangaluru
-090365 43444`;
-
-            window.open(
-              `https://wa.me/${fullPhone}?text=${encodeURIComponent(message)}`,
-              "_blank"
-            );
-          }
-
-        } catch(err){
-
-          console.error(
-            "Accept enquiry error:",
-            err
-          );
+        }catch(error){
 
           toast(
-            err.message ||
-            "The enquiry could not be accepted.",
+            error.message||
+            "Enquiry could not be updated.",
             true
           );
-
-          if($("acceptEnquiryBtn")){
-            $("acceptEnquiryBtn").disabled = false;
-            $("acceptEnquiryBtn").textContent =
-              "Accept & Add Vehicle";
-          }
 
         }
 
       };
+
+
+    /*
+      Accept enquiry and create vehicle
+    */
+
+    const acceptButton=
+      $("acceptEnquiryBtn");
+
+
+    if(acceptButton){
+
+      acceptButton.onclick=
+        async()=>{
+
+          try{
+
+            if(!validUuid(id)){
+
+              throw new Error(
+                "Invalid enquiry ID."
+              );
+
+            }
+
+
+            const brand=
+              String(
+                e.vehicle_brand||""
+              ).trim();
+
+            const model=
+              String(
+                e.vehicle_model||""
+              ).trim();
+
+
+            if(!brand||!model){
+
+              throw new Error(
+                "Vehicle brand and model are required before accepting this enquiry."
+              );
+
+            }
+
+
+            const categorySlug=
+              e.vehicle_category||
+              "cars";
+
+
+            const {
+              data:category,
+              error:categoryError
+            }=await sb
+              .from("vehicle_categories")
+              .select("id,name,slug")
+              .eq(
+                "slug",
+                categorySlug
+              )
+              .maybeSingle();
+
+
+            if(categoryError)
+              throw categoryError;
+
+
+            if(!category){
+
+              throw new Error(
+                "Vehicle category was not found."
+              );
+
+            }
+
+
+            /*
+              Generate a unique Car Mart
+              vehicle code.
+            */
+
+            const vehicleCode=
+              `CM-${Date.now()
+                .toString()
+                .slice(-8)}`;
+
+
+            const vehiclePayload={
+
+              category_id:
+                category.id,
+
+              brand,
+
+              model,
+
+              variant:
+                e.vehicle_variant||
+                null,
+
+              vehicle_code:
+                vehicleCode,
+
+              registration_number:
+                e.vehicle_registration_number||
+                null,
+
+              manufacturing_year:
+                e.vehicle_manufacturing_year
+                ? Number(
+                    e.vehicle_manufacturing_year
+                  )
+                : null,
+
+              registration_year:
+                e.vehicle_registration_year
+                ? Number(
+                    e.vehicle_registration_year
+                  )
+                : null,
+
+              fuel_type:
+                e.vehicle_fuel_type||
+                null,
+
+              transmission:
+                e.vehicle_transmission||
+                null,
+
+              colour:
+                e.vehicle_colour||
+                null,
+
+              mileage_km:
+                e.vehicle_mileage_km!=null
+                ? Number(
+                    e.vehicle_mileage_km
+                  )
+                : null,
+
+              condition:
+                e.vehicle_condition||
+                null,
+
+              selling_price:
+                e.accepted_selling_price!=null
+                ? Number(
+                    e.accepted_selling_price
+                  )
+                : (
+                    e.vehicle_expected_price!=null
+                    ? Number(
+                        e.vehicle_expected_price
+                      )
+                    : 0
+                  ),
+
+              notes:
+                e.vehicle_notes||
+                e.message||
+                null,
+
+              status:
+                "available",
+
+              featured:
+                false,
+
+              created_by:
+                currentUser.id
+
+            };
+
+
+            const {
+              data:vehicle,
+              error:vehicleError
+            }=await sb
+              .from("vehicles")
+              .insert(
+                vehiclePayload
+              )
+              .select("id")
+              .single();
+
+
+            if(vehicleError)
+              throw vehicleError;
+
+
+            /*
+              Link the new vehicle to
+              the enquiry.
+            */
+
+            const {
+              error:updateError
+            }=await sb
+              .from("enquiries")
+              .update({
+
+                accepted_vehicle_id:
+                  vehicle.id,
+
+                accepted_selling_price:
+                  vehiclePayload.selling_price,
+
+                accepted_at:
+                  new Date().toISOString(),
+
+                accepted_by:
+                  currentUser.id,
+
+                status:
+                  "converted",
+
+                updated_at:
+                  new Date().toISOString()
+
+              })
+              .eq("id",id);
+
+
+            if(updateError)
+              throw updateError;
+
+
+            closeModal();
+
+
+            toast(
+              `Enquiry accepted. Vehicle ${vehicleCode} added to live inventory.`
+            );
+
+
+            await renderEnquiries();
+
+            await loadDashboard();
+
+
+            /*
+              Open WhatsApp confirmation
+            */
+
+            const phone=String(
+              e.customer_phone||""
+            ).replace(/\D/g,"");
+
+
+            if(phone.length>=10){
+
+              const normalized=
+                phone.length===10
+                ? `91${phone}`
+                : phone;
+
+
+              const message=[
+                `Hello ${e.customer_name||""},`,
+                "",
+                "Your vehicle enquiry has been accepted by Car Mart.",
+                "",
+                `Vehicle: ${brand} ${model}`,
+                `Vehicle Code: ${vehicleCode}`,
+                `Registration: ${
+                  e.vehicle_registration_number||"—"
+                }`,
+                `Selling Price: ${
+                  money(
+                    vehiclePayload.selling_price
+                  )
+                }`,
+                "",
+                "Our Car Mart team will contact you shortly.",
+                "",
+                "Car Mart",
+                "090365 43444"
+              ].join("\n");
+
+
+              window.open(
+                `https://wa.me/${normalized}?text=${encodeURIComponent(message)}`,
+                "_blank",
+                "noopener"
+              );
+
+            }
+
+          }catch(error){
+
+            toast(
+              error.message||
+              "The enquiry could not be accepted.",
+              true
+            );
+
+          }
+
+        };
+
     }
 
-  } catch(err){
+
+  }catch(error){
 
     toast(
-      err.message ||
-      "Enquiry could not be loaded.",
+      error.message||
+      "Could not open this enquiry.",
       true
     );
 
   }
+
 };
+
+
+/*
+  View enquiry photo.
+  Photos are expected to be stored in
+  the private enquiry storage bucket.
+*/
+
+window.viewEnquiryPhoto=async function(path){
+
+  try{
+
+    if(!path){
+
+      throw new Error(
+        "Photo path is missing."
+      );
+
+    }
+
+
+    const url=await signedUrl(
+      "carmart-enquiries",
+      path,
+      600
+    );
+
+
+    if(!url){
+
+      throw new Error(
+        "Could not create a secure photo link."
+      );
+
+    }
+
+
+    openModal(
+      "Vehicle Photo",
+      `
+        <div style="text-align:center">
+
+          <img
+            src="${esc(url)}"
+            alt="Vehicle enquiry"
+            style="
+              max-width:100%;
+              max-height:70vh;
+              object-fit:contain;
+              border-radius:12px;
+            "
+          >
+
+          <div
+            class="actions"
+            style="margin-top:16px"
+          >
+
+            <button
+              class="btn"
+              onclick="closeModal()"
+            >
+              Close
+            </button>
+
+            <a
+              class="btn btn-primary"
+              href="${esc(url)}"
+              target="_blank"
+              rel="noopener"
+            >
+              Open Photo
+            </a>
+
+          </div>
+
+        </div>
+      `
+    );
+
+  }catch(error){
+
+    toast(
+      error.message||
+      "Could not open vehicle photo.",
+      true
+    );
+
+  }
+
+};
+ 
 /* ---------- SALES ---------- */
 async function renderSales(){
   const rows=await sb.from("sales").select("*,vehicles(brand,model,variant,registration_number,vehicle_code),customers(name,phone)").order("sale_date",{ascending:false}).then(r=>{if(r.error)throw r.error;return r.data||[]});
