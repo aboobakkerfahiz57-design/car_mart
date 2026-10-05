@@ -365,13 +365,12 @@ async function renderEnquiries(){
   const rows = await sb
     .from("enquiries")
     .select(`
-      *,
-      vehicles(
-        brand,
-        model,
-        variant,
-        registration_number,
-        vehicle_code
+     vehicles!enquiries_vehicle_id_fkey(
+      brand,
+      model,
+      variant,
+      registration_number,
+      vehicle_code
       )
     `)
     .order("created_at",{ascending:false})
