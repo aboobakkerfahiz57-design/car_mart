@@ -3357,13 +3357,490 @@
 
     });
 
+/* -------------------------------------------------------
+   PUBLIC VEHICLE ENQUIRY
+------------------------------------------------------- */
 
-    /* -------------------------------------------------------
-       START
-    ------------------------------------------------------- */
+const publicVehicleEnquiryForm =
+  document.getElementById("publicVehicleEnquiryForm");
 
-    loadVehicles();
+const publicVehicleEnquirySubmit =
+  document.getElementById("publicVehicleEnquirySubmit");
 
+
+if (publicVehicleEnquiryForm) {
+
+  publicVehicleEnquiryForm.addEventListener(
+    "submit",
+    async function (event) {
+
+      event.preventDefault();
+
+      if (!publicVehicleEnquirySubmit) return;
+
+      publicVehicleEnquirySubmit.disabled = true;
+      publicVehicleEnquirySubmit.textContent =
+        "Sending Enquiry…";
+
+      try {
+
+        const formData =
+          new FormData(publicVehicleEnquiryForm);
+
+
+        /* -------------------------------------------------
+           CUSTOMER DETAILS
+        ------------------------------------------------- */
+
+        const customerName =
+          String(
+            formData.get("customer_name") || ""
+          ).trim();
+
+        const customerPhone =
+          String(
+            formData.get("customer_phone") || ""
+          ).replace(/\D/g, "");
+
+
+        if (!customerName) {
+          throw new Error(
+            "Please enter your name."
+          );
+        }
+
+
+        if (!/^[0-9]{10}$/.test(customerPhone)) {
+          throw new Error(
+            "Please enter a valid 10-digit mobile number."
+          );
+        }
+
+
+        /* -------------------------------------------------
+           VEHICLE DETAILS
+        ------------------------------------------------- */
+
+        const enquiryType =
+          String(
+            formData.get("enquiry_type") || "sell"
+          ).trim();
+
+        const vehicleCategory =
+          String(
+            formData.get("vehicle_category") || ""
+          ).trim();
+
+        const vehicleBrand =
+          String(
+            formData.get("vehicle_brand") || ""
+          ).trim();
+
+        const vehicleModel =
+          String(
+            formData.get("vehicle_model") || ""
+          ).trim();
+
+        const vehicleVariant =
+          String(
+            formData.get("vehicle_variant") || ""
+          ).trim();
+
+        const registrationNumber =
+          String(
+            formData.get("vehicle_registration_number") || ""
+          ).trim()
+          .toUpperCase();
+
+        const manufacturingYear =
+          formData.get(
+            "vehicle_manufacturing_year"
+          )
+            ? Number(
+                formData.get(
+                  "vehicle_manufacturing_year"
+                )
+              )
+            : null;
+
+        const registrationYear =
+          formData.get(
+            "vehicle_registration_year"
+          )
+            ? Number(
+                formData.get(
+                  "vehicle_registration_year"
+                )
+              )
+            : null;
+
+        const fuelType =
+          String(
+            formData.get("vehicle_fuel_type") || ""
+          ).trim();
+
+        const transmission =
+          String(
+            formData.get("vehicle_transmission") || ""
+          ).trim();
+
+        const colour =
+          String(
+            formData.get("vehicle_colour") || ""
+          ).trim();
+
+        const mileageKm =
+          formData.get(
+            "vehicle_mileage_km"
+          )
+            ? Number(
+                formData.get(
+                  "vehicle_mileage_km"
+                )
+              )
+            : null;
+
+        const vehicleCondition =
+          String(
+            formData.get("vehicle_condition") || ""
+          ).trim();
+
+        const expectedPrice =
+          formData.get(
+            "vehicle_expected_price"
+          )
+            ? Number(
+                formData.get(
+                  "vehicle_expected_price"
+                )
+              )
+            : null;
+
+        const vehicleNotes =
+          String(
+            formData.get("vehicle_notes") || ""
+          ).trim();
+
+
+        if (!vehicleCategory) {
+          throw new Error(
+            "Please select the vehicle category."
+          );
+        }
+
+
+        if (!vehicleBrand) {
+          throw new Error(
+            "Please enter the vehicle brand."
+          );
+        }
+
+
+        if (!vehicleModel) {
+          throw new Error(
+            "Please enter the vehicle model."
+          );
+        }
+
+
+        if (
+          !["sell", "exchange"].includes(
+            enquiryType
+          )
+        ) {
+          throw new Error(
+            "Invalid enquiry type."
+          );
+        }
+
+
+        /* -------------------------------------------------
+           PHOTO VALIDATION
+        ------------------------------------------------- */
+
+        const photoInput =
+          document.getElementById(
+            "publicVehiclePhotos"
+          );
+
+        const selectedPhotos =
+          photoInput?.files
+            ? Array.from(photoInput.files)
+            : [];
+
+
+        if (selectedPhotos.length > 8) {
+          throw new Error(
+            "You can upload a maximum of 8 vehicle photos."
+          );
+        }
+
+
+        const allowedTypes = [
+          "image/jpeg",
+          "image/png",
+          "image/webp",
+          "image/heic",
+          "image/heif"
+        ];
+
+
+        for (const photo of selectedPhotos) {
+
+          if (!allowedTypes.includes(photo.type)) {
+            throw new Error(
+              `Unsupported photo format: ${photo.name}`
+            );
+          }
+
+
+          if (
+            photo.size >
+            10 * 1024 * 1024
+          ) {
+            throw new Error(
+              `${photo.name} is larger than 10 MB.`
+            );
+          }
+
+        }
+
+
+        /* -------------------------------------------------
+           CREATE UNIQUE ENQUIRY ID
+        ------------------------------------------------- */
+
+        const enquiryId =
+          crypto.randomUUID();
+
+
+        /* -------------------------------------------------
+           UPLOAD PHOTOS
+        ------------------------------------------------- */
+
+        const photoPaths = [];
+
+
+        for (
+          let index = 0;
+          index < selectedPhotos.length;
+          index++
+        ) {
+
+          const photo =
+            selectedPhotos[index];
+
+          const extension =
+            (
+              photo.name
+                .split(".")
+                .pop() || "jpg"
+            )
+              .toLowerCase()
+              .replace(
+                /[^a-z0-9]/g,
+                ""
+              );
+
+
+          const storagePath =
+            `public-enquiries/${enquiryId}/${String(index + 1).padStart(2, "0")}-${crypto.randomUUID()}.${extension}`;
+
+
+          const {
+            error: uploadError
+          } =
+            await carMartSupabase
+              .storage
+              .from("carmart-enquiries")
+              .upload(
+                storagePath,
+                photo,
+                {
+                  cacheControl: "3600",
+                  upsert: false,
+                  contentType: photo.type
+                }
+              );
+
+
+          if (uploadError) {
+            throw new Error(
+              `Photo upload failed: ${uploadError.message}`
+            );
+          }
+
+
+          photoPaths.push(
+            storagePath
+          );
+
+        }
+
+
+        /* -------------------------------------------------
+           CREATE ENQUIRY RECORD
+        ------------------------------------------------- */
+
+        const enquiryPayload = {
+
+          id: enquiryId,
+
+          vehicle_id: null,
+
+          customer_name:
+            customerName,
+
+          customer_phone:
+            customerPhone,
+
+          message:
+            vehicleNotes || null,
+
+          source:
+            "website",
+
+          status:
+            "new",
+
+          enquiry_type:
+            enquiryType,
+
+          vehicle_category:
+            vehicleCategory,
+
+          vehicle_brand:
+            vehicleBrand,
+
+          vehicle_model:
+            vehicleModel,
+
+          vehicle_variant:
+            vehicleVariant || null,
+
+          vehicle_registration_number:
+            registrationNumber || null,
+
+          vehicle_manufacturing_year:
+            manufacturingYear,
+
+          vehicle_registration_year:
+            registrationYear,
+
+          vehicle_fuel_type:
+            fuelType || null,
+
+          vehicle_transmission:
+            transmission || null,
+
+          vehicle_colour:
+            colour || null,
+
+          vehicle_mileage_km:
+            mileageKm,
+
+          vehicle_condition:
+            vehicleCondition || null,
+
+          vehicle_expected_price:
+            expectedPrice,
+
+          vehicle_notes:
+            vehicleNotes || null,
+
+          vehicle_photo_path:
+            photoPaths[0] || null,
+
+          vehicle_photo_paths:
+            photoPaths,
+
+          accepted_vehicle_id:
+            null,
+
+          accepted_selling_price:
+            null,
+
+          accepted_at:
+            null,
+
+          accepted_by:
+            null,
+
+          submitted_by_public:
+            true
+
+        };
+
+
+        const {
+          error: enquiryError
+        } =
+          await carMartSupabase
+            .from("enquiries")
+            .insert(
+              enquiryPayload
+            );
+
+
+        if (enquiryError) {
+          throw enquiryError;
+        }
+
+
+        /* -------------------------------------------------
+           SUCCESS
+        ------------------------------------------------- */
+
+        publicVehicleEnquiryForm.reset();
+
+        showToast(
+          "Enquiry sent successfully. Car Mart will contact you soon."
+        );
+
+
+        publicVehicleEnquiryForm
+          .scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+
+
+      } catch (error) {
+
+        console.error(
+          "Car Mart public enquiry error:",
+          error
+        );
+
+
+        showToast(
+          error?.message ||
+          "Unable to send enquiry. Please try again."
+        );
+
+
+      } finally {
+
+        publicVehicleEnquirySubmit.disabled =
+          false;
+
+        publicVehicleEnquirySubmit.textContent =
+          "📩 Send Enquiry";
+
+      }
+
+    }
+  );
+
+}
+
+
+/* -------------------------------------------------------
+   START
+------------------------------------------------------- */
+
+loadVehicles();
+  
   </script>
 
 </body>
