@@ -1778,8 +1778,8 @@
 
         <p class="section-description">
           Have a vehicle to sell or exchange?
-          Send your vehicle details to Car Mart.
-          Our team will contact you after reviewing your enquiry.
+          Send your vehicle details and photos to Car Mart.
+          Our team will review your vehicle and contact you.
         </p>
 
       </div>
@@ -1803,8 +1803,6 @@
           enctype="multipart/form-data"
         >
 
-          <!-- ENQUIRY TYPE -->
-
           <div
             class="form-grid"
             style="
@@ -1813,6 +1811,8 @@
               gap:16px;
             "
           >
+
+            <!-- ENQUIRY TYPE -->
 
             <div class="form-field">
 
@@ -1825,6 +1825,7 @@
                 name="enquiry_type"
                 required
               >
+
                 <option value="sell">
                   Sell My Vehicle
                 </option>
@@ -1832,10 +1833,13 @@
                 <option value="exchange">
                   Exchange My Vehicle
                 </option>
+
               </select>
 
             </div>
 
+
+            <!-- CUSTOMER NAME -->
 
             <div class="form-field">
 
@@ -1848,11 +1852,14 @@
                 name="customer_name"
                 type="text"
                 placeholder="Enter your full name"
+                autocomplete="name"
                 required
               >
 
             </div>
 
+
+            <!-- CUSTOMER PHONE -->
 
             <div class="form-field">
 
@@ -1866,12 +1873,47 @@
                 type="tel"
                 inputmode="numeric"
                 maxlength="10"
+                pattern="[0-9]{10}"
                 placeholder="10-digit mobile number"
+                autocomplete="tel"
                 required
               >
 
             </div>
 
+
+            <!-- VEHICLE CATEGORY -->
+
+            <div class="form-field">
+
+              <label for="publicVehicleCategory">
+                Vehicle Category *
+              </label>
+
+              <select
+                id="publicVehicleCategory"
+                name="vehicle_category"
+                required
+              >
+
+                <option value="">
+                  Select Category
+                </option>
+
+                <option value="cars">
+                  Cars
+                </option>
+
+                <option value="goods-commercial">
+                  Goods / Commercial Vehicles
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <!-- VEHICLE BRAND -->
 
             <div class="form-field">
 
@@ -1890,6 +1932,8 @@
             </div>
 
 
+            <!-- VEHICLE MODEL -->
+
             <div class="form-field">
 
               <label for="publicVehicleModel">
@@ -1907,6 +1951,8 @@
             </div>
 
 
+            <!-- VEHICLE VARIANT -->
+
             <div class="form-field">
 
               <label for="publicVehicleVariant">
@@ -1922,6 +1968,8 @@
 
             </div>
 
+
+            <!-- REGISTRATION -->
 
             <div class="form-field">
 
@@ -1939,6 +1987,8 @@
             </div>
 
 
+            <!-- MANUFACTURING YEAR -->
+
             <div class="form-field">
 
               <label for="publicManufacturingYear">
@@ -1949,13 +1999,15 @@
                 id="publicManufacturingYear"
                 name="vehicle_manufacturing_year"
                 type="number"
-                min="1900"
+                min="1950"
                 max="2100"
-                placeholder="Example: 2022"
+                placeholder="Example: 2021"
               >
 
             </div>
 
+
+            <!-- REGISTRATION YEAR -->
 
             <div class="form-field">
 
@@ -1967,22 +2019,24 @@
                 id="publicRegistrationYear"
                 name="vehicle_registration_year"
                 type="number"
-                min="1900"
+                min="1950"
                 max="2100"
-                placeholder="Example: 2023"
+                placeholder="Example: 2022"
               >
 
             </div>
 
 
+            <!-- FUEL -->
+
             <div class="form-field">
 
-              <label for="publicVehicleFuel">
-                Fuel
+              <label for="publicFuelType">
+                Fuel Type
               </label>
 
               <select
-                id="publicVehicleFuel"
+                id="publicFuelType"
                 name="vehicle_fuel_type"
               >
 
@@ -2019,14 +2073,16 @@
             </div>
 
 
+            <!-- TRANSMISSION -->
+
             <div class="form-field">
 
-              <label for="publicVehicleTransmission">
+              <label for="publicTransmission">
                 Transmission
               </label>
 
               <select
-                id="publicVehicleTransmission"
+                id="publicTransmission"
                 name="vehicle_transmission"
               >
 
@@ -2063,6 +2119,8 @@
             </div>
 
 
+            <!-- COLOUR -->
+
             <div class="form-field">
 
               <label for="publicVehicleColour">
@@ -2079,27 +2137,32 @@
             </div>
 
 
+            <!-- KM -->
+
             <div class="form-field">
 
-              <label for="publicVehicleKm">
+              <label for="publicVehicleMileage">
                 KM Driven
               </label>
 
               <input
-                id="publicVehicleKm"
+                id="publicVehicleMileage"
                 name="vehicle_mileage_km"
                 type="number"
                 min="0"
+                step="1"
                 placeholder="Example: 45000"
               >
 
             </div>
 
 
+            <!-- CONDITION -->
+
             <div class="form-field">
 
               <label for="publicVehicleCondition">
-                Condition
+                Vehicle Condition
               </label>
 
               <select
@@ -2127,10 +2190,16 @@
                   Average
                 </option>
 
+                <option value="Needs Work">
+                  Needs Work
+                </option>
+
               </select>
 
             </div>
 
+
+            <!-- EXPECTED PRICE -->
 
             <div class="form-field">
 
@@ -2143,14 +2212,14 @@
                 name="vehicle_expected_price"
                 type="number"
                 min="0"
-                step="0.01"
-                placeholder="₹ Expected price"
+                step="1"
+                placeholder="Example: ₹ 500000"
               >
 
             </div>
 
 
-            <!-- PHOTO UPLOAD -->
+            <!-- PHOTOS -->
 
             <div
               class="form-field"
@@ -2165,12 +2234,13 @@
                 id="publicVehiclePhotos"
                 name="vehicle_photos"
                 type="file"
-                accept="image/*"
+                accept="image/jpeg,image/png,image/webp,image/heic,image/heif"
                 multiple
               >
 
               <small>
-                You can select multiple vehicle photos.
+                Select multiple clear photos of the vehicle.
+                Maximum 8 photos.
               </small>
 
             </div>
@@ -2191,7 +2261,7 @@
                 id="publicVehicleNotes"
                 name="vehicle_notes"
                 rows="5"
-                placeholder="Tell us anything else about your vehicle..."
+                placeholder="Tell us anything else about your vehicle, condition, ownership, service history, accident history, exchange requirement, etc."
               ></textarea>
 
             </div>
