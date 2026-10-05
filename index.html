@@ -1753,7 +1753,483 @@
 
     </section>
 
+<!-- =====================================================
+     SELL / EXCHANGE YOUR VEHICLE
+====================================================== -->
 
+<section
+  class="section section-light"
+  id="sell-exchange"
+>
+
+  <div class="container">
+
+    <div class="section-header">
+
+      <div class="section-heading">
+
+        <div class="eyebrow">
+          Sell / Exchange
+        </div>
+
+        <h2 class="section-title">
+          Sell or Exchange Your Vehicle
+        </h2>
+
+        <p class="section-description">
+          Have a vehicle to sell or exchange?
+          Send your vehicle details to Car Mart.
+          Our team will contact you after reviewing your enquiry.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div
+      class="contact-grid"
+      style="
+        grid-template-columns:1fr;
+        max-width:900px;
+        margin:0 auto;
+      "
+    >
+
+      <div class="contact-card">
+
+        <form
+          id="publicVehicleEnquiryForm"
+          enctype="multipart/form-data"
+        >
+
+          <!-- ENQUIRY TYPE -->
+
+          <div
+            class="form-grid"
+            style="
+              display:grid;
+              grid-template-columns:repeat(2,minmax(0,1fr));
+              gap:16px;
+            "
+          >
+
+            <div class="form-field">
+
+              <label for="publicEnquiryType">
+                Enquiry Type *
+              </label>
+
+              <select
+                id="publicEnquiryType"
+                name="enquiry_type"
+                required
+              >
+                <option value="sell">
+                  Sell My Vehicle
+                </option>
+
+                <option value="exchange">
+                  Exchange My Vehicle
+                </option>
+              </select>
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="publicCustomerName">
+                Your Name *
+              </label>
+
+              <input
+                id="publicCustomerName"
+                name="customer_name"
+                type="text"
+                placeholder="Enter your full name"
+                required
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="publicCustomerPhone">
+                Mobile Number *
+              </label>
+
+              <input
+                id="publicCustomerPhone"
+                name="customer_phone"
+                type="tel"
+                inputmode="numeric"
+                maxlength="10"
+                placeholder="10-digit mobile number"
+                required
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="publicVehicleBrand">
+                Vehicle Brand *
+              </label>
+
+              <input
+                id="publicVehicleBrand"
+                name="vehicle_brand"
+                type="text"
+                placeholder="Example: BMW, Toyota, Tata"
+                required
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="publicVehicleModel">
+                Vehicle Model *
+              </label>
+
+              <input
+                id="publicVehicleModel"
+                name="vehicle_model"
+                type="text"
+                placeholder="Example: 3 Series, Fortuner"
+                required
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="publicVehicleVariant">
+                Variant
+              </label>
+
+              <input
+                id="publicVehicleVariant"
+                name="vehicle_variant"
+                type="text"
+                placeholder="Example: 320d Sport"
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="publicVehicleRegistration">
+                Registration Number
+              </label>
+
+              <input
+                id="publicVehicleRegistration"
+                name="vehicle_registration_number"
+                type="text"
+                placeholder="Example: KA 19 AB 1234"
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="publicManufacturingYear">
+                Manufacturing Year
+              </label>
+
+              <input
+                id="publicManufacturingYear"
+                name="vehicle_manufacturing_year"
+                type="number"
+                min="1900"
+                max="2100"
+                placeholder="Example: 2022"
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="publicRegistrationYear">
+                Registration Year
+              </label>
+
+              <input
+                id="publicRegistrationYear"
+                name="vehicle_registration_year"
+                type="number"
+                min="1900"
+                max="2100"
+                placeholder="Example: 2023"
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="publicVehicleFuel">
+                Fuel
+              </label>
+
+              <select
+                id="publicVehicleFuel"
+                name="vehicle_fuel_type"
+              >
+
+                <option value="">
+                  Select Fuel
+                </option>
+
+                <option value="Petrol">
+                  Petrol
+                </option>
+
+                <option value="Diesel">
+                  Diesel
+                </option>
+
+                <option value="CNG">
+                  CNG
+                </option>
+
+                <option value="Electric">
+                  Electric
+                </option>
+
+                <option value="Hybrid">
+                  Hybrid
+                </option>
+
+                <option value="Other">
+                  Other
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="publicVehicleTransmission">
+                Transmission
+              </label>
+
+              <select
+                id="publicVehicleTransmission"
+                name="vehicle_transmission"
+              >
+
+                <option value="">
+                  Select Transmission
+                </option>
+
+                <option value="Manual">
+                  Manual
+                </option>
+
+                <option value="Automatic">
+                  Automatic
+                </option>
+
+                <option value="AMT">
+                  AMT
+                </option>
+
+                <option value="CVT">
+                  CVT
+                </option>
+
+                <option value="DCT">
+                  DCT
+                </option>
+
+                <option value="Other">
+                  Other
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="publicVehicleColour">
+                Colour
+              </label>
+
+              <input
+                id="publicVehicleColour"
+                name="vehicle_colour"
+                type="text"
+                placeholder="Example: White"
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="publicVehicleKm">
+                KM Driven
+              </label>
+
+              <input
+                id="publicVehicleKm"
+                name="vehicle_mileage_km"
+                type="number"
+                min="0"
+                placeholder="Example: 45000"
+              >
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="publicVehicleCondition">
+                Condition
+              </label>
+
+              <select
+                id="publicVehicleCondition"
+                name="vehicle_condition"
+              >
+
+                <option value="">
+                  Select Condition
+                </option>
+
+                <option value="Excellent">
+                  Excellent
+                </option>
+
+                <option value="Very Good">
+                  Very Good
+                </option>
+
+                <option value="Good">
+                  Good
+                </option>
+
+                <option value="Average">
+                  Average
+                </option>
+
+              </select>
+
+            </div>
+
+
+            <div class="form-field">
+
+              <label for="publicExpectedPrice">
+                Expected Price
+              </label>
+
+              <input
+                id="publicExpectedPrice"
+                name="vehicle_expected_price"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="₹ Expected price"
+              >
+
+            </div>
+
+
+            <!-- PHOTO UPLOAD -->
+
+            <div
+              class="form-field"
+              style="grid-column:1 / -1"
+            >
+
+              <label for="publicVehiclePhotos">
+                Vehicle Photos
+              </label>
+
+              <input
+                id="publicVehiclePhotos"
+                name="vehicle_photos"
+                type="file"
+                accept="image/*"
+                multiple
+              >
+
+              <small>
+                You can select multiple vehicle photos.
+              </small>
+
+            </div>
+
+
+            <!-- NOTES -->
+
+            <div
+              class="form-field"
+              style="grid-column:1 / -1"
+            >
+
+              <label for="publicVehicleNotes">
+                Additional Details
+              </label>
+
+              <textarea
+                id="publicVehicleNotes"
+                name="vehicle_notes"
+                rows="5"
+                placeholder="Tell us anything else about your vehicle..."
+              ></textarea>
+
+            </div>
+
+
+            <!-- SUBMIT -->
+
+            <div
+              style="
+                grid-column:1 / -1;
+                display:flex;
+                justify-content:flex-end;
+                margin-top:8px;
+              "
+            >
+
+              <button
+                type="submit"
+                class="btn btn-red"
+                id="publicVehicleEnquirySubmit"
+              >
+                📩 Send Enquiry
+              </button>
+
+            </div>
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+   
     <!-- =====================================================
          CTA
     ====================================================== -->
